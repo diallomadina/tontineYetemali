@@ -291,7 +291,6 @@
           event.preventDefault()
           event.stopPropagation()
         }
-
         form.classList.add('was-validated')
       }, false)
     })
@@ -302,6 +301,10 @@
   const datatables = select('.datatable', true)
   datatables.forEach(datatable => {
     new simpleDatatables.DataTable(datatable);
+  })
+
+  document.querySelectorAll(".datatable-wrapper").forEach(table =>{
+    table.classList.add("table-responsive")
   })
 
   /**
