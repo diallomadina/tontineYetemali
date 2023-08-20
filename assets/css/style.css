@@ -11,16 +11,19 @@
 --------------------------------------------------------------*/
 :root {
   scroll-behavior: smooth;
+  /* les couleurs */
+  --vert:#104911;
+  --jaune:#fff23e;
 }
 
 body {
   font-family: "Open Sans", sans-serif;
   background: #f6f9ff;
-  color: #444444;
+  color: black;
 }
 
 a {
-  color: #4154f1;
+  color: #fff23e;
   text-decoration: none;
 }
 
@@ -86,13 +89,13 @@ h6 {
 
 .back-to-top i {
   font-size: 24px;
-  color: #fff;
+  color: #fff23e;
   line-height: 0;
 }
 
 .back-to-top:hover {
   background: #6776f4;
-  color: #fff;
+  color: yellow;
 }
 
 .back-to-top.active {
@@ -122,7 +125,7 @@ h6 {
 }
 
 .dropdown-menu .dropdown-footer a {
-  color: #444444;
+  color: #fff23e;
   text-decoration: underline;
 }
 
@@ -131,7 +134,7 @@ h6 {
 }
 
 .dropdown-menu .dropdown-divider {
-  color: #a5c5fe;
+  color: #fff23e;
   margin: 0;
 }
 
@@ -248,7 +251,6 @@ h6 {
 
 .card-body {
   padding: 0 20px 20px 20px;
-
 }
 
 .card-img-overlay {
@@ -392,7 +394,7 @@ h6 {
   font-size: 32px;
   padding-left: 10px;
   cursor: pointer;
-  color: #012970;
+  color: #fff23e;
 }
 
 .header .search-bar {
@@ -685,9 +687,9 @@ h6 {
   align-items: center;
   font-size: 15px;
   font-weight: 600;
-  color: #4154f1;
+  color: black;
   transition: 0.3;
-  background: #f6f9ff;
+  background: #fff23e;
   padding: 10px 15px;
   border-radius: 4px;
 }
@@ -695,25 +697,25 @@ h6 {
 .sidebar-nav .nav-link i {
   font-size: 16px;
   margin-right: 10px;
-  color: #4154f1;
+  color: black;
 }
 
 .sidebar-nav .nav-link.collapsed {
-  color: #012970;
-  background: #fff;
+  color: black;
+  background: #fff23e;
 }
 
 .sidebar-nav .nav-link.collapsed i {
-  color: #899bbd;
+  color: black;
 }
 
 .sidebar-nav .nav-link:hover {
-  color: #4154f1;
-  background: #f6f9ff;
+  color: black;
+  background: yellow;
 }
 
 .sidebar-nav .nav-link:hover i {
-  color: #4154f1;
+  color: black;
 }
 
 .sidebar-nav .nav-link .bi-chevron-down {
@@ -736,7 +738,7 @@ h6 {
   align-items: center;
   font-size: 14px;
   font-weight: 600;
-  color: #012970;
+  color: black;
   transition: 0.3;
   padding: 10px 0 10px 40px;
   transition: 0.3s;
@@ -751,11 +753,11 @@ h6 {
 
 .sidebar-nav .nav-content a:hover,
 .sidebar-nav .nav-content a.active {
-  color: #4154f1;
+  color: black;
 }
 
 .sidebar-nav .nav-content a.active i {
-  background-color: #4154f1;
+  background-color: yellow;
 }
 
 /*--------------------------------------------------------------
@@ -1232,21 +1234,36 @@ h6 {
   font-size: 13px;
   color: #012970;
 }
-table tr th td{
-  border: 1px solid black;
+
+.bgauth{
+  background: url("../img/Fond.png") fixed no-repeat;
+  color: white;
 }
-.btn{
-  border: none;
+
+.cardauth {
+  background: transparent;
+  border: 2px solid white;
+  box-shadow: 10px 10px 250px transparent;
+  color: rgb(6, 52, 158);
+  font-weight: bolder;
 }
-.boutton{
-    box-shadow: 2px 2px 2px yellow;
-    border-radius: 50px;
+
+.btnauth {
+  border-radius: 20px;
+  box-shadow: 3px 3px 20px transparent;
 }
-.mali{
-  color: yellow;
+
+.barAccueil {
+  background-color:  #104911;
+  color: #fff23e;
+  font-weight: bold;
+  border-bottom: 1px solid #fff23e;
 }
-.modal-content{
-  border-radius: 40px;
-  width: 450px;
- 
+
+.textAccueil {
+  color: #fff23e;
+  font-weight: bold;
 }
+
+
+
