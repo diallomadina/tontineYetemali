@@ -11,6 +11,9 @@
 --------------------------------------------------------------*/
 :root {
   scroll-behavior: smooth;
+  /* les couleurs */
+  --vert:#104911;
+  --jaune:#fff23e;
 }
 
 body {
