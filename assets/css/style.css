@@ -1231,3 +1231,21 @@ h6 {
   font-size: 13px;
   color: #012970;
 }
+
+.bgauth{
+  background: url("../img/Fond.png") fixed no-repeat;
+  color: white;
+}
+
+.cardauth {
+  background: transparent;
+  border: 2px solid white;
+  box-shadow: 10px 10px 250px transparent;
+  color: rgb(6, 52, 158);
+  font-weight: bolder;
+}
+
+.btnauth {
+  border-radius: 20px;
+  box-shadow: 3px 3px 20px transparent;
+}
