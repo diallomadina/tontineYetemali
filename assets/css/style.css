@@ -248,6 +248,7 @@ h6 {
 
 .card-body {
   padding: 0 20px 20px 20px;
+
 }
 
 .card-img-overlay {
@@ -1230,4 +1231,22 @@ h6 {
   text-align: center;
   font-size: 13px;
   color: #012970;
+}
+table tr th td{
+  border: 1px solid black;
+}
+.btn{
+  border: none;
+}
+.boutton{
+    box-shadow: 2px 2px 2px yellow;
+    border-radius: 50px;
+}
+.mali{
+  color: yellow;
+}
+.modal-content{
+  border-radius: 40px;
+  width: 450px;
+ 
 }
