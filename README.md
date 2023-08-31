@@ -3,7 +3,7 @@
 ## les regles de distributions
 
 ### Rotation égale :
- Dans une tontine à rotation égale, chaque membre reçoit une somme égale à chaque tour. Par exemple, si la tontine a 10 membres et qu'elle fonctionne pendant 10 mois, chaque membre recevra un paiement une fois tous les 10 mois.
+ Dans une tontine à rotation égale, chaque membre reçoit une somme égale à chaque tour. Par exemple, si la tontine a 10 membres et qu'elle fonctionne pendant 10 mois, chaque membre recevra un paiemfff23eent une fois tous les 10 mois.
 
 ### Rotation en fonction des besoins :
  Dans ce cas, les membres peuvent déterminer l'ordre des paiements en fonction de leurs besoins individuels. Par exemple, un membre qui a un besoin urgent peut choisir de recevoir son paiement plus tôt que les autres.
