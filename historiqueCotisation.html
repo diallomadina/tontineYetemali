@@ -5,24 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cotisation</title>
     <meta content="" name="description">
-    <meta content="" name="keywords">
+  <meta content="" name="keywords">
 
-    <!-- Favicons -->
-    <link href="assets/img/yetemalip.png" rel="icon">
-    <link href="assets/img/yetemali.jpg" rel="apple-touch-icon">
+  <!-- Favicons -->
+  <link href="assets/img/yetemalip.png" rel="icon">
+  <link href="assets/img/yetemali.jpg" rel="apple-touch-icon">
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-    <!-- Vendor CSS Files -->
-    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-    <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
@@ -74,7 +77,7 @@
             </li>
 
             <li class="notification-item">
-              <i class="bi bi-x-circle text-danger d-none"></i>
+              <i class="bi bi-x-circle text-danger"></i>
               <div>
                 <h4>Atque rerum nesciunt</h4>
                 <p>Quae dolorem earum veritatis oditseno</p>
@@ -87,7 +90,7 @@
             </li>
 
             <li class="notification-item">
-              <i class="bi bi-check-circle text-success"></i>
+              <i class="bi bi-check-circle text-pbtn-primary"></i>
               <div>
                 <h4>Sit rerum fuga</h4>
                 <p>Quae dolorem earum veritatis oditseno</p>
@@ -123,7 +126,7 @@
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-chat-left-text"></i>
-            <span class="badge bg-success badge-number">3</span>
+            <span class="badge bg-pbtn-primary badge-number">3</span>
           </a><!-- End Messages Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
@@ -334,118 +337,175 @@
           <span>Profile</span>
         </a>
       </li><!-- End Profile Page Nav -->
-
       <li class="nav-item">
         <a class="nav-link collapsed" href="pages-contact.html">
           <i class="bi bi-envelope"></i>
           <span>Contact</span>
         </a>
       </li><!-- End Contact Page Nav -->
-
     </ul>
 
   </aside><!-- End Sidebar-->
-  
+
       <main class="main" id="main">
         <div class="pagetitle">
-          <h1>Nouvelle Cotisation</h1>
+          <h1>Historique des Cotisation</h1>
           <nav>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="index.html">Accueil</a></li>
               <li class="breadcrumb-item">Cotisations</li>
-              <li class="breadcrumb-item active">Ajout</li>
+              <li class="breadcrumb-item active">Historique</li>
             </ol>
           </nav>
-        </div>
+        </div><!-- End Page Title -->
             <div class="row">
-              <div class="col-sm-3"></div>
-              <div class="col-sm-6">
-                <!-- Partie de l'ajout -->
-                <div class="card rounded-4">
-                  <h1 class="card-title rounded-4 text-center text-black fs-1 fw-3 bg-warning-light">Nouvelle cotisation</h1>
-                  <div class="card-body">
-                    
-                    <!-- General Form Elements -->
-                    <form>
-                      <div class="row mb-4 mt-4">
-                        <label class="col-sm-3  text-center fs-5">Tontine</label>
-                        <div class="col-sm-7">
-                          <select id="selectTontineCoti" class="form-select border-secondary" aria-label="Default select example">
-                            <option selected >Selectionnez la tontine</option>
-                            <option value="1">Tontine 1</option>
-                            <option value="2">Tontine 2</option>
-                            <option value="3">Tontine 3</option>
-                          </select>
-                          <p id="pErTontineCoti" class="text-danger d-none">Veuillez selectionner une tontine</p>
-                        </div>
-                        
-                        <div class="col-sm-2"></div>
+                   
+                <form action="" class="form-inline bg-light">
+                  <h2 class="text-center">Affichez les cotisations entre deux dates</h2>
+                    <div class="row">
+                      <div class="col-2"></div>
+                      <div class="col-8">
+                          <div class="row">
+                              <div class="col">
+                                <input type="date" name="" id="dtHistoriqueUn" class="form-control">
+                              </div>
+                              <div class="col">
+                                <input type="date" name="" id="dtHistoriqueDeux" class="form-control">
+                              </div>
+                              <div class="col">
+                                  <button id="btnSearchCoti" type="button" class="btn btn-warning form-control">
+                                      <i class="bi bi-search"></i>Rechercher
+                                  </button>
+                              </div>
+                              <div class="col">
+                                <button id="btnPrintCotiHistorique" type="button" class="btn form-control btn-warning text-center">
+                                   <i class="bi bi-printer"></i>Imprimer
+                                </button>
+                             </div>
+                          </div>
                       </div>
-                        <div class="row mb-4">
-                            <label class="col-sm-3  text-center fs-5">Membre</label>
-                            <div class="col-sm-7">
-                              <select id="selectMembreCoti" class="form-select border-secondary" aria-label="Default select example">
-                                <option selected >Selectionnez le membre</option>
-                                <option value="1">Membre 1</option>
-                                <option value="2">Membre 2</option>
-                                <option value="3">Membre 3</option>
-                              </select>
-                              <p id="pErMembre" class="text-danger d-none">Veuillez selectionner un menbre</p>
-                            </div>
-                            <div class="col-sm-2"></div>
-                        </div>
-                       
-                        <div class="form-group">
-                          <div class="row mb-4">
-                            <label class="col-sm-3  text-center fs-5">Montant</label>
-                            <div class="col-sm-7">
-                              <input id="txtMontantCoti" type="number" class="form-control border-secondary">
-                              <p id="pErMontant" class="text-danger d-none">Veuillez saisir un montant</p>
-                            </div>
-                          </div>
-                          <div class="col-sm-2"></div>
-                        </div>
-                    
-                        <div class="row mb-4">
-                          <label for="inputDate" class="col-sm-3  text-center fs-5">Date</label>
-                          <div class="col-sm-7">
-                            <input id="dtCoti"  type="date" class="form-control border-secondary">
-                            <p id="pErDate" class="text-danger d-none">La date ne doit pas contenir des lettres</p>
-                          </div>
-                          <div class="col-sm-2"></div>
-                        </div>
+                      <div class="col-2"></div>
+                    </div>
+                </form>
 
-                        <div class="row mb-4">
-                            <div class="col"></div>
-                            <div class="col">
-                              <button id="btnValiderAjoutCoti" type="button" class="btn btn-success" style="width: 100%;">Valider</button>
+                    
+            </div>
+            <div class="row mt-5">
+                    
+                    
+                 <!-- Table -->
+                 <table id="tableHistoriqueCoti" class="table table-bordered table-responsive table-compressed table-hover table-striped">
+                    <thead class="bg-success">
+                       <tr class="bg-success">
+                             <th class="text-center bg-success text-white">N°</th>
+                             <th class="text-center bg-success text-white">Tontine</th>
+                             <th class="text-center bg-success text-white">Membre</th>
+                             <th class="text-center bg-success text-white">Montant</th>
+                             <th class="text-center bg-success text-white">Date</th>
+                             <th class="text-center bg-success text-white" colspan="2">Action</th>
+                       </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="btnCoti"><button type="button" class="btn btn-transparent"  data-bs-toggle="modal" data-bs-target="#modalModifCotisation" data-bs-placement="bottom" title="Modifier"><i class="bi bi-pen"></i></button></td>
+                            <td class="btnCoti"><button type="button" class="btn btn-transparent  " data-bs-toggle="tooltip" data-bs-placement="bottom" title="Supprimer"><i class="bi bi-trash"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                      <!-- End Table  -->
+                 
+                    
+
+                    <!-- Debut modal pour Modification -->
+                    <div class="modal fade" id="modalModifCotisation" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <h3 class="title">Modification d'une cotisation</h3>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="col"></div>
+                            <div class="modal-body">
+                              <div class="d-flex justify-content-center py-4">
+                                <a href="#" class="logo d-flex align-items-center w-auto">
+                                  <img src="assets/img/yetemali.jpg" alt="">
+                                  <span class="d-none d-lg-block text-success">Yete</span>
+                                  <span class="d-none d-lg-block text-warning">mali</span>
+                                </a>
+                              </div>
+                              <!-- General Form Elements -->
+                              <form>
+                                  <div class="row mb-4">
+                                      <label class="col-sm-2 col-form-label">Membre</label>
+                                      <div class="col-sm-10">
+                                        <select class="form-select" aria-label="Default select example">
+                                          <option selected>Selectionner le membre</option>
+                                          <option value="1">Membre 1</option>
+                                          <option value="2">Membre 2</option>
+                                          <option value="3">Membre 3</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                      <label class="col-sm-2 col-form-label">Tontine</label>
+                                      <div class="col-sm-10">
+                                        <select class="form-select" aria-label="Default select example">
+                                          <option selected>Selectionner la tontine</option>
+                                          <option value="1">Tontine 1</option>
+                                          <option value="2">Tontine 2</option>
+                                          <option value="3">Tontine 3</option>
+                                        </select>
+                                      </div>
+                                  </div>
+                                  <div class="row mb-4">
+                                    <label for="inputDate" class="col-sm-2 col-form-label">Montant</label>
+                                    <div class="col-sm-10">
+                                      <input type="number" class="form-control">
+                                    </div>
+                                  </div>
+                                  <div class="row mb-4">
+                                    <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
+                                    <div class="col-sm-10">
+                                      <input type="date" class="form-control">
+                                    </div>
+                                  </div>
+          
+                                  <div class="row mb-4">
+                                      <div class="col-sm-5"></div>
+                                    <div class="col-sm-4">
+                                      <button type="submit" class="btn btn-primary">Valider</button>
+                                    </div>
+                                    <div class="col-sm-3"></div>
+                                  </div>
+                
+                              </form><!-- End General Form Elements -->
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-success boutton">Save</button>
+                            </div>
+                          </div>
                         </div>
-      
-                    </form><!-- End General Form Elements -->
-      
-                  </div>
-                </div>
-      
-              </div>
-      
-              <div class="col-sm-3">
-              </div>
+                    </div>
             </div>
       </main>
-      <script src="assets/js/jquery.min.js"></script>
-      <script src="assets/js/ScriptCotisation.js"></script>
-      <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-      <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-      <script src="assets/vendor/chart.js/chart.umd.js"></script>
-      <script src="assets/vendor/echarts/echarts.min.js"></script>
-      <script src="assets/vendor/quill/quill.min.js"></script>
-      <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-      <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-      <script src="assets/vendor/php-email-form/validate.js"></script>
-    
-      <!-- Template Main JS File -->
-      <script src="assets/js/main.js"></script>
+
+
+              <!-- Vendor JS Files -->
+  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="assets/vendor/echarts/echarts.min.js"></script>
+  <script src="assets/vendor/quill/quill.min.js"></script>
+  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
 </body>
 </html>

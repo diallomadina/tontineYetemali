@@ -12,7 +12,7 @@
 :root {
   scroll-behavior: smooth;
   /* les couleurs */
-  --vert:#104911;
+  --vert:#1f6f20;
   --jaune:#fff23e;
 }
 
@@ -39,6 +39,7 @@ h4,
 h5,
 h6 {
   font-family: "Nunito", sans-serif;
+  color: black;
 }
 
 /*--------------------------------------------------------------
@@ -67,7 +68,7 @@ h6 {
   font-size: 24px;
   margin-bottom: 0;
   font-weight: 600;
-  color: #012970;
+  color: black;
 }
 
 /*--------------------------------------------------------------
@@ -205,7 +206,7 @@ h6 {
 }
 
 .bg-warning-light {
-  background-color: #fff3cd;
+  background-color: #fff23e;
   border-color: #fff3cd;
 }
 
@@ -217,6 +218,10 @@ h6 {
 .bg-dark-light {
   background-color: #d3d3d4;
   border-color: #d3d3d4;
+}
+
+.bg-warning {
+  background-color: #fff23e ;
 }
 
 /* Card */
@@ -310,25 +315,25 @@ h6 {
 .breadcrumb {
   font-size: 14px;
   font-family: "Nunito", sans-serif;
-  color: #899bbd;
+  color: black;
   font-weight: 600;
 }
 
 .breadcrumb a {
-  color: #899bbd;
+  color: black;
   transition: 0.3s;
 }
 
 .breadcrumb a:hover {
-  color: #51678f;
+  color: black;
 }
 
 .breadcrumb .breadcrumb-item::before {
-  color: #899bbd;
+  color: black;
 }
 
 .breadcrumb .active {
-  color: #51678f;
+  color: black;
   font-weight: 600;
 }
 
@@ -384,7 +389,8 @@ h6 {
   z-index: 997;
   height: 60px;
   box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
-  background-color: #104911;
+  background-color: #1f6f20;
+  
   padding-left: 20px;
   border-bottom: 1px solid #fff23e;
   /* Toggle Sidebar Button */
@@ -614,7 +620,7 @@ h6 {
   scrollbar-width: thin;
   scrollbar-color: #aab7cf transparent;
   box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.1);
-  background-color: #fff;
+  background-color:  #fff23e;;
 }
 
 @media (max-width: 1199px) {
@@ -626,11 +632,11 @@ h6 {
 .sidebar::-webkit-scrollbar {
   width: 5px;
   height: 8px;
-  background-color: #fff;
+  background-color: #fff23e;
 }
 
 .sidebar::-webkit-scrollbar-thumb {
-  background-color: #aab7cf;
+  background-color: #fff23e;
 }
 
 @media (min-width: 1200px) {
@@ -690,7 +696,7 @@ h6 {
   font-weight: 600;
   color: white;
   transition: 0.3;
-  background: #104911;
+  background: #1f6f20;
   padding: 10px 15px;
   border-radius: 4px;
 }
@@ -703,7 +709,7 @@ h6 {
 
 .sidebar-nav .nav-link.collapsed {
   color: white;
-  background: #104911;
+  background: #1f6f20;
 }
 
 .sidebar-nav .nav-link.collapsed i {
@@ -1254,16 +1260,30 @@ h6 {
   box-shadow: 3px 3px 20px transparent;
 }
 
-.barAccueil {
+/* .barAccueil {
   background-color:  #e0e4c8;
   color: #fff23e;
   font-weight: bold;
   border-bottom: 1px solid #fff23e;
-}
+} */
 
 .textAccueil {
   color: #fff23e;
   font-weight: bold;
+}
+
+label {
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.btnCoti {
+ width: 40px;
+ height: 10px;
+}
+
+input {
+  border: 1px solid black;
 }
 
 
