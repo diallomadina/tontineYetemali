@@ -74,7 +74,7 @@
             </li>
 
             <li class="notification-item">
-              <i class="bi bi-x-circle text-danger"></i>
+              <i class="bi bi-x-circle text-danger d-none"></i>
               <div>
                 <h4>Atque rerum nesciunt</h4>
                 <p>Quae dolorem earum veritatis oditseno</p>
@@ -359,9 +359,9 @@
         </div>
             <div class="row">
               <div class="col-sm-3"></div>
-              <div class="col-sm-6 mt-3">
+              <div class="col-sm-6">
                 <!-- Partie de l'ajout -->
-                <div class="card mt-2 rounded-4">
+                <div class="card rounded-4">
                   <h1 class="card-title rounded-4 text-center text-black fs-1 fw-3 bg-warning-light">Nouvelle cotisation</h1>
                   <div class="card-body">
                     
@@ -370,24 +370,27 @@
                       <div class="row mb-4 mt-4">
                         <label class="col-sm-3  text-center fs-5">Tontine</label>
                         <div class="col-sm-7">
-                          <select class="form-select border-secondary" aria-label="Default select example">
-                            <option selected>Selectionner la tontine</option>
+                          <select id="selectTontineCoti" class="form-select border-secondary" aria-label="Default select example">
+                            <option selected >Selectionnez la tontine</option>
                             <option value="1">Tontine 1</option>
                             <option value="2">Tontine 2</option>
                             <option value="3">Tontine 3</option>
                           </select>
+                          <p id="pErTontineCoti" class="text-danger d-none">Veuillez selectionner une tontine</p>
                         </div>
+                        
                         <div class="col-sm-2"></div>
                       </div>
                         <div class="row mb-4">
                             <label class="col-sm-3  text-center fs-5">Membre</label>
                             <div class="col-sm-7">
-                              <select class="form-select border-secondary" aria-label="Default select example">
-                                <option selected>Selectionnez le membre</option>
+                              <select id="selectMembreCoti" class="form-select border-secondary" aria-label="Default select example">
+                                <option selected >Selectionnez le membre</option>
                                 <option value="1">Membre 1</option>
                                 <option value="2">Membre 2</option>
                                 <option value="3">Membre 3</option>
                               </select>
+                              <p id="pErMembre" class="text-danger d-none">Veuillez selectionner un menbre</p>
                             </div>
                             <div class="col-sm-2"></div>
                         </div>
@@ -396,7 +399,8 @@
                           <div class="row mb-4">
                             <label class="col-sm-3  text-center fs-5">Montant</label>
                             <div class="col-sm-7">
-                              <input type="text" class="form-control border-secondary">
+                              <input id="txtMontantCoti" type="number" class="form-control border-secondary">
+                              <p id="pErMontant" class="text-danger d-none">Veuillez saisir un montant</p>
                             </div>
                           </div>
                           <div class="col-sm-2"></div>
@@ -405,7 +409,8 @@
                         <div class="row mb-4">
                           <label for="inputDate" class="col-sm-3  text-center fs-5">Date</label>
                           <div class="col-sm-7">
-                            <input type="date" class="form-control border-secondary">
+                            <input id="dtCoti"  type="date" class="form-control border-secondary">
+                            <p id="pErDate" class="text-danger d-none">La date ne doit pas contenir des lettres</p>
                           </div>
                           <div class="col-sm-2"></div>
                         </div>
@@ -413,7 +418,7 @@
                         <div class="row mb-4">
                             <div class="col"></div>
                             <div class="col">
-                              <button type="button" class="btn btn-success" style="width: 100%;">Valider</button>
+                              <button id="btnValiderAjoutCoti" type="button" class="btn btn-success" style="width: 100%;">Valider</button>
                             </div>
                             <div class="col"></div>
                         </div>
@@ -429,6 +434,8 @@
               </div>
             </div>
       </main>
+      <script src="assets/js/jquery.min.js"></script>
+      <script src="assets/js/ScriptCotisation.js"></script>
       <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
       <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
       <script src="assets/vendor/chart.js/chart.umd.js"></script>

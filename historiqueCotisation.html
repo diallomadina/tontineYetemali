@@ -361,23 +361,24 @@
             <div class="row">
                    
                 <form action="" class="form-inline bg-light">
+                  <h2 class="text-center">Affichez les cotisations entre deux dates</h2>
                     <div class="row">
                       <div class="col-2"></div>
                       <div class="col-8">
                           <div class="row">
                               <div class="col">
-                                <input type="date" name="" id="" class="form-control">
+                                <input type="date" name="" id="dtHistoriqueUn" class="form-control">
                               </div>
                               <div class="col">
-                                <input type="date" name="" id="" class="form-control">
+                                <input type="date" name="" id="dtHistoriqueDeux" class="form-control">
                               </div>
                               <div class="col">
-                                  <button type="button" class="btn btn-warning form-control">
+                                  <button id="btnSearchCoti" type="button" class="btn btn-warning form-control">
                                       <i class="bi bi-search"></i>Rechercher
                                   </button>
                               </div>
                               <div class="col">
-                                <button type="button" class="btn form-control btn-warning text-center">
+                                <button id="btnPrintCotiHistorique" type="button" class="btn form-control btn-warning text-center">
                                    <i class="bi bi-printer"></i>Imprimer
                                 </button>
                              </div>
@@ -393,7 +394,7 @@
                     
                     
                  <!-- Table -->
-                 <table class="table table-bordered table-responsive table-compressed table-hover table-striped">
+                 <table id="tableHistoriqueCoti" class="table table-bordered table-responsive table-compressed table-hover table-striped">
                     <thead class="bg-success">
                        <tr class="bg-success">
                              <th class="text-center bg-success text-white">N°</th>

@@ -362,34 +362,44 @@
                    
                       <form action="" class="form-inline bg-light">
                             <div class="row">
-                              <div class="col"><label for="rechercheCotiTontine" class="form-label">Rechercher par tontine</label></div>
-                              <div class="col"><label for="rechercheCotiMembre" class="form-label">Rechercher par membre</label></div>
-                              <div class="col"><label for="rechercheCotiMontant" class="form-label">Rechercher par montant</label></div>
-                              <div class="col"></div>
-                              <div class="col"></div>
+                              <div class="col-sm"><label for="txtRechercheCotiTontine" class="form-label">Effectuez une recherche</label></div>
+                              <div class="col-sm"></div>
+                              <div class="col-sm"></div>
+                              <div class="col-sm"></div>
                             </div>
                             <div class="row">
-                               <div class="col">
+                               <div class="col-sm">
                                 <div class="form-group">
                                     <div class="col">
-                                        <input type="text" id="rechercheCotiTontine" class="form-control">
+                                        <select name="" id="selectRechercheCotisation" class="form-select">
+                                          <option value="" selected>Choissisez une option</option>
+                                          <option value="parNumero">Identifiant</option>
+                                          <option value="parTontine">Tontine</option>
+                                          <option value="parMembre">Membre</option>
+                                          <option value="parMontant">Montant</option>
+                                        </select>
                                     </div>
                                 </div>
                                </div>
-                               <div class="col">
+                               <div class="col-sm">
                                    <div class="form-group">
-                                    <input type="text" class="form-control" id="rechercheCotiMembre">
+                                    
+                                    <input type="text" class="form-control bi bi-search" id="txtRechercheCoti">
                                    </div>
                                 </div>
-                               <div class="col">
+                               <div class="col-sm">
                                   <div class="form-group">
-                                    <input type="text" class="form-control" id="rechercheCotiMontant">
+                                    <div class="col-sm">
+                                      <button id="btnSearchCoti" type="button" class="btn form-control btn-warning text-center">
+                                         <i class="bi bi-search"></i>Rechercher
+                                      </button>
+                                   </div>
                                   </div>
                                </div>
                                <!-- Colonne pour bouton ajouter -->
-                               <div class="col">
+                               <div class="col-sm ">
                                   <div class="form-group">
-                                      <button type="button" class="btn btn-warning text-center form-control"  data-bs-toggle="modal" data-bs-target="#modalAjoutCotisation">
+                                      <button id="btnNewCoti" type="button" class="btn  btn-warning text-center form-control"  data-bs-toggle="modal" data-bs-target="#modalAjoutCotisation">
                                         <i class="bi bi-plus"></i> Nouveau
                                        </button>
                                   </div>
@@ -477,8 +487,8 @@
                                 <!-- Fin Modal pour ajouter -->
                                </div>
                                <!-- Fin pour ajouter  -->
-                               <div class="col">
-                                  <button type="button" class="btn form-control btn-warning text-center">
+                               <div class="col-sm ">
+                                  <button id="btnPrintCoti" type="button" class="btn  form-control btn-warning text-center">
                                      <i class="bi bi-printer"></i>Imprimer
                                   </button>
                                </div>
@@ -492,7 +502,7 @@
                     
                     
                  <!-- Table -->
-                 <table class="table table-bordered table-responsive table-compressed table-hover table-striped">
+                 <table id="tableAffichageCoti" class="table table-bordered table-responsive table-compressed table-hover table-striped">
                     <thead class="bg-success">
                        <tr class="bg-success">
                              <th class="text-center bg-success text-white">N°</th>
@@ -503,16 +513,43 @@
                              <th class="text-center bg-success text-white" colspan="2">Action</th>
                        </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tbodyAfficheTontine">
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>1</td>
+                            <td>Tontine N1</td>
+                            <td>Ibrahima</td>
+                            <td>24000</td>
+                            <td>09/09/2012</td>
                             <td class="btnCoti"><button type="button" class="btn btn-transparent"  data-bs-toggle="modal" data-bs-target="#modalModifCotisation" data-bs-placement="bottom" title="Modifier"><i class="bi bi-pen"></i></button></td>
                             <td class="btnCoti"><button type="button" class="btn btn-transparent  " data-bs-toggle="tooltip" data-bs-placement="bottom" title="Supprimer"><i class="bi bi-trash"></i></button></td>
                         </tr>
+                        <tr>
+                          <td>2</td>
+                          <td>Tontine N2</td>
+                          <td>Hamidou</td>
+                          <td>27000</td>
+                          <td>08/09/2012</td>
+                          <td class="btnCoti"><button type="button" class="btn btn-transparent"  data-bs-toggle="modal" data-bs-target="#modalModifCotisation" data-bs-placement="bottom" title="Modifier"><i class="bi bi-pen"></i></button></td>
+                          <td class="btnCoti"><button type="button" class="btn btn-transparent  " data-bs-toggle="tooltip" data-bs-placement="bottom" title="Supprimer"><i class="bi bi-trash"></i></button></td>
+                      </tr>
+                      <tr>
+                        <td>1</td>
+                        <td>Tontine N3</td>
+                        <td>Salimatou</td>
+                        <td>24000</td>
+                        <td>09/09/2015</td>
+                        <td class="btnCoti"><button type="button" class="btn btn-transparent"  data-bs-toggle="modal" data-bs-target="#modalModifCotisation" data-bs-placement="bottom" title="Modifier"><i class="bi bi-pen"></i></button></td>
+                        <td class="btnCoti"><button type="button" class="btn btn-transparent  " data-bs-toggle="tooltip" data-bs-placement="bottom" title="Supprimer"><i class="bi bi-trash"></i></button></td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>Tontine N1</td>
+                      <td>Ibrahima</td>
+                      <td>24000</td>
+                      <td>09/09/2012</td>
+                      <td class="btnCoti"><button type="button" class="btn btn-transparent"  data-bs-toggle="modal" data-bs-target="#modalModifCotisation" data-bs-placement="bottom" title="Modifier"><i class="bi bi-pen"></i></button></td>
+                      <td class="btnCoti"><button type="button" class="btn btn-transparent  " data-bs-toggle="tooltip" data-bs-placement="bottom" title="Supprimer"><i class="bi bi-trash"></i></button></td>
+                  </tr>
                     </tbody>
                 </table>
                       <!-- End Table  -->
@@ -605,6 +642,8 @@
 
 
               <!-- Vendor JS Files -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/ScriptCotisation.js"></script>
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/chart.js/chart.umd.js"></script>
