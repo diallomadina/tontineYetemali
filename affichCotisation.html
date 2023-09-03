@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des Cotisations</title>
+    <title>Liste des Cotisation</title>
     <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -121,12 +121,12 @@
               </a>
               <ul id="membre-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                  <a href="membres.html">
+                  <a href="components-alerts.html">
                     <i class="bi bi-circle"></i><span>Ajouter</span>
                   </a>
                 </li>
                 <li>
-                  <a href="modifMembre.html">
+                  <a href="components-accordion.html">
                     <i class="bi bi-circle"></i><span>Afficher</span>
                   </a>
                 </li>
@@ -139,17 +139,17 @@
               </a>
               <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                  <a href="ajoutPayement.html">
+                  <a href="ajoutTontine.html">
                     <i class="bi bi-circle"></i><span>Effectuer</span>
                   </a>
                 </li>
                 <li>
-                  <a href="listePayement.html">
+                  <a href="src/tontine/ListeTontineEncours.html">
                     <i class="bi bi-circle"></i><span>Liste</span>
                   </a>
                 </li>
                 <li>
-                  <a href="historiquePayement.html">
+                  <a href="historiqueTontine.html">
                     <i class="bi bi-circle"></i><span>Historique</span>
                   </a>
                 </li>
@@ -221,47 +221,70 @@
             </ol>
           </nav>
         </div><!-- End Page Title -->
-            <div class="row">
-                   
-                      <form action="" class="form-inline bg-light">
+            <div class="row">  
+                <form action="" class="form-inline bg-light">
                             <div class="row">
-                              <div class="col-sm"><label for="txtRechercheCotiTontine" class="form-label">Effectuez une recherche</label></div>
                               <div class="col-sm"></div>
-                              <div class="col-sm"></div>
-                              <div class="col-sm"></div>
-                            </div>
-                            <div class="row">
-                               <div class="col-sm">
+                              <div class="col-sm">
                                 <div class="form-group">
                                     <div class="col">
+                                      <label for="">Selectionner la tontine</label>
                                         <select name="" id="selectRechercheCotisation" class="form-select">
-                                          <option value="" selected>Choissisez une option</option>
-                                          <option value="parNumero">Identifiant</option>
-                                          <option value="parTontine">Tontine</option>
-                                          <option value="parMembre">Membre</option>
-                                          <option value="parMontant">Montant</option>
+                                          <option value="" selected>Tontine 1</option>
+                                          <option value="parNumero">Tontine 2</option>
+                                          <option value="parTontine">Tontine 3</option>
                                         </select>
                                     </div>
                                 </div>
+                             </div>
+                             <div class="col-sm">
+                                  <div class="form-group">
+                                      <div class="col">
+                                        <label for="">Selectionner le membre</label>
+                                          <select name="" id="selectRechercheCotisation" class="form-select">
+                                            <option value="" selected>Membre 1</option>
+                                            <option value="">Membre 2</option>
+                                            <option value="">Membre 3</option>
+                                          </select>
+                                      </div>
+                                  </div>
                                </div>
+                               <div class="col-sm ">
+                                  <label for=""></label>
+                                  <button id="btnPrintCoti" type="button" class="btn  form-control btn-warning text-center">
+                                     <i class="bi bi-list"></i>Afficher
+                                  </button>
+                             </div>
+                              <div class="col-sm"></div>
+                            </div>
+
+
+                            <div class="row mt-3">
+                               
                                <div class="col-sm">
                                    <div class="form-group">
-                                    
+                                    <label for="">Rechercher une date</label>
                                     <input type="text" class="form-control bi bi-search" id="txtRechercheCoti">
                                    </div>
                                 </div>
                                <div class="col-sm">
                                   <div class="form-group">
-                                    <div class="col-sm">
+                                      <label for="form-label"></label>
                                       <button id="btnSearchCoti" type="button" class="btn form-control btn-warning text-center">
                                          <i class="bi bi-search"></i>Rechercher
                                       </button>
-                                   </div>
                                   </div>
                                </div>
+                               <div class="col-sm ">
+                                  <label for=""></label>
+                                  <button id="btnPrintCoti" type="button" class="btn  form-control btn-warning text-center">
+                                     <i class="bi bi-reboot"></i>Actualiser
+                                  </button>
+                                </div>
                                <!-- Colonne pour bouton ajouter -->
                                <div class="col-sm ">
                                   <div class="form-group">
+                                      <label for=""></label>
                                       <button id="btnNewCoti" type="button" class="btn  btn-warning text-center form-control"  data-bs-toggle="modal" data-bs-target="#modalAjoutCotisation">
                                         <i class="bi bi-plus"></i> Nouveau
                                        </button>
@@ -354,15 +377,14 @@
                                </div>
                                <!-- Fin pour ajouter  -->
                                <div class="col-sm ">
+                                  <label for=""></label>
                                   <button id="btnPrintCoti" type="button" class="btn  form-control btn-warning text-center">
                                      <i class="bi bi-printer"></i>Imprimer
                                   </button>
                                </div>
                             </div>
                            
-                    </form>
-
-                    
+                </form>    
             </div>
             <div class="row mt-5">
                     
