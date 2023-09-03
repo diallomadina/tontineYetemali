@@ -1277,7 +1277,7 @@ label {
   font-size: 1em;
 }
 
-.btnCoti {
+.btnCoti, .btnAgent {
  width: 40px;
  height: 10px;
 }
