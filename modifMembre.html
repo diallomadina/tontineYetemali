@@ -41,77 +41,253 @@
 
 <body>
 
+   <!-- ======= Header ======= -->
+   <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="assets/img/yetemali.jpg" alt="">
+        <span class="d-none d-lg-block textAccueil" style="color: white;
+        font-weight: bold;">Yete Mali</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn "></i>
+    </div><!-- End Logo -->
+
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar barAccueil">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href="index.html">
+          <i class="bi bi-grid"></i>
+          <span>Tableau de bord</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#Agence-nav" data-bs-toggle="collapse" href="#">
+          <i class="bx bx-cabinet"></i><span>Gestion des Agence</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="Agence-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="ajoutAgence.html">
+              <i class="bi bi-circle"></i><span>Nouvelle</span>
+            </a>
+          </li>
+          <li>
+            <a href="afficherAgence.html">
+              <i class="bi bi-circle"></i><span>Liste</span>
+            </a>
+          </li>
+          
+        </ul>
+      </li><!-- End Agence Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#Agent-nav" data-bs-toggle="collapse" href="#">
+          <i class="bx bx-street-view"></i><span>Gestion des Agents</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="Agent-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="ajoutAgent.html">
+              <i class="bi bi-circle"></i><span>Nouveau</span>
+            </a>
+          </li>
+          <li>
+            <a href="listeAgent.html">
+              <i class="bi bi-circle"></i><span>Liste</span>
+            </a>
+          </li>
+          
+        </ul>
+      </li><!-- End Agent Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#tontine-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span>Tontine</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tontine-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="ajoutTontine.html">
+              <i class="bi bi-circle"></i><span>Organiser</span>
+            </a>
+          </li>
+          <li>
+            <a href="src/tontine/ListeTontineEncours.html">
+              <i class="bi bi-circle"></i><span>En Cours</span>
+            </a>
+          </li>
+          <li>
+            <a href="historiqueTontine.html">
+              <i class="bi bi-circle"></i><span>Historique</span>
+            </a>
+          </li>
+         
+        </ul>
+      </li><!-- End Tontine Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#membre-nav" data-bs-toggle="collapse" href="#">
+          <i class="bx bxs-group"></i><span>Membres</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="membre-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="modifMembre.html">
+              <i class="bi bi-circle"></i><span>Nouveau</span>
+            </a>
+          </li>
+          <li>
+            <a href="membres.html">
+              <i class="bi bi-circle"></i><span>Liste</span>
+            </a>
+          </li>
+          
+        </ul>
+      </li><!-- End Membre Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span>Payement</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="ajoutPayement.html">
+              <i class="bi bi-circle"></i><span>Effectuer</span>
+            </a>
+          </li>
+          <li>
+            <a href="listePayement.html">
+              <i class="bi bi-circle"></i><span>Liste</span>
+            </a>
+          </li>
+          <li>
+            <a href="historiquePayement.html">
+              <i class="bi bi-circle"></i><span>Historique</span>
+            </a>
+          </li>
+         
+        </ul>
+      </li><!-- End Forms Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#cotisation-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Cotisations</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="cotisation-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="cotisation.html">
+              <i class="bi bi-circle"></i><span>Nouvelle</span>
+            </a>
+          </li>
+          <li>
+            <a href="affichCotisation.html">
+              <i class="bi bi-circle"></i><span>Liste</span>
+            </a>
+          </li>
+          <li>
+            <a href="historiqueCotisation.html">
+              <i class="bi bi-circle"></i><span>Historique</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Tables Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="users.html">
+          <i class="bx bxs-user"></i>
+          <span>Utlisateurs</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="users-profile.html">
+          <i class="bi bi-person"></i>
+          <span>Profile</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-contact.html">
+          <i class="bi bi-envelope"></i>
+          <span>Contact</span>
+        </a>
+      </li><!-- End Contact Page Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="authentification.html">
+          <i class="bx bx-exit"></i>
+          <span>Deconnexion</span>
+        </a>
+      </li>
+
+    </ul>
+
+  </aside><!-- End Sidebar-->
+
   <main>
-    <div class="container">
-
-      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-
-              <div class="d-flex justify-content-center py-4">
-                <a href="index.html" class="logo d-flex align-items-center w-auto">
-                  <img src="assets/img/yetemali.jpg" alt="">
-                  <span class="d-none d-lg-block text-success">Yete</span>
-                  <span class="d-none d-lg-block text-warning">mali</span>
-                </a>
-              </div><!-- End Logo -->
-
-              <div class="card mb-2">
-                <div class="card-body">
-                  <form class="row g-3 needs-validation" novalidate>
-                    <div class="col-12">
-                      <label for="" class="form-label">Nom </label>
-                      <div class="input-group has-validation">
-                        <input type="text" name="" class="form-control " id="yourUsername" required>
-                        <div class="invalid-feedback">Votre nom.</div>
-                      </div>
-                    </div>
-                    <div class="col-12">
-                      <label for="" class="form-label">Prenom</label>
-                      <input type="text" name="" class="form-control " id="yourPassword" required>
-                      <div class="invalid-feedback">Entrer votre Prenom!</div>
-                    </div>
-                    <div class="col-12">
-                        <label for="" class="form-label">Adresse</label>
-                        <input type="text" name="" class="form-control " id="yourPassword" required>
-                        <div class="invalid-feedback">Entrer votre Adresse!</div>
-                      </div>
-                    <div class="col-12">
-                        <label for="" class="form-label">Telephone</label>
-                        <input type="text" name="" class="form-control " id="yourPassword" required>
-                        <div class="invalid-feedback">Entrer votre Contact!</div>
+    <div class="container mt-5">
+        <div class="row">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+  
+                <div class="d-flex justify-content-center py-4">
+                  <a href="index.html" class="logo d-flex align-items-center w-auto">
+                    <img src="assets/img/yetemali.jpg" alt="">
+                    <span class="d-none d-lg-block text-success">Yete</span>
+                    <span class="d-none d-lg-block text-warning">mali</span>
+                  </a>
+                </div><!-- End Logo -->
+  
+                <div class="card mb-2">
+                  <div class="card-body">
+                    <form class="row g-3 needs-validation" novalidate>
+                      <div class="col-12">
+                        <label for="" class="form-label">Nom </label>
+                        <div class="input-group has-validation">
+                          <input type="text" name="" class="form-control " id="yourUsername" required>
+                          <div class="invalid-feedback">Votre nom.</div>
+                        </div>
                       </div>
                       <div class="col-12">
-                        <label for="" class="form-label">Date_Adhesion</label>
-                        <input type="date" name="" class="form-control " id="yourPassword" required>
-                        <div class="invalid-feedback">Entrer la date!</div>
+                        <label for="" class="form-label">Prenom</label>
+                        <input type="text" name="" class="form-control " id="yourPassword" required>
+                        <div class="invalid-feedback">Entrer votre Prenom!</div>
                       </div>
                       <div class="col-12">
-                        <label for="" class="form-label"><table>Tontine</table></label>
-                        <input type="text" name="" class="form-control " id="yourPassword" required>
-                        <div class="invalid-feedback">Entrer le nom de votre tontine!</div>
-                      </div>
-                    <div class="col-12">
-                      <button class="btn btn-success boutton" type="submit">Enregistrer</button>
-                    </div>   
-                  </form>
+                          <label for="" class="form-label">Adresse</label>
+                          <input type="text" name="" class="form-control " id="yourPassword" required>
+                          <div class="invalid-feedback">Entrer votre Adresse!</div>
+                        </div>
+                      <div class="col-12">
+                          <label for="" class="form-label">Telephone</label>
+                          <input type="text" name="" class="form-control " id="yourPassword" required>
+                          <div class="invalid-feedback">Entrer votre Contact!</div>
+                        </div>
+                        <div class="col-12">
+                          <label for="" class="form-label">Date_Adhesion</label>
+                          <input type="date" name="" class="form-control " id="yourPassword" required>
+                          <div class="invalid-feedback">Entrer la date!</div>
+                        </div>
+                        <div class="col-12">
+                          <label for="" class="form-label"><table>Tontine</table></label>
+                          <input type="text" name="" class="form-control " id="yourPassword" required>
+                          <div class="invalid-feedback">Entrer le nom de votre tontine!</div>
+                        </div>
+                      <div class="col-12">
+                        <button class="btn btn-success boutton" type="submit">Enregistrer</button>
+                      </div>   
+                    </form>
+                  </div>
                 </div>
+                <div class="credits">
+                  <!-- All the links in the footer should remain intact. -->
+                  <!-- You can delete the links only if you purchased the pro version. -->
+                  <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                  <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+                  Designed by <a href="https://bootstrapmade.com/" class="text-success">Yetemali</a>
+                </div>
+                
               </div>
-              <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you purchased the pro version. -->
-                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-                Designed by <a href="https://bootstrapmade.com/" class="text-success">Yetemali</a>
-              </div>
-              
             </div>
           </div>
         </div>
-
-      </section>
-
     </div>
   </main><!-- End #main -->
 
