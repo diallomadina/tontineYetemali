@@ -277,47 +277,62 @@
                         <div class="col-12">
                           <table class=" table table-bordered table-responsive table-hover table-striped" id="tableau">
                             <thead>
+                                <th  class="text-center bg-success text-white" >N°</th>
+                                <th  class="text-center bg-success text-white" >Identifiant</th>
                                 <th  class="text-center bg-success text-white" >Nom</th>
                                 <th  class="text-center bg-success text-white" >Prenom</th>
                                 <th  class="text-center bg-success text-white" >Adresse</th>
                                 <th  class="text-center bg-success text-white" >Contact</th>
                                 <th  class="text-center bg-success text-white" >Date_Adhesion</th>
-                                <th  class="text-center bg-success text-white" >Tontine</th>
-                                <th  class="text-center bg-success text-white" colspan="2">Action</th>
+                                <th  class="text-center bg-success text-white" colspan="3">Action</th>
                             </thead>
                             <tbody >
                               <tr>
+                                <td>1</td>
+                                <td>A1</td>
                                 <td>Diallo</td>
                                 <td>Madinatou</td>
                                 <td>Cimenterie</td>
                                 <td>625444313</td>
                                 <td>11/01/23</td>
-                                <td>Tontine1</td>
                                 <td>
-                                    <button  type="button" class="btn btn-warning"data-bs-toggle="modal" data-bs-target="#verticalycentered"  >
+                                    <button  type="button" class="btn btn-transparent"data-bs-toggle="modal" data-bs-target="#verticalycentered"  >
                                       <i class="bi bi-pen"></i>
                                     </button>
                                </td>
+                               <td >
+                                  <button type="button" class="btn btn-transparent  " data-bs-toggle="modal" data-bs-target="#modalInfoMembre" data-bs-placement="bottom" title="Voir">
+                                    <i class="bi bi-eye"></i>
+                                  </button>
+                              </td>
+
                                 <td>
-                                    <button id="btnSupprimer" type="button" class="btn btn-danger" >
+                                    <button id="btnSupprimer" type="button" class="btn btn-transparent" >
                                       <i class="bi bi-trash"></iclass></i>
                                     </button>
                                 </td>
                              </tr>
-                              <tr>   
+                              <tr>  
+                                <td>2</td>
+                                <td>A2</td> 
                                 <td>Camara</td>
                                 <td>Amy</td>
                                 <td>Dixinn</td>
                                 <td>23345466</td>
                                 <td>5456</td>
-                                <td>Tontine2</td>
                                 <td>
-                                  <button  type="button" class="btn btn-warning"data-bs-toggle="modal" data-bs-target="#verticalycentered"  >
+                                  <button  type="button" class="btn btn-transparent"data-bs-toggle="modal" data-bs-target="#verticalycentered"  >
                                     <i class="bi bi-pen"></i>
                                   </button>
                                 </td>
+                                <td >
+                                  <button type="button" class="btn btn-transparent  " data-bs-toggle="modal" data-bs-target="#modalInfoMembre" data-bs-placement="bottom" title="Voir">
+                                    <i class="bi bi-eye"></i>
+                                  </button>
+                                </td>
+
                                 <td>
-                                  <button id="btnSupprimer" type="button" class="btn btn-danger" >
+                                  <button id="btnSupprimer" type="button" class="btn btn-transparent" >
                                     <i class="bi bi-trash"></iclass></i>
                                   </button>
                                 </td>
@@ -442,6 +457,60 @@
               </div>
             </div>
           </div>
+
+          <!-- Debut Modal pour Voir le suivi -->
+          <div class="modal fade" id="modalInfoMembre" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h2 class="text-center fw-blod">Informations Personnelles</h2>  
+                <div class="row mt-3 p-2"> 
+                  <div class="col-6">
+                    <p><span class="fw-bold ms-3">Identifiant: </span> <span > A1 </span></p>
+                    <p><span class="fw-bold ms-3">Nom: </span> <span>Diallo</span></p>
+                    <p><span class="fw-bold ms-3">Adresse: </span> <span id=>Cimenterie</span></p>
+                  </div>
+                  <div class="col-6">
+                    <p><span class="fw-bold ms-3">Date_Adhesion: </span> <span >11/01/23</span></p>
+                    <p><span class="fw-bold ms-3">Prenom: </span> <span>Madinatou</span></p>
+                    <p><span class="fw-bold ms-3">Contact: </span> <span id=>625444313</span></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <p><span class="fw-bold ms-3">Nombre de tontine participé: </span> <span >2</span></p>
+                  <p><span class="fw-bold ms-3">Montant total recuperé: </span> <span>5000000</span></p>
+                  <p><span class="fw-bold ms-3">Nombre de tontine en cours: </span> <span>1</span></p>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <h4 class="text-center fw-blod ">Tontine1:</h4>
+                    <p><span class="fw-bold ms-3">Payement Effectué: </span> <span>200000</span></p>
+                    <p><span class="fw-bold ms-3">Payement Restant: </span> <span>0</span></p>
+                    <p><span class="fw-bold ms-3">Retard de payement: </span> <span>0</span></p>
+                    <p><span class="fw-bold ms-3">Date de prise: </span> <span></span>11/07/23</p>
+
+                  </div>
+                  <div class="col-6">
+                    <h4 class="text-center fw-blod ">Tontine2</h4>
+                    <p><span class="fw-bold ms-3">Payement Effectué: </span> <span>500000</span></p>
+                    <p><span class="fw-bold ms-3">Payement Restant: </span> <span>500000</span></p>
+                    <p><span class="fw-bold ms-3">Retard de payement: </span> <span>1</span></p>
+                    <p><span class="fw-bold ms-3">Date de prise: </span> <span>11/09/23</span></p>
+                  </div>
+                  
+                
+                </div>
+                
+                
+                
+                
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
+                </div>
+              </div>
+            </div>  
+          </div>
+          <!-- Fin modal pour voir suivi -->
 
   
   <!-- Vendor JS Files -->

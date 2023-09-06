@@ -64,6 +64,7 @@ const btnImprimer = document.getElementById("btnImprimer");
 btnImprimer.addEventListener("click", function(event) {
     event.preventDefault();
 
+    const table = document.getElementById("tableau");
     // Appeler la fonction d'impression
     window.print();
    
@@ -115,7 +116,28 @@ btnRechercher.addEventListener("click", function(event) {
         }
         
     }
+
+    const adresseRecherche = document.getElementById("contact").value;
+
+    // Obtenir une référence vers le tableau
+    const tab = document.getElementById("tableau");
+
+    // Parcourir chaque ligne dans le tableau
+    for (let ligne of tab.rows) {
+        // Obtenir le contact de la première colonne de la ligne
+        const celluleadresse = ligne.cells[2];
+        const adresseLigne = celluleadresse.textContent;
+
+        // Afficher ou masquer la ligne en fonction de la correspondance du contact
+        if (adresseLigne === adresseRecherche || adresseRecherche === "") {
+            ligne.style.display = "table-row"; // Afficher la ligne
+        } else {
+            ligne.style.display = "none"; // Masquer la ligne
+        }
+        
+    }
 });
+
 //======================= BTN-Actualiser ========================
 
 // Obtenir une référence vers le bouton "Actualiser"
