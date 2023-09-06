@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+    
     //Action apres le click du bouton envoyee
     $('#btnValiderAjoutCoti').click(function (e) { 
         e.preventDefault();
@@ -38,6 +38,31 @@ $(document).ready(function () {
 
     $('#btnPrintCoti').click(function (e) { 
         e.preventDefault();
-        
+        elementAmasquer = document.querySelectorAll('header, .header, aside, .pagetitle, .acacher');
+        for(var i=0; i<elementAmasquer.length; i++){
+            elementAmasquer[i].style.display='none';
+            
+        }
+       var composant = `
+       <div class="container mb-5">
+                <div class="row">
+                     <div class="col-6">
+                       <img src="assets/img/yetemali.jpg" alt="">
+                     </div>
+                     
+                     <div class="col-6">
+                       <h1 class="text-center">Caisse populaire d'Epargne et de Credit</h1>
+                     </div>
+                </div>
+            <h3 class="text-center"> Liste des cotisations </h3>
+        </div>
+       `;
+       $('#blocTable').prepend(composant);
+        window.print();
+        $(composant).remove();
+        for(var i=0; i<elementAmasquer.length; i++){
+            elementAmasquer[i].style.display='block';
+        }
+       
     });
 });

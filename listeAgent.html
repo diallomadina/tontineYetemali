@@ -31,184 +31,172 @@
     <link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body>
-         <!-- ======= Header ======= -->
-         <header id="header" class="header fixed-top d-flex align-items-center">
+       <!-- ======= Header ======= -->
+       <header id="header" class="header fixed-top d-flex align-items-center">
 
-          <div class="d-flex align-items-center justify-content-between">
-            <a href="index.html" class="logo d-flex align-items-center">
-              <img src="assets/img/yetemali.jpg" alt="">
-              <span class="d-none d-lg-block textAccueil" style="color: white;
-              font-weight: bold;">Yete Mali</span>
+        <div class="d-flex align-items-center justify-content-between">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <img src="assets/img/yetemali.jpg" alt="">
+            <span class="d-none d-lg-block textAccueil" style="color: white;
+            font-weight: bold;">Yete Mali</span>
+          </a>
+          <i class="bi bi-list toggle-sidebar-btn "></i>
+        </div><!-- End Logo -->
+    
+      </header><!-- End Header -->
+    
+      <!-- ======= Sidebar ======= -->
+      <aside id="sidebar" class="sidebar barAccueil">
+    
+        <ul class="sidebar-nav" id="sidebar-nav">
+    
+          <li class="nav-item">
+            <a class="nav-link " href="index.html">
+              <i class="bi bi-grid"></i>
+              <span>Tableau de bord</span>
             </a>
-            <i class="bi bi-list toggle-sidebar-btn "></i>
-          </div><!-- End Logo -->
-      
-        </header><!-- End Header -->
-      
-        <!-- ======= Sidebar ======= -->
-        <aside id="sidebar" class="sidebar barAccueil">
-      
-          <ul class="sidebar-nav" id="sidebar-nav">
-      
-            <li class="nav-item">
-              <a class="nav-link " href="index.html">
-                <i class="bi bi-grid"></i>
-                <span>Tableau de bord</span>
-              </a>
-            </li><!-- End Dashboard Nav -->
-            <li class="nav-item">
-              <a class="nav-link collapsed" data-bs-target="#Agence-nav" data-bs-toggle="collapse" href="#">
-                <i class="bx bx-cabinet"></i><span>Gestion des Agence</span><i class="bi bi-chevron-down ms-auto"></i>
-              </a>
-              <ul id="Agence-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                  <a href="ajoutAgence.html">
-                    <i class="bi bi-circle"></i><span>Nouvelle</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="afficherAgence.html">
-                    <i class="bi bi-circle"></i><span>Liste</span>
-                  </a>
-                </li>
-                
-              </ul>
-            </li><!-- End Agence Nav -->
-            <li class="nav-item">
-              <a class="nav-link collapsed" data-bs-target="#Agent-nav" data-bs-toggle="collapse" href="#">
-                <i class="bx bx-street-view"></i><span>Gestion des Agents</span><i class="bi bi-chevron-down ms-auto"></i>
-              </a>
-              <ul id="Agent-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                  <a href="ajoutAgent.html">
-                    <i class="bi bi-circle"></i><span>Nouveau</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="listeAgent.html">
-                    <i class="bi bi-circle"></i><span>Liste</span>
-                  </a>
-                </li>
-                
-              </ul>
-            </li><!-- End Agent Nav -->
-            <li class="nav-item">
-              <a class="nav-link collapsed" data-bs-target="#tontine-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-journal-text"></i><span>Tontine</span><i class="bi bi-chevron-down ms-auto"></i>
-              </a>
-              <ul id="tontine-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                  <a href="ajoutTontine.html">
-                    <i class="bi bi-circle"></i><span>Organiser</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="src/tontine/ListeTontineEncours.html">
-                    <i class="bi bi-circle"></i><span>En Cours</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="historiqueTontine.html">
-                    <i class="bi bi-circle"></i><span>Historique</span>
-                  </a>
-                </li>
-               
-              </ul>
-            </li><!-- End Tontine Nav -->
-            <li class="nav-item">
-              <a class="nav-link collapsed" data-bs-target="#membre-nav" data-bs-toggle="collapse" href="#">
-                <i class="bx bxs-group"></i><span>Membres</span><i class="bi bi-chevron-down ms-auto"></i>
-              </a>
-              <ul id="membre-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                  <a href="membres.html">
-                    <i class="bi bi-circle"></i><span>Ajouter</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="modifMembre.html">
-                    <i class="bi bi-circle"></i><span>Afficher</span>
-                  </a>
-                </li>
-                
-              </ul>
-            </li><!-- End Membre Nav -->
-            <li class="nav-item">
-              <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-journal-text"></i><span>Payement</span><i class="bi bi-chevron-down ms-auto"></i>
-              </a>
-              <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                  <a href="ajoutPayement.html">
-                    <i class="bi bi-circle"></i><span>Effectuer</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="listePayement.html">
-                    <i class="bi bi-circle"></i><span>Liste</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="historiquePayement.html">
-                    <i class="bi bi-circle"></i><span>Historique</span>
-                  </a>
-                </li>
-               
-              </ul>
-            </li><!-- End Forms Nav -->
-      
-            <li class="nav-item">
-              <a class="nav-link collapsed" data-bs-target="#cotisation-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-layout-text-window-reverse"></i><span>Cotisations</span><i class="bi bi-chevron-down ms-auto"></i>
-              </a>
-              <ul id="cotisation-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                  <a href="cotisation.html">
-                    <i class="bi bi-circle"></i><span>Nouvelle</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="affichCotisation.html">
-                    <i class="bi bi-circle"></i><span>Liste</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="historiqueCotisation.html">
-                    <i class="bi bi-circle"></i><span>Historique</span>
-                  </a>
-                </li>
-              </ul>
-            </li><!-- End Tables Nav -->
-            <li class="nav-item">
-              <a class="nav-link collapsed" href="users.html">
-                <i class="bx bxs-user"></i>
-                <span>Utlisateurs</span>
-              </a>
-            </li><!-- End Profile Page Nav -->
-      
-            <li class="nav-item">
-              <a class="nav-link collapsed" href="users-profile.html">
-                <i class="bi bi-person"></i>
-                <span>Profile</span>
-              </a>
-            </li><!-- End Profile Page Nav -->
-      
-            <li class="nav-item">
-              <a class="nav-link collapsed" href="pages-contact.html">
-                <i class="bi bi-envelope"></i>
-                <span>Contact</span>
-              </a>
-            </li><!-- End Contact Page Nav -->
-            <li class="nav-item">
-              <a class="nav-link collapsed" href="authentification.html">
-                <i class="bx bx-exit"></i>
-                <span>Deconnexion</span>
-              </a>
-            </li>
-      
-          </ul>
-      
-        </aside><!-- End Sidebar-->
+          </li><!-- End Dashboard Nav -->
+          <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#Agence-nav" data-bs-toggle="collapse" href="#">
+              <i class="bx bx-cabinet"></i><span>Gestion des Agence</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="Agence-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+              <li>
+                <a href="ajoutAgence.html">
+                  <i class="bi bi-circle"></i><span>Nouvelle</span>
+                </a>
+              </li>
+              <li>
+                <a href="afficherAgence.html">
+                  <i class="bi bi-circle"></i><span>Liste</span>
+                </a>
+              </li>
+              
+            </ul>
+          </li><!-- End Agence Nav -->
+          <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#Agent-nav" data-bs-toggle="collapse" href="#">
+              <i class="bx bx-street-view"></i><span>Gestion des Agents</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="Agent-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+              <li>
+                <a href="ajoutAgent.html">
+                  <i class="bi bi-circle"></i><span>Nouveau</span>
+                </a>
+              </li>
+              <li>
+                <a href="listeAgent.html">
+                  <i class="bi bi-circle"></i><span>Liste</span>
+                </a>
+              </li>
+              
+            </ul>
+          </li><!-- End Agent Nav -->
+          <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#tontine-nav" data-bs-toggle="collapse" href="#">
+              <i class="bi bi-journal-text"></i><span>Tontine</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="tontine-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+              <li>
+                <a href="ajoutTontine.html">
+                  <i class="bi bi-circle"></i><span>Organiser</span>
+                </a>
+              </li>
+              <li>
+                <a href="src/tontine/ListeTontineEncours.html">
+                  <i class="bi bi-circle"></i><span>En Cours</span>
+                </a>
+              </li>
+              <li>
+                <a href="historiqueTontine.html">
+                  <i class="bi bi-circle"></i><span>Historique</span>
+                </a>
+              </li>
+             
+            </ul>
+          </li><!-- End Tontine Nav -->
+          <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#membre-nav" data-bs-toggle="collapse" href="#">
+              <i class="bx bxs-group"></i><span>Membres</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="membre-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+              <li>
+                <a href="modifMembre.html">
+                  <i class="bi bi-circle"></i><span>Nouveau</span>
+                </a>
+              </li>
+              <li>
+                <a href="membres.html">
+                  <i class="bi bi-circle"></i><span>Liste</span>
+                </a>
+              </li>
+              
+            </ul>
+          </li><!-- End Membre Nav -->
+          <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+              <i class="bi bi-journal-text"></i><span>Payement</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+              <li>
+                <a href="ajoutPayement.html">
+                  <i class="bi bi-circle"></i><span>Effectuer</span>
+                </a>
+              </li>
+              <li>
+                <a href="listePayement.html">
+                  <i class="bi bi-circle"></i><span>Historique</span>
+                </a>
+              </li>
+            </ul>
+          </li><!-- End Forms Nav -->
+    
+          <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#cotisation-nav" data-bs-toggle="collapse" href="#">
+              <i class="bi bi-layout-text-window-reverse"></i><span>Cotisations</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="cotisation-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+              <li>
+                <a href="cotisation.html">
+                  <i class="bi bi-circle"></i><span>Nouvelle</span>
+                </a>
+              </li>
+              <li>
+                <a href="affichCotisation.html">
+                  <i class="bi bi-circle"></i><span>Liste</span>
+                </a>
+              </li>
+              <li>
+                <a href="historiqueCotisation.html">
+                  <i class="bi bi-circle"></i><span>Historique</span>
+                </a>
+              </li>
+            </ul>
+          </li><!-- End Tables Nav -->
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="users.html">
+              <i class="bx bxs-user"></i>
+              <span>Utlisateurs</span>
+            </a>
+          </li><!-- End Profile Page Nav -->
+    
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="users-profile.html">
+              <i class="bi bi-person"></i>
+              <span>Profile</span>
+            </a>
+          </li><!-- End Profile Page Nav -->
+
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="authentification.html">
+              <i class="bx bx-exit"></i>
+              <span>Deconnexion</span>
+            </a>
+          </li>
+    
+        </ul>
+    
+      </aside><!-- End Sidebar-->
 
       <main class="main" id="main">
         <div class="pagetitle">
@@ -253,8 +241,8 @@
                                <div class="col-sm">
                                   <div class="form-group">
                                     <div class="col-sm">
-                                      <button id="btnSearchAgent" type="button" class="btn form-control btn-warning text-center">
-                                         <i class="bi bi-search"></i>Rechercher
+                                      <button id="btnSearchAgent" type="button" class="form-control bg-warning-light text-center">
+                                         <i class="bi bi-filter"></i>Filtrer
                                       </button>
                                    </div>
                                   </div>
@@ -262,8 +250,8 @@
                                <div class="col-sm">
                                 <div class="form-group">
                                   <div class="col-sm">
-                                    <button id="btnSearchAgent" type="button" class="btn form-control btn-warning text-center">
-                                       <i class="bi bi-filter"></i>Actualiser
+                                    <button id="btnSearchAgent" type="button" class="btn form-control bg-warning-light text-center">
+                                       <i class="bi bi-repeat"></i>Actualiser
                                     </button>
                                  </div>
                                 </div>
@@ -271,7 +259,7 @@
                                <!-- Colonne pour bouton ajouter -->
                                <div class="col-sm ">
                                   <div class="form-group">
-                                      <button id="btnNewAgent" type="button" class="btn  btn-warning text-center form-control"  data-bs-toggle="modal" data-bs-target="#modalAjoutAgentsation">
+                                      <button id="btnNewAgent" type="button" class="bg-warning-light text-center form-control"  data-bs-toggle="modal" data-bs-target="#modalAjoutAgentsation">
                                         <i class="bi bi-plus"></i> Nouveau
                                        </button>
                                   </div>
@@ -369,7 +357,7 @@
                                </div>
                                <!-- Fin pour ajouter  -->
                                <div class="col-sm ">
-                                  <button id="btnPrintAgent" type="button" class="btn  form-control btn-warning text-center">
+                                  <button id="btnPrintAgent" type="button" class="form-control bg-warning-light text-center">
                                      <i class="bi bi-printer"></i>Imprimer
                                   </button>
                                </div>
@@ -404,7 +392,7 @@
                             <td>09/09/2012</td>
                             <td></td>
                             <td class="btnAgent"><button type="button" class="btn btn-transparent"  data-bs-toggle="modal" data-bs-target="#modalModifAgent" data-bs-placement="bottom" title="Modifier"><i class="bi bi-pen"></i></button></td>
-                            <td class="btnAgent"><button type="button" class="btn btn-transparent  " data-bs-toggle="tooltip" data-bs-placement="bottom" title="Supprimer"><i class="bi bi-trash"></i></button></td>
+                            <td class="btnAgent"><button type="button" class="btn btn-transparent  "  data-bs-toggle="modal" data-bs-target="#modalSuppressionAgent" data-bs-placement="bottom" title="Supprimer"><i class="bi bi-trash"></i></button></td>
                         </tr>
                         <tr>
                           <td>2</td>
@@ -414,7 +402,7 @@
                           <td>08/09/2012</td>
                           <td></td>
                           <td class="btnAgent"><button type="button" class="btn btn-transparent"  data-bs-toggle="modal" data-bs-target="#modalModifAgent" data-bs-placement="bottom" title="Modifier"><i class="bi bi-pen"></i></button></td>
-                          <td class="btnAgent"><button type="button" class="btn btn-transparent  " data-bs-toggle="tooltip" data-bs-placement="bottom" title="Supprimer"><i class="bi bi-trash"></i></button></td>
+                          <td class="btnAgent"><button type="button" class="btn btn-transparent  "  data-bs-toggle="modal" data-bs-target="#modalSuppressionAgent" data-bs-placement="bottom" title="Supprimer"><i class="bi bi-trash"></i></button></td>
                       </tr>
                       <tr>
                         <td>1</td>
@@ -424,7 +412,7 @@
                         <td>09/09/2015</td>
                         <td></td>
                         <td class="btnAgent"><button type="button" class="btn btn-transparent"  data-bs-toggle="modal" data-bs-target="#modalModifAgent" data-bs-placement="bottom" title="Modifier"><i class="bi bi-pen"></i></button></td>
-                        <td class="btnAgent"><button type="button" class="btn btn-transparent  " data-bs-toggle="tooltip" data-bs-placement="bottom" title="Supprimer"><i class="bi bi-trash"></i></button></td>
+                        <td class="btnAgent"><button type="button" class="btn btn-transparent  "  data-bs-toggle="modal" data-bs-target="#modalSuppressionAgent" data-bs-placement="bottom" title="Supprimer"><i class="bi bi-trash"></i></button></td>
                     </tr>
                     <tr>
                       <td>1</td>
@@ -434,7 +422,7 @@
                       <td>09/09/2012</td>
                       <td></td>
                       <td class="btnAgent"><button type="button" class="btn btn-transparent"  data-bs-toggle="modal" data-bs-target="#modalModifAgent" data-bs-placement="bottom" title="Modifier"><i class="bi bi-pen"></i></button></td>
-                      <td class="btnAgent"><button type="button" class="btn btn-transparent  " data-bs-toggle="tooltip" data-bs-placement="bottom" title="Supprimer"><i class="bi bi-trash"></i></button></td>
+                      <td class="btnAgent"><button type="button" class="btn btn-transparent  " data-bs-toggle="modal" data-bs-target="#modalSuppressionAgent" data-bs-placement="bottom" title="Supprimer"><i class="bi bi-trash"></i></button></td>
                   </tr>
                     </tbody>
                 </table>
@@ -468,8 +456,8 @@
 
                                     <form>
                                       <div class="row mb-4">
-                                        <label class="col-sm-3  text-center fs-5">Agence</label>
-                                        <div class="col-sm-7">
+                                        <label class="col-sm-5  text-center fs-5">Agence</label>
+                                        <div class="col-sm-6">
                                           <select id="selectAgenceAgent" class="form-select border-secondary" aria-label="Default select example">
                                             <option selected >Selectionnez l'Agence</option>
                                             <option value="1">Agence 1</option>
@@ -479,52 +467,52 @@
                                           <p id="pErAgenceAgent" class="text-danger d-none">Veuillez selectionner une Agence</p>
                                         </div>
                                         
-                                        <div class="col-sm-2"></div>
+                                        <div class="col-sm-1"></div>
                                       </div>
                                         
                                        
                                         <div class="form-group">
                                           <div class="row mb-4">
-                                            <label class="col-sm-3  text-center fs-5">Nom</label>
-                                            <div class="col-sm-7">
+                                            <label class="col-sm-5  text-center fs-5">Nom</label>
+                                            <div class="col-sm-6">
                                               <input id="txtNomAgent" type="number" class="form-control border-secondary">
                                               <p id="pErNomAgent" class="text-danger d-none">Veuillez saisir un Nom</p>
                                             </div>
                                           </div>
-                                          <div class="col-sm-2"></div>
+                                          <div class="col-sm-1"></div>
                                         </div>
                 
                                         <div class="form-group">
                                           <div class="row mb-4">
-                                            <label class="col-sm-3  text-center fs-5">Prenom</label>
-                                            <div class="col-sm-7">
+                                            <label class="col-sm-5  text-center fs-5">Prenom</label>
+                                            <div class="col-sm-6">
                                               <input id="txtPrenomAgent" type="number" class="form-control border-secondary">
                                               <p id="pErPrenomAgent" class="text-danger d-none">Veuillez saisir un prenom</p>
                                             </div>
                                           </div>
-                                          <div class="col-sm-2"></div>
+                                          <div class="col-sm-1"></div>
                                         </div>
                                     
                                         <div class="form-group">
                                           <div class="row mb-4">
-                                            <label class="col-sm-3  text-center fs-5">Adresse</label>
-                                            <div class="col-sm-7">
+                                            <label class="col-sm-5  text-center fs-5">Adresse</label>
+                                            <div class="col-sm-6">
                                               <input id="txtAdresseAgent" type="number" class="form-control border-secondary">
                                               <p id="pErAdresseAgent" class="text-danger d-none">Veuillez saisir une adresse</p>
                                             </div>
                                           </div>
-                                          <div class="col-sm-2"></div>
+                                          <div class="col-sm-1"></div>
                                         </div>
                 
                                         <div class="form-group">
                                           <div class="row">
-                                            <label class="col-sm-3  text-center fs-5">Telephone</label>
-                                            <div class="col-sm-7">
+                                            <label class="col-sm-5  text-center fs-5">Telephone</label>
+                                            <div class="col-sm-6">
                                               <input id="txtTelAgent" type="number" class="form-control border-secondary">
                                               <p id="pErTelAgent" class="text-danger d-none">Veuillez saisir une adresse</p>
                                             </div>
                                           </div>
-                                          <div class="col-sm-2"></div>
+                                          <div class="col-sm-1"></div>
                                         </div>
               
                       
@@ -542,6 +530,26 @@
                         </div>
                       </div>  
                     </div>
+
+                <!-- modal de confirmation de suppression -->
+                <div class="modal fade" id="modalSuppressionAgent" tabindex="-1">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title fw-bold">Confirmation</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body text-center fw-bold">
+                        Voulez-vous vraiment supprimer l'agence?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <button type="button" class="btn btn-danger">Supprimer</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                 <!--Fin modal de confirmation de suppression -->
             </div>
       </main>
 
