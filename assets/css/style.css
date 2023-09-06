@@ -12,8 +12,7 @@
 :root {
   scroll-behavior: smooth;
   /* les couleurs */
-  --vert:#1f6f20;
-  --jaune:#fff23e;
+  --vert:#1f6f20e9  --jaune:#fff23e;
 }
 
 body {
@@ -389,7 +388,7 @@ h6 {
   z-index: 997;
   height: 60px;
   box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
-  background-color: #177a18;
+  background-color: #1f6f20e9;
   
   padding-left: 20px;
   border-bottom: 1px solid #fff23e;
@@ -696,7 +695,7 @@ h6 {
   font-weight: 600;
   color: white;
   transition: 0.3;
-  background: #1f6f20;
+  background: #1f6f20e9;
   padding: 10px 15px;
   border-radius: 4px;
 }
@@ -709,8 +708,7 @@ h6 {
 
 .sidebar-nav .nav-link.collapsed {
   color: white;
-  background: #1f6f20;
-}
+  background: #1f6f20e9}
 
 .sidebar-nav .nav-link.collapsed i {
   color: white;
@@ -1243,7 +1241,7 @@ h6 {
 }
 
 .bgauth{
-  background-color: #177a18;
+  background-color: #1f6f20e9;
   color: white;
 }
 
@@ -1278,8 +1276,8 @@ label {
 }
 
 .btnCoti, .btnAgent {
- width: 40px;
- height: 10px;
+ width:3%;
+ height: 5%;
 }
 
 input {
@@ -1289,6 +1287,8 @@ input {
 .contenuTb {
   height: 150px;
   background-color: #1f6f20;
+  height: 250px;
+  background-color: #1f6f20e9;
   color: white;
  border-radius: 35px;
  box-shadow: 4px 4px 10px transparent;
