@@ -88,9 +88,28 @@
         
       </ul>
     </li><!-- End Agent Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#membre-nav" data-bs-toggle="collapse" href="#">
+        <i class="bx bxs-group"></i><span>Membres</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="membre-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="../../modifMembre.html">
+            <i class="bi bi-circle"></i><span>Nouveau</span>
+          </a>
+        </li>
+        <li>
+          <a href="../../membres.html">
+            <i class="bi bi-circle"></i><span>Liste</span>
+          </a>
+        </li>
+        
+      </ul>
+    </li><!-- End Membre Nav -->
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#tontine-nav" data-bs-toggle="collapse" href="#">
-        <i class="bi bi-journal-text"></i><span>Tontine</span><i class="bi bi-chevron-down ms-auto"></i>
+        <i class="bi bi-journal-text"></i><span>Tontine Collective</span><i class="bi bi-chevron-down ms-auto"></i>
       </a>
       <ul id="tontine-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
         <li>
@@ -111,24 +130,31 @@
        
       </ul>
     </li><!-- End Tontine Nav -->
+
     <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#membre-nav" data-bs-toggle="collapse" href="#">
-        <i class="bx bxs-group"></i><span>Membres</span><i class="bi bi-chevron-down ms-auto"></i>
+      <a class="nav-link collapsed" data-bs-target="#tontine-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-journal-text"></i><span>Tontine Individuelle</span><i class="bi bi-chevron-down ms-auto"></i>
       </a>
-      <ul id="membre-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+      <ul id="tontine-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
         <li>
-          <a href="../../modifMembre.html">
-            <i class="bi bi-circle"></i><span>Nouveau</span>
+          <a href="../../ajoutTontineInd.html">
+            <i class="bi bi-circle"></i><span>Organiser</span>
           </a>
         </li>
         <li>
-          <a href="../../membres.html">
-            <i class="bi bi-circle"></i><span>Liste</span>
+          <a href="src/tontine/ListeTontineInd.html">
+            <i class="bi bi-circle"></i><span>En Cours</span>
           </a>
         </li>
-        
+        <li>
+          <a href="../../historiqueTontineInd.html">
+            <i class="bi bi-circle"></i><span>Historique</span>
+          </a>
+        </li>
+       
       </ul>
-    </li><!-- End Membre Nav -->
+    </li><!-- End Tontine Nav -->
+    
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
         <i class="bi bi-journal-text"></i><span>Payement</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -256,7 +282,7 @@
                      <th class="text-center bg-success text-white">Montant</th>
                      <th class="text-center bg-success text-white">Frequence</th>
                      <th class="text-center bg-success text-white">Participants</th>
-                     <th class="text-center bg-success text-white" colspan="3">Action</th>
+                     <th class="text-center bg-success text-white" colspan="2">Action</th>
                </tr>
             </thead>
             <tbody id="tbodyAfficheTontine">
@@ -270,7 +296,6 @@
                     <td>4</td>
                     <td class="btnCoti"><button type="button" class="btn btn-transparent"  data-bs-toggle="modal" data-bs-target="#modalModifTontine" data-bs-placement="bottom" title="Modifier"><i class="bi bi-pen"></i></button></td>
                     <td class="btnCoti"><button type="button" class="btn btn-transparent  " data-bs-toggle="modal" data-bs-target="#modalSuiviTontine" data-bs-placement="bottom" title="Voir"><i class="bi bi-eye"></i></button></td>
-                    <td class="btnCoti"><button type="button" class="btn btn-transparent  " data-bs-toggle="modal" data-bs-target="#modalSuppressionTontine" data-bs-placement="bottom" title="Supprimer"><i class="bi bi-trash"></i></button></td>
                 </tr>
                 <tr>
                   <td>1</td>
@@ -282,7 +307,6 @@
                   <td>7</td>
                   <td class="btnCoti"><button type="button" class="btn btn-transparent"  data-bs-toggle="modal" data-bs-target="#modalModifTontine" data-bs-placement="bottom" title="Modifier"><i class="bi bi-pen"></i></button></td>
                   <td class="btnCoti"><button type="button" class="btn btn-transparent  " data-bs-toggle="modal" data-bs-target="#modalSuiviTontine" data-bs-placement="bottom" title="Voir"><i class="bi bi-eye"></i></button></td>
-                  <td class="btnCoti"><button type="button" class="btn btn-transparent  " data-bs-toggle="modal" data-bs-target="#modalSuppressionTontine" data-bs-placement="bottom" title="Supprimer"><i class="bi bi-trash"></i></button></td>
               </tr>
               <tr>
                 <td>3</td>
@@ -294,8 +318,7 @@
                     <td>4</td>
                 <td class="btnCoti"><button type="button" class="btn btn-transparent"  data-bs-toggle="modal" data-bs-target="#modalModifTontine" data-bs-placement="bottom" title="Modifier"><i class="bi bi-pen"></i></button></td>
                 <td class="btnCoti"><button type="button" class="btn btn-transparent  " data-bs-toggle="modal" data-bs-target="#modalSuiviTontine" data-bs-placement="bottom" title="Voir"><i class="bi bi-eye"></i></button></td>
-                <td class="btnCoti"><button type="button" class="btn btn-transparent  " data-bs-toggle="modal" data-bs-target="#modalSuppressionTontine" data-bs-placement="bottom" title="Supprimer"><i class="bi bi-trash"></i></button></td>
-            </tr>
+              </tr>
             <tr>
               <td>1</td>
                     <td>235</td>
@@ -306,7 +329,6 @@
                     <td>4</td>
               <td class="btnCoti"><button type="button" class="btn btn-transparent"  data-bs-toggle="modal" data-bs-target="#modalModifTontine" data-bs-placement="bottom" title="Modifier"><i class="bi bi-pen"></i></button></td>
               <td class="btnCoti"><button type="button" class="btn btn-transparent  " data-bs-toggle="modal" data-bs-target="#modalSuiviTontine" data-bs-placement="bottom" title="Voir"><i class="bi bi-eye"></i></button></td>
-              <td class="btnCoti"><button type="button" class="btn btn-transparent  "data-bs-toggle="modal" data-bs-target="#modalSuppressionTontine" data-bs-placement="bottom" title="Supprimer"><i class="bi bi-trash"></i></button></td>
           </tr>
             </tbody>
         </table>
@@ -344,14 +366,29 @@
                 <!-- General Form Elements -->
                 <form>
                     <div class="form-group">
-                        <div class="row mb-4">
-                          <label class="col-sm-5  text-center fs-5">Nom</label>
-                          <div class="col-sm-6">
-                            <input id="txtNomTontine" type="text" class="form-control border-secondary" placeholder="Nom de la tontine">
-                            <p id="pErNomTontine" class="text-danger d-none">Veuillez saisir un nom</p>
-                          </div>
+                      <div class="row mb-4">
+                        <label class="col-sm-5  text-center fs-5">Agent</label>
+                        <div class="col-sm-6">
+                          <select name="" id="" class="form-select">
+                            <option value="" selected>Selectionnez l'agent</option>
+                            <option value="">Agent 1</option>
+                            <option value="">Agent 2</option>
+                            <option value="">Agent 3</option>
+                          </select>
+                          <p id="pErNomTontine" class="text-danger d-none">Veuillez saisir un nom</p>
+                        </div>
+                        <div class="col-sm-1"></div>
+                      </div>
+
+                      <div class="row mb-4">
+                        <label class="col-sm-5  text-center fs-5">Nom</label>
+                        <div class="col-sm-6">
+                          <input id="txtNomTontine" type="text" class="form-control border-secondary" placeholder="Nom de la tontine">
+                          <p id="pErNomTontine" class="text-danger d-none">Veuillez saisir un nom</p>
                         </div>
                         <div class="col-sm-2"></div>
+                      </div>
+                      
                       </div>
                       <div class="row mb-4">
                         <label for="inputDate" class="col-sm-5  text-center fs-5">Debut</label>
@@ -415,7 +452,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header text-center">
-                                
+        <h1 class="text-center text-black fs-1 fw-3 bg-warning-light-light">Modification</h1>                        
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -431,20 +468,35 @@
         <form>
               <!-- Partie de l'ajout -->
               <div class="card rounded-4">
-                <h1 class="card-title rounded-4 text-center text-black fs-1 fw-3 bg-warning-light-light">Modification</h1>
+                
                 <div class="card-body">
                   
                   <!-- General Form Elements -->
                   <form>
                       <div class="form-group">
-                          <div class="row mb-4">
-                            <label class="col-sm-5 text-center fs-5">Nom</label>
-                            <div class="col-sm-6">
-                              <input id="txtNomTontine" type="text" class="form-control border-secondary" placeholder="Nom de la tontine">
-                              <p id="pErNomTontine" class="text-danger d-none">Veuillez saisir un nom</p>
-                            </div>
+                        <div class="row mb-4 mt-2">
+                          <label class="col-sm-5  text-center fs-5">Agent</label>
+                          <div class="col-sm-6">
+                            <select name="" id="" class="form-select">
+                              <option value="" selected>Selectionnez l'agent</option>
+                              <option value="">Agent 1</option>
+                              <option value="">Agent 2</option>
+                              <option value="">Agent 3</option>
+                            </select>
+                            <p id="pErNomTontine" class="text-danger d-none">Veuillez saisir un nom</p>
                           </div>
                           <div class="col-sm-1"></div>
+                        </div>
+
+                        <div class="row mb-4">
+                          <label class="col-sm-5 text-center fs-5">Nom</label>
+                          <div class="col-sm-6">
+                            <input id="txtNomTontine" type="text" class="form-control border-secondary" placeholder="Nom de la tontine">
+                            <p id="pErNomTontine" class="text-danger d-none">Veuillez saisir un nom</p>
+                          </div>
+                          <div class="col-sm-1"></div>
+                        </div>
+                          
                         </div>
                         <div class="row mb-4">
                           <label for="inputDate" class="col-sm-5  text-center fs-5">Debut</label>
@@ -564,25 +616,6 @@
 </div>
 <!-- Fin modal pour voir suivi -->
 
-  <!-- modal de confirmation de suppression -->
-<div class="modal fade" id="modalSuppressionTontine" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title fw-bold">Confirmation</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body text-center fw-bold">
-        Voulez-vous vraiment supprimer la Tontine?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-danger">Supprimer</button>
-      </div>
-    </div>
-  </div>
-</div>
- <!--Fin modal de confirmation de suppression -->
 
 
 

@@ -1241,15 +1241,15 @@ h6 {
 }
 
 .bgauth{
-  background-color: #1f6f20e9;
+  background: linear-gradient(50deg, #fff23e, #1f6f20e9) ;
   color: white;
 }
 
 .cardauth {
-  background: #fff23e ;
-  border: 2px solid black;
+  background: transparent ;
+  border: 2px solid white;
   box-shadow: 10px 10px 250px transparent;
-  color: black;
+  color: white;
   font-weight: bolder;
 }
 
