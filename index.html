@@ -259,45 +259,49 @@
              
                 <div class="row">
                     <div class="col ms-3 contenuTb">
-                        <h3 class="fw-bold text-white text-center mt-3">Nombre de tontine</h3>
-                        <div class="row mt-2">
-                          <div class="col">
-                              <p class="fw-bold text-white text-center fs-4">Total</p>
-                              <p class="fw-bold text-white text-center fs-4" >50</p>
-                        </div>
-                          <div class="col">
-                              <p class="fw-bold text-white text-center fs-4">En Cours</p>
-                              <p class="fw-bold text-white text-center fs-4" >20</p>
-                          </div>
-                        </div>
-                    </div>
-                    <div class="col ms-3 contenuTb">
-                        <h3 class="fw-bold text-white text-center  mt-3">Membres</h3>
-                        <div class="col">
-                          <p class="fw-bold text-white text-center fs-4">1000</p>
-                      </div>
-                    </div>
-                    <div class="col ms-3 contenuTb">
-                      <h3 class="fw-bold text-white text-center mt-3 ">Montant Rassemblé</h3>
-                            <p class="fw-bold text-white text-center fs-4" >800000</p>
-                  </div>
-                </div>
-   
-       
-              <div class="row mt-4">
-                  <div class="col ms-3 contenuTb">
                       <h3 class="fw-bold text-white text-center fw-bold mt-3">Nombre Agences</h3>
                       
                         
                             <p class="fw-bold text-white text-center fw-bold fs-3">20</p>
                       
+                    </div>
+                      <div class="col ms-3 contenuTb">
+                        <h3 class="fw-bold text-white text-center fw-bold mt-3">Nombre Agent</h3>
+                        
+                          <p class="fw-bold text-white text-center fw-bold fs-3">100</p>
+                    
+                    </div>
+                        
+                      <div class="col ms-3 contenuTb">
+                          <h3 class="fw-bold text-white text-center  mt-3">Membres</h3>
+                          <div class="col">
+                            <p class="fw-bold text-white text-center fs-4">1000</p>
+                        </div>
+                      </div>
+                    
+                </div>
+   
+       
+              <div class="row mt-4">
+                    <div class="col ms-3 contenuTb">
+                      <h3 class="fw-bold text-white text-center mt-3">Nombre de tontine</h3>
+                      <div class="row mt-2">
+                        <div class="col">
+                            <p class="fw-bold text-white text-center fs-4">Total</p>
+                            <p class="fw-bold text-white text-center fs-4" >50</p>
+                      </div>
+                        <div class="col">
+                            <p class="fw-bold text-white text-center fs-4">En Cours</p>
+                            <p class="fw-bold text-white text-center fs-4" >20</p>
+                        </div>
+                      </div>
                   </div>
                   <div class="col ms-3 contenuTb">
-                      <h3 class="fw-bold text-white text-center fw-bold mt-3">Nombre Agent</h3>
-                      
-                        <p class="fw-bold text-white text-center fw-bold fs-3">100</p>
-                   
-                  </div>
+                    <h3 class="fw-bold text-white text-center mt-3 ">Montant Rassemblé</h3>
+                          <p class="fw-bold text-white text-center fs-4" >800000</p>
+                </div>
+                  
+                  
               </div>
               
 
@@ -328,7 +332,7 @@
                           document.addEventListener("DOMContentLoaded", () => {
                             new ApexCharts(document.querySelector("#reportsChart"), {
                               series: [{
-                                name: 'Sales',
+                                name: 'Payement',
                                 data: [31, 40, 28, 51, 42, 82, 56],
                               }, {
                                 name: 'Montant Rassemblé',
@@ -414,7 +418,7 @@
                                 left: 'center'
                               },
                               series: [{
-                                name: 'Access From',
+                                
                                 type: 'pie',
                                 radius: ['40%', '70%'],
                                 avoidLabelOverlap: false,
@@ -434,24 +438,21 @@
                                 },
                                 data: [{
                                     value: 1048,
-                                    name: 'Search Engine'
+                                    name: 'Membres'
                                   },
                                   {
                                     value: 735,
-                                    name: 'Direct'
+                                    name: 'Tontines terminés'
                                   },
                                   {
                                     value: 580,
-                                    name: 'Email'
+                                    name: 'Tontines en cours'
                                   },
                                   {
                                     value: 484,
-                                    name: 'Union Ads'
-                                  },
-                                  {
-                                    value: 300,
-                                    name: 'Video Ads'
+                                    name: 'Montant rassemblé'
                                   }
+                                  
                                 ]
                               }]
                             });
