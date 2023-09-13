@@ -1,226 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des Agences</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
+<?php include("top.php"); ?>
+<?php include("header.php"); ?>
+<?php include("aside.php"); ?>
 
-    <!-- Favicons -->
-    <link href="assets/img/yetemalip.png" rel="icon">
-    <link href="assets/img/yetemali.jpg" rel="apple-touch-icon">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-    <!-- Vendor CSS Files -->
-    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-    <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
-
-    <!-- Template Main CSS File -->
-    <link href="assets/css/style.css" rel="stylesheet">
-</head>
-<body>
-    <!-- ======= Header ======= -->
-    <header id="header" class="header fixed-top d-flex align-items-center">
-
-      <div class="d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo d-flex align-items-center">
-          <img src="assets/img/yetemali.jpg" alt="">
-          <span class="d-none d-lg-block textAccueil" style="color: white;
-          font-weight: bold;">Yete Mali</span>
-        </a>
-        <i class="bi bi-list toggle-sidebar-"></i>
-      </div><!-- End Logo -->
-  
-    </header><!-- End Header -->
-  
-    <!-- ======= Sidebar ======= -->
-    <aside id="sidebar" class="sidebar barAccueil">
-  
-      <ul class="sidebar-nav" id="sidebar-nav">
-  
-        <li class="nav-item">
-          <a class="nav-link " href="index.html">
-            <i class="bi bi-grid"></i>
-            <span>Tableau de bord</span>
-          </a>
-        </li><!-- End Dashboard Nav -->
-        <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-target="#Agence-nav" data-bs-toggle="collapse" href="#">
-            <i class="bx bx-cabinet"></i><span>Gestion des Agence</span><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul id="Agence-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-            <li>
-              <a href="ajoutAgence.html">
-                <i class="bi bi-circle"></i><span>Nouvelle</span>
-              </a>
-            </li>
-            <li>
-              <a href="afficherAgence.html">
-                <i class="bi bi-circle"></i><span>Liste</span>
-              </a>
-            </li>
-            
-          </ul>
-        </li><!-- End Agence Nav -->
-        <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-target="#Agent-nav" data-bs-toggle="collapse" href="#">
-            <i class="bx bx-street-view"></i><span>Gestion des Agents</span><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul id="Agent-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-            <li>
-              <a href="ajoutAgent.html">
-                <i class="bi bi-circle"></i><span>Nouveau</span>
-              </a>
-            </li>
-            <li>
-              <a href="listeAgent.html">
-                <i class="bi bi-circle"></i><span>Liste</span>
-              </a>
-            </li>
-            
-          </ul>
-        </li><!-- End Agent Nav -->
-  
-        <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-target="#membre-nav" data-bs-toggle="collapse" href="#">
-            <i class="bx bxs-group"></i><span>Membres</span><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul id="membre-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-            <li>
-              <a href="modifMembre.html">
-                <i class="bi bi-circle"></i><span>Nouveau</span>
-              </a>
-            </li>
-            <li>
-              <a href="membres.html">
-                <i class="bi bi-circle"></i><span>Liste</span>
-              </a>
-            </li>
-            
-          </ul>
-        </li><!-- End Membre Nav -->
-  
-        <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-target="#tontine-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-journal-text"></i><span>Tontine Collective</span><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul id="tontine-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-            <li>
-              <a href="ajoutTontine.html">
-                <i class="bi bi-circle"></i><span>Organiser</span>
-              </a>
-            </li>
-            <li>
-              <a href="src/tontine/ListeTontineEncours.html">
-                <i class="bi bi-circle"></i><span>En Cours</span>
-              </a>
-            </li>
-            <li>
-              <a href="historiqueTontine.html">
-                <i class="bi bi-circle"></i><span>Historique</span>
-              </a>
-            </li>
-           
-          </ul>
-        </li><!-- End Tontine Individuelle Nav -->
-  
-        <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-target="#tontineIndividuelle-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-journal-text"></i><span>Tontine Individuelle</span><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul id="tontineIndividuelle-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-            <li>
-              <a href="ajoutTontineInd.html">
-                <i class="bi bi-circle"></i><span>Organiser</span>
-              </a>
-            </li>
-            <li>
-              <a href="ListeTontineInd.html">
-                <i class="bi bi-circle"></i><span>En Cours</span>
-              </a>
-            </li>
-            <li>
-              <a href="historiqueTontineInd.html">
-                <i class="bi bi-circle"></i><span>Historique</span>
-              </a>
-            </li>
-           
-          </ul>
-        </li><!-- End Tontine Collective Nav -->
-        
-        <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-journal-text"></i><span>Payement </span><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-            <li>
-              <a href="ajoutPayement.html">
-                <i class="bi bi-circle"></i><span>Effectuer</span>
-              </a>
-            </li>
-            <li>
-              <a href="listePayement.html">
-                <i class="bi bi-circle"></i><span>Historique</span>
-              </a>
-            </li>
-          </ul>
-        </li><!-- End Forms Nav -->
-  
-        <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-target="#cotisation-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-layout-text-window-reverse"></i><span>Cotisations</span><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul id="cotisation-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-            <li>
-              <a href="cotisation.html">
-                <i class="bi bi-circle"></i><span>Nouvelle</span>
-              </a>
-            </li>
-            <li>
-              <a href="affichCotisation.html">
-                <i class="bi bi-circle"></i><span>Liste</span>
-              </a>
-            </li>
-            <li>
-              <a href="historiqueCotisation.html">
-                <i class="bi bi-circle"></i><span>Historique</span>
-              </a>
-            </li>
-          </ul>
-        </li><!-- End Tables Nav -->
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="users.html">
-            <i class="bx bxs-user"></i>
-            <span>Utlisateurs</span>
-          </a>
-        </li><!-- End Profile Page Nav -->
-  
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="users-profile.html">
-            <i class="bi bi-person"></i>
-            <span>Profile</span>
-          </a>
-        </li><!-- End Profile Page Nav -->
-  
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="authentification.html">
-            <i class="bx bx-exit"></i>
-            <span>Deconnexion</span>
-          </a>
-        </li>
-  
-      </ul>
-  
-    </aside><!-- End Sidebar-->
+<!-- Debut du main -->
       <main class="main" id="main">
         <div class="pagetitle">
           <h1>Liste des agences</h1>
@@ -350,25 +132,22 @@
                                     <th class="text-center bg-success text-white" colspan="2">Action</th>
                             </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="btnCoti"><button type="button" class="btn btn-transparent"  data-bs-toggle="modal" data-bs-target="#modalModifAgence" data-bs-placement="bottom" title="Modifier"><i class="bi bi-pen"></i></button></td>
-                                    <td class="btnCoti"><button type="button" class="btn btn-transparent  " data-bs-toggle="modal" data-bs-target="#modalSuppressionAgence" data-bs-placement="bottom" title="Supprimer"><i class="bi bi-trash"></i></button></td>
-                                </tr>
+                            <tbody class="text-center">
+                                <?php
+                                  include("php/Agence.php");
+                                  displayAgence();
+                                ?>
                             </tbody>
                         </table>
+                                        
                             <!-- End Table  -->
-                           <!-- Le modal pour ajouter -->
+                           <!-- Le modal pour modifier -->
                            <div class="modal fade" id="modalModifAgence" tabindex="-1">
                             <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header text-center">
-                                    
+                                    <h1 class="card-title text-center text-black fs-3 fw-3">Modification de l'agence</h1>
+
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
@@ -380,29 +159,44 @@
                                     </a>
                                 </div>
                                 <div class="card mt-2 rounded-4">
-                                  <h1 class="card-title rounded-4 text-center text-black fs-1 fw-3 bg-warning-light">Modification de l'agence</h1>
                                   <div class="card-body">
                                     
                                     <!-- General Form Elements -->
-                                    <form>
+                                    <form method="post" aciton="">
+                                      <div class="row">
+                                      <?php
+                                            
+                                            if(isset($_GET['idAgence'])){
+                                              $id = $_GET['idAgence'];
+                                              $Agence = editAgence($id);
+                                            }
+                                        ?>
+                                      </div>
+                                      <div class="row mb-4 mt-4">
+                                        <label class="col-sm-4  text-center fs-5">Identifiant</label>
+                                        <div class="col-sm-6">
+                                          <input name="idAgence" value="<?php if(isset($Agence['idAgence'])) echo $Agence['idAgence']; else echo''; ?>" type="text" class="form-control border-secondary" readonly>
+                                        </div>
+                                        <div class="col-sm-2"></div>
+                                      </div>
                                       <div class="row mb-4 mt-4">
                                         <label class="col-sm-4  text-center fs-5">Agence</label>
                                         <div class="col-sm-6">
-                                          <input type="text" class="form-control border-secondary">
+                                          <input name="MnomAgence" type="text" class="form-control border-secondary">
                                         </div>
                                         <div class="col-sm-2"></div>
                                       </div>
                                         <div class="row mb-4">
                                             <label class="col-sm-4  text-center fs-5">Adresse</label>
                                             <div class="col-sm-6">
-                                             <input type="text" class="form-control border-secondary">
+                                             <input name="MadresseAgence" type="text" class="form-control border-secondary">
                                             </div>
                                             <div class="col-sm-2"></div>
                                         </div>
                                         <div class="row mb-4">
                                           <label class="col-sm-4  text-center fs-5">Telephone</label>
                                           <div class="col-sm-6">
-                                           <input type="tel" class="form-control border-secondary">
+                                           <input name="MtelAgence" type="tel" class="form-control border-secondary">
                                           </div>
                                           <div class="col-sm-2"></div>
                                         </div>
@@ -414,7 +208,7 @@
                                 </div>
                                 </div>
                                 <div class="modal-footer">
-                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
+                                <button name="MbtnValiderAgence" type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
                                 <button type="button" class="btn btn-success boutton">Valider</button>
                                 </div>
                             </div>
@@ -445,16 +239,10 @@
               </div>
             </div>
       </main>
-      <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-      <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-      <script src="assets/vendor/chart.js/chart.umd.js"></script>
-      <script src="assets/vendor/echarts/echarts.min.js"></script>
-      <script src="assets/vendor/quill/quill.min.js"></script>
-      <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-      <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-      <script src="assets/vendor/php-email-form/validate.js"></script>
-    
-      <!-- Template Main JS File -->
-      <script src="assets/js/main.js"></script>
-</body>
-</html>
+<!-- Fin du main -->
+
+<?php include("footer.php"); ?>
+<?php include("script.php"); ?>
+<!-- End #main -->
+
+      
