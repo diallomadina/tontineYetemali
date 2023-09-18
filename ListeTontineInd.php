@@ -11,7 +11,7 @@
           <li class="breadcrumb-item">
             <a href="../../index.php">Acceuil</a>
           </li>
-          <li class="breadcrumb-item active">Tontines individuelle en cours</li>
+          <li class="breadcrumb-item active"> Liste des tontines individuelle</li>
         </ol>
       </nav>
     </div>
@@ -19,6 +19,15 @@
 
     <!-- Contenue de la page -->
     <div class="container">
+      <div class="row">
+        <div class="col">
+          <?php
+              include("php/Agence.php");
+              InsertTontineIndModal();
+              updateTontineInd();
+          ?>
+        </div>
+      </div>
         <div class="row">
           <div class="col">
             <select name="" id="sldTontineCours" class="form-select border-secondary">
@@ -56,7 +65,7 @@
 
         <!-- Partie du tableau -->
         <div class="row mt-5">
-          <table id="tableAffichageCoti" class="table table-bordered table-responsive table-compressed table-hover table-striped">
+          <table id="tableTontineInd" class="table table-bordered table-responsive table-compressed table-hover table-striped">
             <thead class="bg-success">
                <tr class="bg-success">
                      <th class="text-center bg-success text-white">N°</th>
@@ -68,50 +77,11 @@
                      <th class="text-center bg-success text-white" colspan="2">Action</th>
                </tr>
             </thead>
-            <tbody id="tbodyAfficheTontine">
-                <tr>
-                    <td>1</td>
-                    <td>235</td>
-                    <td>Tontine N1</td>
-                    <td>09/09/2012</td>
-                    <td>24000</td>
-                    <td>Camara Ibrahima</td>
-                    <td class="btnCoti"><button type="button" class="btn btn-transparent"  data-bs-toggle="modal" data-bs-target="#modalModifTontine" data-bs-placement="bottom" title="Modifier"><i class="bi bi-pen"></i></button></td>
-                    <td class="btnCoti"><button type="button" class="btn btn-transparent  " data-bs-toggle="modal" data-bs-target="#modalSuiviTontine" data-bs-placement="bottom" title="Voir"><i class="bi bi-eye"></i></button></td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>235</td>
-                  <td>Tontine N2</td>
-                  <td>18/09/2012</td>
-                  <td>24000</td>
-                  <td>Mariama Diallo</td>
-                 
-                  <td class="btnCoti"><button type="button" class="btn btn-transparent"  data-bs-toggle="modal" data-bs-target="#modalModifTontine" data-bs-placement="bottom" title="Modifier"><i class="bi bi-pen"></i></button></td>
-                  <td class="btnCoti"><button type="button" class="btn btn-transparent  " data-bs-toggle="modal" data-bs-target="#modalSuiviTontine" data-bs-placement="bottom" title="Voir"><i class="bi bi-eye"></i></button></td>
-              </tr>
-              <tr>
-                <td>3</td>
-                    <td>235</td>
-                    <td>Tontine N3</td>
-                    <td>09/9/2002</td>
-                    <td>24000</td>
-                    <td>Sidibe</td>
-                    
-                <td class="btnCoti"><button type="button" class="btn btn-transparent"  data-bs-toggle="modal" data-bs-target="#modalModifTontine" data-bs-placement="bottom" title="Modifier"><i class="bi bi-pen"></i></button></td>
-                <td class="btnCoti"><button type="button" class="btn btn-transparent  " data-bs-toggle="modal" data-bs-target="#modalSuiviTontine" data-bs-placement="bottom" title="Voir"><i class="bi bi-eye"></i></button></td>
-              </tr>
-            <tr>
-              <td>1</td>
-                    <td>235</td>
-                    <td>Tontine N1</td>
-                    <td>09/09/2012</td>
-                    <td>24000</td>
-                    <td>hajkd</td>
-                    
-              <td class="btnCoti"><button type="button" class="btn btn-transparent"  data-bs-toggle="modal" data-bs-target="#modalModifTontine" data-bs-placement="bottom" title="Modifier"><i class="bi bi-pen"></i></button></td>
-              <td class="btnCoti"><button type="button" class="btn btn-transparent  " data-bs-toggle="modal" data-bs-target="#modalSuiviTontine" data-bs-placement="bottom" title="Voir"><i class="bi bi-eye"></i></button></td>
-          </tr>
+            <tbody>
+                <?php
+                  
+                  dispalyTontineInd();
+                ?>
             </tbody>
         </table>
         </div>
@@ -134,17 +104,22 @@
               </a>
             </div>
             <!-- General Form Elements -->
-            <form>
+            <form method="post" action="">
                       <div class="row mb-4 mt-4">
                         <label class="col-sm-3  text-center fs-5">Agent</label>
                         <div class="col-sm-7">
-                          <select id="selectAgent" class="form-select border-secondary" aria-label="Default select example">
-                            <option selected >Selectionnez l'Agent</option>
-                            <option value="1">Agent 1</option>
-                            <option value="2">Agent 2</option>
-                            <option value="3">Agent 3</option>
+                          <select name="agent" class="form-select border-secondary" aria-label="Default select example">
+                              <?php
+                                include("php/connection.php");
+                                $request = "SELECT idAgent, nomAgent, prenomAgent from Agent";
+                                $result = $con->query($request);
+                                while($agent= Mysqli_fetch_array($result)){
+                                  $idAgent = $agent['idAgent'];
+                                  echo "<option value='$idAgent'>".$agent['nomAgent']." ".$agent['prenomAgent']."</option>";
+                                }
+                              ?>
                           </select>
-                          <p id="pErAgentAgent" class="text-danger d-none">Veuillez selectionner une Agent</p>
+                         
                         </div>
                         
                         <div class="col-sm-2"></div>
@@ -153,13 +128,17 @@
                       <div class="row mb-4 mt-4">
                         <label class="col-sm-3  text-center fs-5">Membre</label>
                         <div class="col-sm-7">
-                          <select id="selectAgent" class="form-select border-secondary" aria-label="Default select example">
-                            <option selected >Selectionnez le membre</option>
-                            <option value="1">Membre 1</option>
-                            <option value="2">Membre 2</option>
-                            <option value="3">Membre 3</option>
+                          <select name="membre" class="form-select border-secondary" aria-label="Default select example">
+                              <?php
+                                  $request = "SELECT idMembre, nomMembre, prenomMembre from Membre";
+                                  $result = $con -> query($request);
+                                  while($membre = Mysqli_fetch_array($result)){
+                                    $idMembre = $membre['idMembre'];
+                                    echo "<option value='$idMembre'>".$membre['nomMembre']." ".$membre['prenomMembre']."</option>";
+                                  }
+
+                              ?>
                           </select>
-                          <p id="pErAgentAgent" class="text-danger d-none">Veuillez selectionner un membre</p>
                         </div>
                         
                         <div class="col-sm-2"></div>
@@ -169,8 +148,7 @@
                           <div class="row mb-4">
                             <label class="col-sm-3  text-center fs-5">Nom</label>
                             <div class="col-sm-7">
-                              <input id="txtNomAgent" type="number" class="form-control border-secondary">
-                              <p id="pErNomAgent" class="text-danger d-none">Veuillez saisir un Nom</p>
+                              <input name="nom" type="text" class="form-control border-secondary">
                             </div>
                           </div>
                           <div class="col-sm-2"></div>
@@ -180,8 +158,7 @@
                           <div class="row mb-4">
                             <label class="col-sm-3  text-center fs-5">Debut</label>
                             <div class="col-sm-7">
-                              <input id="txtPrenomAgent" type="date" class="form-control border-secondary">
-                              <p id="pErPrenomAgent" class="text-danger d-none">Veuillez saisir un nom</p>
+                              <input name="debut" type="date" class="form-control border-secondary">
                             </div>
                           </div>
                           <div class="col-sm-2"></div>
@@ -191,20 +168,18 @@
                           <div class="row mb-4">
                             <label class="col-sm-3  text-center fs-5">Montant</label>
                             <div class="col-sm-7">
-                              <input id="txtAdresseAgent" type="number" class="form-control border-secondary">
-                              <p id="pErAdresseAgent" class="text-danger d-none">Veuillez saisir un montant</p>
+                              <input name="montant" type="number" class="form-control border-secondary">
                             </div>
                           </div>
                           <div class="col-sm-2"></div>
                         </div>
-
+                        <div class="modal-footer">
+                            <button type="submit" name="btnValider" class="btn btn-warning boutton">Valider</button>
+                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
+                        </div>
                     </form><!-- End General Form Elements -->
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-warning boutton">Valider</button>
-            <button id="btnValiderAjoutAgent" type="button" class="btn btn-danger">Annulée</button>
-            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
-          </div>
+          
         </div>
       </div>  
   </div>
@@ -227,32 +202,23 @@
             </a>
           </div>
           <!-- General Form Elements -->
-          <form>
-                      <div class="row mb-4 mt-4">
-                        <label class="col-sm-3  text-center fs-5">Agent</label>
-                        <div class="col-sm-7">
-                          <select id="selectAgent" class="form-select border-secondary" aria-label="Default select example">
-                            <option selected >Selectionnez l'Agent</option>
-                            <option value="1">Agent 1</option>
-                            <option value="2">Agent 2</option>
-                            <option value="3">Agent 3</option>
-                          </select>
-                          <p id="pErAgentAgent" class="text-danger d-none">Veuillez selectionner une Agent</p>
-                        </div>
-                        
-                        <div class="col-sm-2"></div>
-                      </div>
-                        
+          <form method="post" action="">
+                      <input type="hidden" name="idTontineInd" id="idTontineInd">
+                     
                       <div class="row mb-4 mt-4">
                         <label class="col-sm-3  text-center fs-5">Membre</label>
                         <div class="col-sm-7">
-                          <select id="selectAgent" class="form-select border-secondary" aria-label="Default select example">
-                            <option selected >Selectionnez le membre</option>
-                            <option value="1">Membre 1</option>
-                            <option value="2">Membre 2</option>
-                            <option value="3">Membre 3</option>
+                          <select id="mMembre" name="mMembre" class="form-select border-secondary" aria-label="Default select example">
+                              <?php
+                                  $request = "SELECT idMembre, nomMembre, prenomMembre from Membre";
+                                  $result = $con -> query($request);
+                                  while($membre = Mysqli_fetch_array($result)){
+                                    $idMembre = $membre['idMembre'];
+                                    echo "<option value='$idMembre'>".$membre['nomMembre']." ".$membre['prenomMembre']."</option>";
+                                  }
+
+                              ?>
                           </select>
-                          <p id="pErAgentAgent" class="text-danger d-none">Veuillez selectionner un membre</p>
                         </div>
                         
                         <div class="col-sm-2"></div>
@@ -262,8 +228,7 @@
                           <div class="row mb-4">
                             <label class="col-sm-3  text-center fs-5">Nom</label>
                             <div class="col-sm-7">
-                              <input id="txtNomAgent" type="number" class="form-control border-secondary">
-                              <p id="pErNomAgent" class="text-danger d-none">Veuillez saisir un Nom</p>
+                              <input name="mNom" id="mNom" type="text" class="form-control border-secondary">
                             </div>
                           </div>
                           <div class="col-sm-2"></div>
@@ -273,8 +238,7 @@
                           <div class="row mb-4">
                             <label class="col-sm-3  text-center fs-5">Debut</label>
                             <div class="col-sm-7">
-                              <input id="txtPrenomAgent" type="date" class="form-control border-secondary">
-                              <p id="pErPrenomAgent" class="text-danger d-none">Veuillez saisir un nom</p>
+                              <input name="mDebut" id="mDebut" type="date" class="form-control border-secondary">
                             </div>
                           </div>
                           <div class="col-sm-2"></div>
@@ -284,27 +248,25 @@
                           <div class="row mb-4">
                             <label class="col-sm-3  text-center fs-5">Montant</label>
                             <div class="col-sm-7">
-                              <input id="txtAdresseAgent" type="number" class="form-control border-secondary">
-                              <p id="pErAdresseAgent" class="text-danger d-none">Veuillez saisir un montant</p>
+                              <input name="mMontant" id="mMontant" type="number" class="form-control border-secondary">
                             </div>
                           </div>
                           <div class="col-sm-2"></div>
                         </div>
-      
+                        <div class="modal-footer">
+                            <button type="submit" name="mBtnValider" class="btn btn-success boutton">Valider</button>
+                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
+                        </div>
                     </form><!-- End General Form Elements -->
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success boutton">Valider</button>
-          <button id="btnValiderAjoutAgent" type="button" class="btn btn-danger">Annulée</button>
-          <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
-        </div>
+        
       </div>
     </div>  
   </div>
   <!-- Fin modal pour modification -->
   
   <!-- Debut Modal pour Voir le suivi -->
-  <div class="modal fade" id="modalSuiviTontine" tabindex="-1">
+                <div class="modal fade" id="modalSuiviTontine" tabindex="-1">
                   <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -402,7 +364,39 @@
                 <!-- Fin modal pour voir suivi -->
 </main>
 <!-- Fin du main -->
+<script src="assets/js/jquery.min.js"></script>
+<script>
+  $(document).ready(function () {
+    var tableTontineInd = document.getElementById('tableTontineInd');
 
+      function editerInfoTontineInd() {
+          for (var i = 0; i < tableTontineInd.rows.length; i++) {
+              tableTontineInd.rows[i].onclick = function () {
+                  document.getElementById("idTontineInd").value = this.cells[1].innerHTML;
+                  document.getElementById("mNom").value = this.cells[2].innerHTML;
+                  document.getElementById("mDebut").value = this.cells[3].innerHTML;
+                  document.getElementById("mMontant").value = this.cells[4].innerHTML;
+                  // Sélectionner la valeur dans le champ de sélection "mMembre"
+            var membreText = this.cells[5].innerHTML; // Contenu de la cellule "Membre"
+            var selectMembre = document.getElementById("mMembre");
+            
+            // Parcourir les options du champ de sélection et sélectionner la correspondante
+            for (var j = 0; j < selectMembre.options.length; j++) {
+                if (selectMembre.options[j].text === membreText) {
+                    selectMembre.selectedIndex = j;
+                    break; // Sortir de la boucle dès que la correspondance est trouvée
+                }
+            }
+              };
+          }
+      }
+
+      $('.editTontineInd').click(function (e) {
+          e.preventDefault();
+         editerInfoTontineInd();
+      });
+  });
+</script>
 <?php include("footer.php"); ?>
 <?php include("script.php"); ?>
 

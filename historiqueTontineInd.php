@@ -71,47 +71,13 @@
                      <th class="text-center bg-success text-white">Action</th>
                </tr>
             </thead>
-            <tbody id="tbodyAfficheTontine">
-                <tr>
-                    <td>1</td>
-                    <td>235</td>
-                    <td>Tontine N1</td>
-                    <td>09/09/2012</td>
-                    <td>24000</td>
-                    <td>Camara Ibrahima</td>
-                    <td></td>
-                    <td class="btnCoti"><button type="button" class="btn btn-transparent  " data-bs-toggle="modal" data-bs-target="#modalSuiviTontine" data-bs-placement="bottom" title="Voir"><i class="bi bi-eye"></i></button></td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>235</td>
-                  <td>Tontine N2</td>
-                  <td>18/09/2012</td>
-                  <td>24000</td>
-                  <td>Mariama Diallo</td>
-                  <td></td>
-                  <td class="btnCoti"><button type="button" class="btn btn-transparent  " data-bs-toggle="modal" data-bs-target="#modalSuiviTontine" data-bs-placement="bottom" title="Voir"><i class="bi bi-eye"></i></button></td>
-              </tr>
-              <tr>
-                <td>3</td>
-                    <td>235</td>
-                    <td>Tontine N3</td>
-                    <td>09/9/2002</td>
-                    <td>24000</td>
-                    <td>Sidibe</td>
-                    <td></td>
-                <td class="btnCoti"><button type="button" class="btn btn-transparent  " data-bs-toggle="modal" data-bs-target="#modalSuiviTontine" data-bs-placement="bottom" title="Voir"><i class="bi bi-eye"></i></button></td>
-              </tr>
-            <tr>
-              <td>1</td>
-                    <td>235</td>
-                    <td>Tontine N1</td>
-                    <td>09/09/2012</td>
-                    <td>24000</td>
-                    <td>hajkd</td>
-                    <td></td>
-              <td class="btnCoti"><button type="button" class="btn btn-transparent  " data-bs-toggle="modal" data-bs-target="#modalSuiviTontine" data-bs-placement="bottom" title="Voir"><i class="bi bi-eye"></i></button></td>
-          </tr>
+            <tbody> 
+              
+              <?php 
+                include("php/Agence.php");
+                dispalyTontineIndHis();
+              ?>
+                
             </tbody>
         </table>
         </div>

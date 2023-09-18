@@ -19,7 +19,16 @@
                 
       
                   <div class="row">
-                       <form action="" class="form-inline bg-light">
+                        <div class="row">
+                            <div class="col">
+                              <?php 
+                                include("php/Agence.php");
+                                InsertAgenceModal();
+                                UpdateAgence();
+                              ?>
+                            </div>
+                        </div>
+                       
                             <div class="row">
                                     <div class="col">
                                         <div class="form-group">
@@ -46,7 +55,7 @@
                                     <div class="col mt-4">
                                         <div class="form-group">
                                             <button type="button" class="btn btn-warning text-center form-control">
-                                              <i class="bi bi-printer inprimer"></i> <span class="inprimer" id="btn-inprimer-agence">inprimer</span>
+                                              <i class="bi bi-printer inprimer"></i> <span class="inprimer" id="btn-inprimer-agence">Imprimer</span>
                                             </button>
                                         </div>
                                     </div>
@@ -77,68 +86,72 @@
                                                   <div class="card-body">
                                                     
                                                     <!-- General Form Elements -->
-                                                    <form>
-                                                      <div class="row mb-4 mt-4">
+                                                    <form method="post" action="" >
+                                                     
+                                                      <div class="row mb-4">
                                                         <label class="col-sm-4  text-center fs-5">Agence</label>
                                                         <div class="col-sm-6">
-                                                          <input type="text" class="form-control border-secondary">
+                                                          <input type="text" name="nomAgence" class="form-control border-secondary">
                                                         </div>
                                                         <div class="col-sm-2"></div>
                                                       </div>
                                                         <div class="row mb-4">
                                                             <label class="col-sm-4  text-center fs-5">Adresse</label>
                                                             <div class="col-sm-6">
-                                                             <input type="text" class="form-control border-secondary">
+                                                             <input type="text" name="adresseAgence" class="form-control border-secondary">
                                                             </div>
                                                             <div class="col-sm-2"></div>
                                                         </div>
                                                         <div class="row mb-4">
                                                           <label class="col-sm-4  text-center fs-5">Telephone</label>
                                                           <div class="col-sm-6">
-                                                           <input type="tel" class="form-control border-secondary">
+                                                           <input type="tel" name="telAgence" class="form-control border-secondary">
                                                           </div>
                                                           <div class="col-sm-2"></div>
                                                         </div>
-                                      
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
+                                                            <button type="submit" name="btnValiderAgence" class="btn btn-success boutton">Valider</button>
+                                                        </div>
                                                     </form><!-- End General Form Elements -->
                                                     
                                 
                                                   </div>
                                                 </div>
                                                 </div>
-                                                <div class="modal-footer">
-                                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
-                                                <button type="button" class="btn btn-success boutton">Valider</button>
-                                                </div>
+                                             
                                             </div>
                                             </div>
                                         </div>
                                         <!-- Fin Modal pour ajouter -->
                                 </div>
-                             </div>
+                            </div>
                                 
-                        </form> 
+                       
                  </div>
                   <div class="row mt-5">     
                         <!-- Table -->
-                        <table class="table table-bordered table-responsive table-compressed table-hover table-striped">
-                            <thead class="bg-success">
-                            <tr class="bg-success">
-                                    <th class="text-center bg-success text-white">N°</th>
-                                    <th class="text-center bg-success text-white">Identifiant</th>
-                                    <th class="text-center bg-success text-white">Nom Agence</th>
-                                    <th class="text-center bg-success text-white">Telephone</th>
-                                    <th class="text-center bg-success text-white">Adresse</th>
-                                    <th class="text-center bg-success text-white" colspan="2">Action</th>
-                            </tr>
-                            </thead>
-                            <tbody class="text-center">
-                                <?php
-                                  include("php/Agence.php");
-                                  displayAgence();
-                                ?>
-                            </tbody>
-                        </table>
+                        <form action="afficherAgence.php" method="post">
+                          <table id="tableAgence" class="table table-bordered table-responsive table-compressed table-hover table-striped">
+                              <thead class="bg-success">
+                              <tr class="bg-success">
+                                      <th class="text-center bg-success text-white">N°</th>
+                                      <th class="text-center bg-success text-white">Identifiant</th>
+                                      <th class="text-center bg-success text-white">Nom Agence</th>
+                                      <th class="text-center bg-success text-white">Telephone</th>
+                                      <th class="text-center bg-success text-white">Adresse</th>
+                                      <th class="text-center bg-success text-white" colspan="2">Action</th>
+                              </tr>
+                              </thead>
+                              <tbody class="text-center">
+                                  <?php
+                                    
+                                    displayAgence();
+                                
+                                  ?>
+                              </tbody>
+                          </table>
+                        </form>
                                         
                             <!-- End Table  -->
                            <!-- Le modal pour modifier -->
@@ -162,43 +175,39 @@
                                   <div class="card-body">
                                     
                                     <!-- General Form Elements -->
-                                    <form method="post" aciton="">
-                                      <div class="row">
-                                      <?php
-                                            
-                                            if(isset($_GET['idAgence'])){
-                                              $id = $_GET['idAgence'];
-                                              $Agence = editAgence($id);
-                                            }
-                                        ?>
-                                      </div>
+                                    <form method="post" action="">
+                                    
                                       <div class="row mb-4 mt-4">
-                                        <label class="col-sm-4  text-center fs-5">Identifiant</label>
                                         <div class="col-sm-6">
-                                          <input name="idAgence" value="<?php if(isset($Agence['idAgence'])) echo $Agence['idAgence']; else echo''; ?>" type="text" class="form-control border-secondary" readonly>
+                                          <input name="MidAgence" id="idAgence" type="hidden" class="form-control border-secondary" readonly>
                                         </div>
                                         <div class="col-sm-2"></div>
                                       </div>
                                       <div class="row mb-4 mt-4">
                                         <label class="col-sm-4  text-center fs-5">Agence</label>
                                         <div class="col-sm-6">
-                                          <input name="MnomAgence" type="text" class="form-control border-secondary">
+                                          <input name="MnomAgence" id="nomAgence" type="text" class="form-control border-secondary">
                                         </div>
                                         <div class="col-sm-2"></div>
                                       </div>
+                                      <div class="row mb-4">
+                                          <label class="col-sm-4  text-center fs-5">Telephone</label>
+                                          <div class="col-sm-6">
+                                           <input name="MtelAgence" id="telAgence" type="tel" class="form-control border-secondary">
+                                          </div>
+                                          <div class="col-sm-2"></div>
+                                        </div>
                                         <div class="row mb-4">
                                             <label class="col-sm-4  text-center fs-5">Adresse</label>
                                             <div class="col-sm-6">
-                                             <input name="MadresseAgence" type="text" class="form-control border-secondary">
+                                             <input name="MadresseAgence" id="adresseAgence" type="text" class="form-control border-secondary">
                                             </div>
                                             <div class="col-sm-2"></div>
                                         </div>
-                                        <div class="row mb-4">
-                                          <label class="col-sm-4  text-center fs-5">Telephone</label>
-                                          <div class="col-sm-6">
-                                           <input name="MtelAgence" type="tel" class="form-control border-secondary">
-                                          </div>
-                                          <div class="col-sm-2"></div>
+                                        
+                                        <div class="modal-footer">
+                                          <button  type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
+                                          <button type="submit" name="MbtnValiderAgence" class="btn btn-success boutton">Valider</button>
                                         </div>
                       
                                     </form><!-- End General Form Elements -->
@@ -207,10 +216,7 @@
                                   </div>
                                 </div>
                                 </div>
-                                <div class="modal-footer">
-                                <button name="MbtnValiderAgence" type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
-                                <button type="button" class="btn btn-success boutton">Valider</button>
-                                </div>
+                               
                             </div>
                             </div>
                         </div>

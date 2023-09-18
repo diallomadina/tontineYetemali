@@ -61,29 +61,23 @@
           </div>
           <div class="row mt-3">  
                <!-- Table -->
-               <table id="tableHistoriqueCoti" class="table table-bordered table-responsive table-compressed table-hover table-striped">
+               <table id="tableHistoriqueCoti" class="table text-center table-bordered table-responsive table-compressed table-hover table-striped">
                   <thead class="bg-success">
                      <tr class="bg-success">
                            <th class="text-center bg-success text-white">N°</th>
-                           <th class="text-center bg-success text-white">Identifiant</th>
+                           <th class="text-center bg-success text-white">Code</th>
                            <th class="text-center bg-success text-white">Tontine</th>
                            <th class="text-center bg-success text-white">Membre</th>
                            <th class="text-center bg-success text-white">Montant</th>
                            <th class="text-center bg-success text-white">Date</th>
-                           <th class="text-center bg-success text-white">Statut</th>
-                           <th class="text-center bg-success text-white">Voir</th>
+                           
                      </tr>
                   </thead>
                   <tbody>
-                      <tr>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td>En Cours</td>
-                          <td class="btnCoti"><button type="button" class="btn btn-transparent"  data-bs-toggle="modal" data-bs-target="#modalVoirTontine" data-bs-placement="bottom" title="Modifier"><i class="bi bi-eye"></i></button></td>
-                      </tr>
+                      <?php
+                        include("php/Agence.php");
+                        displayCotisation();
+                      ?>
                   </tbody>
               </table>
                     <!-- End Table  -->

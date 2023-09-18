@@ -18,12 +18,19 @@
             <!-- End Page Title -->
             <div class="container">
              
-                <div class="row">
+              <form action="" method="post">
+                  <div class="row">
                     <div class="col ms-3 contenuTb">
                       <h3 class="fw-bold text-white text-center fw-bold mt-3">Nombre Agences</h3>
-                      
+                        <?php 
+                          include("php/connection.php");
+                          $request = "SELECT count(*) from agence";
+                          $result = $con -> query($request);
+                          $nombre = mysqli_fetch_assoc($result);
+                          echo "<p class='fw-bold text-white text-center fw-bold fs-3'>.'$nombre'.</p>";
+                        ?>
                         
-                            <p class="fw-bold text-white text-center fw-bold fs-3">20</p>
+                           
                       
                     </div>
                       <div class="col ms-3 contenuTb">
@@ -43,27 +50,28 @@
                 </div>
    
        
-              <div class="row mt-4">
-                    <div class="col ms-3 contenuTb">
-                      <h3 class="fw-bold text-white text-center mt-3">Nombre de tontine</h3>
-                      <div class="row mt-2">
-                        <div class="col">
-                            <p class="fw-bold text-white text-center fs-4">Total</p>
-                            <p class="fw-bold text-white text-center fs-4" >50</p>
-                      </div>
-                        <div class="col">
-                            <p class="fw-bold text-white text-center fs-4">En Cours</p>
-                            <p class="fw-bold text-white text-center fs-4" >20</p>
+                <div class="row mt-4">
+                      <div class="col ms-3 contenuTb">
+                        <h3 class="fw-bold text-white text-center mt-3">Nombre de tontine</h3>
+                        <div class="row mt-2">
+                          <div class="col">
+                              <p class="fw-bold text-white text-center fs-4">Total</p>
+                              <p class="fw-bold text-white text-center fs-4" >50</p>
                         </div>
-                      </div>
+                          <div class="col">
+                              <p class="fw-bold text-white text-center fs-4">En Cours</p>
+                              <p class="fw-bold text-white text-center fs-4" >20</p>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="col ms-3 contenuTb">
+                      <h3 class="fw-bold text-white text-center mt-3 ">Montant Rassemblé</h3>
+                            <p class="fw-bold text-white text-center fs-4" >800000</p>
                   </div>
-                  <div class="col ms-3 contenuTb">
-                    <h3 class="fw-bold text-white text-center mt-3 ">Montant Rassemblé</h3>
-                          <p class="fw-bold text-white text-center fs-4" >800000</p>
+                    
+                    
                 </div>
-                  
-                  
-              </div>
+              </form>
               
 
                 <div class="row mt-3">
