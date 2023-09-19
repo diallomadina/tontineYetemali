@@ -29,25 +29,33 @@
                             </div>
                         </div>
                        
-                            <div class="row">
-                                    <div class="col">
+                          <form action="" method="post">
+                          <div class="row">
+                                    <div class="col mt-4">
+                                      <select name="choix" id="" class="form-select">
+                                        <option value="" selected>Option de Filtre</option>
+                                        <option value="nom">Nom</option>
+                                        <option value="code">Code</option>
+                                        <option value="adresse">Adresse</option>
+                                      </select>
+                                    </div>
+                                    <div class="col mt-4">
                                         <div class="form-group">
                                             <div class="col">
-                                                <label for="" class="label-form">Agence</label>
-                                                <input type="text" class="form-control bi bi-chevron-compact-down"  id="champ_text_agence">
+                                                <input name="txtRecherche" type="text" class="form-control bi bi-chevron-compact-down"  id="champ_text_agence">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col mt-4">
                                         <div class="form-group">
-                                            <button type="button" class="btn btn-warning text-center form-control" id="btn-filtrer-agence">
+                                            <button name="filtrer" type="submit" class="btn btn-warning text-center form-control" id="btn-filtrer-agence">
                                               <i class="bi bi-search"></i> <span class="">Filtrer</span>
                                             </button>
                                         </div>
                                     </div>
                                     <div class="col mt-4">
                                         <div class="form-group">
-                                            <button type="button" class="btn btn-warning text-center form-control" id=" btn-actualiser-agence">
+                                            <button name="actualiser" type="submit" class="btn btn-warning text-center form-control" id=" btn-actualiser-agence">
                                             <i class="bi bi-repeat"></i> <span class="">Actualiser</span>
                                             </button>
                                         </div>
@@ -65,8 +73,62 @@
                                                 <i class="bi bi-plus nouveau"></i> <span class=" nouveau" id="btn-nouveau-agence">Nouveau</span>
                                             </button>
                                         </div>
-                                        <!-- Le modal pour ajouter -->
-                                        <div class="modal fade" id="modalAjoutAgence" tabindex="-1">
+                                       
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                            <table id="tableAgence" class="table table-bordered table-responsive table-compressed table-hover table-striped">
+                              <thead class="bg-success">
+                              <tr class="bg-success">
+                                      <th class="text-center bg-success text-white">N°</th>
+                                      <th class="text-center bg-success text-white">Code</th>
+                                      <th class="text-center bg-success text-white">Nom Agence</th>
+                                      <th class="text-center bg-success text-white">Telephone</th>
+                                      <th class="text-center bg-success text-white">Adresse</th>
+                                      <th class="text-center bg-success text-white" colspan="2">Action</th>
+                              </tr>
+                              </thead>
+                              <tbody class="text-center">
+                                  <?php
+                                    if(empty($_POST['txtRecherche'])||isset($_POST['actualiser'])){
+                                      displayAgence();
+                                    }else if (isset($_POST['txtRecherche'])&&isset($_POST['filtrer'])&&isset($_POST['choix'])){
+                                      $choix = $_POST['choix'];
+                                      switch($choix){
+                                        case 'code' : {
+                                          displayAgenceWithCode();
+                                        }break;
+                                        case 'nom' : {
+                                          displayAgenceWithName();
+                                        }break;
+                                        case 'adresse' : {
+                                          displayAgenceWithAdresse();
+                                        }break;
+                                        default : {
+                                          displayAgence();
+                                        }
+                                      }
+                                    }
+                                    
+                                
+                                  ?>
+                              </tbody>
+                          </table>
+                            </div>
+                          </form>  
+                                
+                       
+                 </div>
+                  <div class="row mt-5">     
+                        <!-- Table -->
+                        
+                        
+                        
+                                        
+                            <!-- End Table  -->
+
+                             <!-- Le modal pour ajouter -->
+                             <div class="modal fade" id="modalAjoutAgence" tabindex="-1">
                                             <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header text-center">
@@ -124,36 +186,6 @@
                                             </div>
                                         </div>
                                         <!-- Fin Modal pour ajouter -->
-                                </div>
-                            </div>
-                                
-                       
-                 </div>
-                  <div class="row mt-5">     
-                        <!-- Table -->
-                        <form action="afficherAgence.php" method="post">
-                          <table id="tableAgence" class="table table-bordered table-responsive table-compressed table-hover table-striped">
-                              <thead class="bg-success">
-                              <tr class="bg-success">
-                                      <th class="text-center bg-success text-white">N°</th>
-                                      <th class="text-center bg-success text-white">Identifiant</th>
-                                      <th class="text-center bg-success text-white">Nom Agence</th>
-                                      <th class="text-center bg-success text-white">Telephone</th>
-                                      <th class="text-center bg-success text-white">Adresse</th>
-                                      <th class="text-center bg-success text-white" colspan="2">Action</th>
-                              </tr>
-                              </thead>
-                              <tbody class="text-center">
-                                  <?php
-                                    
-                                    displayAgence();
-                                
-                                  ?>
-                              </tbody>
-                          </table>
-                        </form>
-                                        
-                            <!-- End Table  -->
                            <!-- Le modal pour modifier -->
                            <div class="modal fade" id="modalModifAgence" tabindex="-1">
                             <div class="modal-dialog modal-dialog-centered">

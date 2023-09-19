@@ -23,25 +23,38 @@
                   <div class="card-body">
                     
                     <!-- General Form Elements -->
-                    <form>
+                    <form method="post" action="">
                         <div class="form-group">
+                          <div class="row">
+                            <div class="col"></div>
+                            <div class="col">
+                              <?php 
+                                include("php/Agence.php");
+                                InsertTontineCollective();
+                              ?>
+                            </div>
+                            <div class="col"></div>
+                          </div>
                           <div class="row mb-4">
                             
                             <div class="col">
                               <label class="fs-5">Agent</label>
-                              <select name="" id="" class="form-select border-secondary">
-                                <option value="" selected>Selectionnez l'agent</option>
-                                <option value="">Agent 1</option>
-                                <option value="">Agent 2</option>
-                                <option value="">Agent 3</option>
+                              <select name="agent" id="" class="form-select border-secondary">
+                                  <?php
+                                    include("php/connection.php");
+                                    $request = "SELECT idAgent, nomAgent, prenomAgent from Agent";
+                                    $result = $con->query($request);
+                                    while($agent= Mysqli_fetch_array($result)){
+                                      $idAgent = $agent['idAgent'];
+                                      echo "<option value='$idAgent'>".$agent['nomAgent']." ".$agent['prenomAgent']."</option>";
+                                    }
+                                  ?>
                               </select>
-                              <p id="pErNomTontine" class="text-danger d-none">Veuillez saisir un nom</p>
                             </div>
 
                             <div class="col">
                               <label class="fs-5">Nom</label>
-                              <input id="txtNomTontine" type="text" class="form-control border-secondary" placeholder="Nom de la tontine">
-                              <p id="pErNomTontine" class="text-danger d-none">Veuillez saisir un nom</p>
+                              <input name="nom" type="text" class="form-control border-secondary" placeholder="Nom de la tontine">
                             </div>
                             
                           </div>
@@ -50,51 +63,74 @@
                             
                             <div class="col">
                               <label for="inputDate" class="fs-5">Debut</label>
-                              <input id="dtdateDebut"  type="date" class="form-control border-secondary">
-                              <p id="pErDate" class="text-danger d-none">La date ne doit pas contenir des lettres</p>
+                              <input name="debut"  type="date" class="form-control border-secondary">
                             </div>
                             
                             <div class="col">
                               <label class="fs-5">Montant</label>
-                              <input id="txtMontantTontine" type="number" class="form-control border-secondary" placeholder="Montant de la tontine">
-                              <p id="pErMontantTontine" class="text-danger d-none">Veuillez saisir un montant</p>
+                              <input name="montant" type="number" class="form-control border-secondary" placeholder="Montant de la tontine">
                             </div>
                           </div>
 
                         <div class="row mb-4">
                             
                             <div class="col">
-                              <label for="inputDate" class="fs-5">Frequence</label>
-                              <select name="" id="freqTontine" class="form-select border-secondary">
-                                <option value="jour" selected>Jours</option>
-                                <option value="semaine">Semaines</option>
-                                <option value="mois">Mois</option>
-                                <option value="annee">Annee</option>
+                              <label for="" class="fs-5">Frequence</label>
+                              <select name="frequence" id="freqTontine" class="form-select border-secondary">
+                                <option value="1" selected>Jours</option>
+                                <option value="7">Semaines</option>
+                                <option value="30">Mois</option>
+                                <option value="12">Annee</option>
                               </select>
-                              <p id="pErFreqTontine" class="text-danger d-none">Veuillez definir une frequence</p>
                             </div>
                             
                             <div class="col">
                               <label for="inputDate" class="fs-5">Participant</label>
-                              <input id="dtPaticipantTontine"  type="number" class="form-control border-secondary" placeholder="Nombre de participants">
-                              <p id="pErParticipantTontine" class="text-danger d-none">Veuillez definir le nombre de Participants</p>
+                              <input name="participant"  type="number" class="form-control border-secondary" placeholder="Nombre de participants">
                             </div>
                         </div>
-                        <h3 class="text-center">Assoier les membres a la tontine collective</h3>
+                        <div class="row">
+                          <div class="col"></div>
+                          <div class="col">
+                          <button name="ajouter" type="submit" class="btn btn-success form-control">Ajouter</button>
+                          </div>
+                          <div class="col"></div>
+                        </div>
+                        
                         <div class="row mb-4">
-                            <div class="col-5">
-                              <label class="">Membre</label>
-                              <select name="" id="" class="form-select border-secondary">
-                                <option value="" selected>Choisir un membre</option>
-                                <option value="">Membre 1</option>
-                                <option value="">Membre 2</option>
-                                <option value="">Membre 3</option>
+                          <?php AddParticipation(); ?>
+                            <div class="col">
+                              <label>Tontine</label>
+                              <select name="tontine" id="" class="form-select border-secondary">
+                                  <?php
+                                    include("php/connection.php");
+                                    $request = "SELECT idTontineCollectif, nomTontineCollective, codeTontineCollective from tontineCollective";
+                                    $result = $con->query($request);
+                                    while($agent= mysqli_fetch_array($result)){
+                                      $idAgent = $agent['idTontineCollectif'];
+                                      echo "<option value='$idAgent'>"."(".$agent['codeTontineCollective'].") ".$agent['nomTontineCollective']."</option>";
+                                    }
+                                  ?>
                               </select>
-                              <p id="pErNomTontine" class="text-danger d-none">Veuillez saisir un nom</p>
+                            </div>
+                            <div class="col">
+                              <label class="">Membre</label>
+                              <select name="membre" id="" class="form-select border-secondary">
+                                <?php
+                           
+                                  $request = "SELECT idMembre, nomMembre, prenomMembre from Membre";
+                                  $result = $con -> query($request);
+                                  while($membre = Mysqli_fetch_array($result)){
+                                    $idMembre = $membre['idMembre'];
+                                    echo "<option value='$idMembre'>".$membre['nomMembre']." ".$membre['prenomMembre']."</option>";
+                                  }
+                     
+                                ?>
+                              </select>
                             </div>
                             <div class="col">
                               <label for="" class=" fs-5"></label>
-                              <button id="btnValiderAjoutCoti" type="button" class="btn btn-success form-control">Associer</button>
+                              <button name="associer" type="submit" class="btn btn-success form-control">Associer</button>
                             </div>
 
                             <div class="col">
@@ -102,10 +138,7 @@
                               <button id="btnValiderAjoutCoti" type="button" class="btn btn-success form-control">Inviter</button>
                             </div>
                             
-                            <div class="col">
-                              <label for=""></label>
-                              <button id="btnValiderAjoutCoti" type="button" class="btn btn-success form-control">Valider</button>
-                            </div>
+                           
                             
                         </div>
       
