@@ -1,7 +1,10 @@
      <!-- Vendor JS Files -->
-     <script src="assets/js/jquery.min.js"></script>
-     <script src="assets/js/scriptIb.js"></script>
-     <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+         <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/EditMem.js"></script>
+        <script src="assets/js/membres.js"></script>
+        <script src="assets/js/editAgent.js"></script>
+        <script src="assets/js/scriptIb.js"></script>
+        <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
         <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="assets/vendor/chart.js/chart.umd.js"></script>
         <script src="assets/vendor/echarts/echarts.min.js"></script>

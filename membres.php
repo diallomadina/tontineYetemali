@@ -23,10 +23,10 @@
                 <div class="col"></div>
                 <label for="">Rechercher par:</label>
                   <div class="col-2">  
-                    <input id="contact" type="text"  class="form-control bi bi-chevron-compact-down">
+                    <input id="contact" type="text" name="champRecherche"  class="form-control bi bi-chevron-compact-down">
                   </div>
                   <div class="col-2 ">
-                    <button class="btn  btn-secondary">
+                    <button class="btn  btn-secondary" type="submit" name="rechercher">
                         <i class="bi bi-search"></i>
                         <span id="btnRechercher">Rechercher</span>
                     </button>
@@ -38,19 +38,19 @@
                       </button>
                   </div>-->
                   <div class="col-2">
-                      <button class="form-control btn btn-success">
+                      <button class="form-control btn btn-success" type="submit" name="actualiser">
                         <i class="bi bi-refresh"></i> 
                         <span id="btnActualiser">Actualiser</span>
                       </button>
                   </div>
                   <div class="col-2">
-                    <button class="form-control btn btn-success"  data-bs-toggle="modal" data-bs-target="#modalNouveau" >
+                    <button class="form-control btn btn-success" type="submit" name="nouveau"  data-bs-toggle="modal" data-bs-target="#modalNouveau" >
                       <i class="bi bi-plus"></i>
                       <span id="btnNouveau">Nouveau</span>
                     </button> 
                   </div>
                   <div class="col-2">
-                    <button class="btn btn-primary">
+                    <button class="btn btn-primary" type="submit" name="imprimer">
                         <i class="bi bi-print"></i>
                         <span id="btnImprimer">Imprimer</span>
                     </button>
@@ -58,7 +58,7 @@
               </div>
               <div class="row" >                       
                 <div class="col-12">
-                  <table class=" table table-bordered table-responsive table-hover table-striped" id="tableau">
+                  <table id="tableMembre" class=" table table-bordered table-responsive table-hover table-striped" >
                     <thead>
                         <th  class="text-center bg-success text-white" >N°</th>
                         <th  class="text-center bg-success text-white" >Identifiant</th>
@@ -67,86 +67,14 @@
                         <th  class="text-center bg-success text-white" >Adresse</th>
                         <th  class="text-center bg-success text-white" >Contact</th>
                         <th  class="text-center bg-success text-white" >Date_Adhesion</th>
-                        <th  class="text-center bg-success text-white" colspan="3">Action</th>
+                        <th  class="text-center bg-success text-white" >e-mail</th>
+                        <th  class="text-center bg-success text-white">Action</th>
                     </thead>
-                    <tbody >
-                      <tr>
-                        <td>1</td>
-                        <td>A1</td>
-                        <td>Diallo</td>
-                        <td>Madinatou</td>
-                        <td>Cimenterie</td>
-                        <td>625444313</td>
-                        <td>11/01/23</td>
-                        <td>
-                            <button  type="button" class="btn btn-transparent"data-bs-toggle="modal" data-bs-target="#verticalycentered"  >
-                              <i class="bi bi-pen"></i>
-                            </button>
-                       </td>
-                       <td >
-                          <button type="button" class="btn btn-transparent  " data-bs-toggle="modal" data-bs-target="#modalInfoMembre" data-bs-placement="bottom" title="Voir">
-                            <i class="bi bi-eye"></i>
-                          </button>
-                      </td>
-
-                        <td>
-                            <button id="btnSupprimer" type="button" class="btn btn-transparent" >
-                              <i class="bi bi-trash"></iclass></i>
-                            </button>
-                        </td>
-                     </tr>
-                      <tr>  
-                        <td>2</td>
-                        <td>A2</td> 
-                        <td>Camara</td>
-                        <td>Amy</td>
-                        <td>Dixinn</td>
-                        <td>23345466</td>
-                        <td>5456</td>
-                        <td>
-                          <button  type="button" class="btn btn-transparent"data-bs-toggle="modal" data-bs-target="#verticalycentered"  >
-                            <i class="bi bi-pen"></i>
-                          </button>
-                        </td>
-                        <td >
-                          <button type="button" class="btn btn-transparent  " data-bs-toggle="modal" data-bs-target="#modalInfoMembre" data-bs-placement="bottom" title="Voir">
-                            <i class="bi bi-eye"></i>
-                          </button>
-                        </td>
-
-                        <td>
-                          <button id="btnSupprimer" type="button" class="btn btn-transparent" >
-                            <i class="bi bi-trash"></iclass></i>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>   
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>   
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>   
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
+                    <tbody>
+                          <?php
+                            include("php/fonctionMembres.php");
+                            afficher();
+                         ?>
                     </tbody>
                   </table> 
                 </div>
@@ -170,30 +98,35 @@
               <span class="d-none d-lg-block text-warning">mali</span>
             </a>
           </div>
-            <form action="">
+            <form action="" method="POST">
+                 <?php
+                   
+                  enregistrer();
+                  modifier();
+                 ?>
+                <label for="">Identifiant</label>
+                <input type="text" name="idMembre" id="" class="form-control">
                 <label for="">Nom</label>
-                <input type="text" id="nom" class="form-control">
+                <input type="text" id="nom" name="nomMembre" class="form-control">
                 <label for="">Prenom</label>
-                <input type="text" id="prenom" class="form-control">
+                <input type="text" id="prenom" name="prenomMembre" class="form-control">
                 <label for="">Adresse</label>
-                <input type="text" id="adresse" class="form-control">
+                <input type="text" id="adresse" name="adresseMembre" class="form-control">
                 <label for="">Contact</label>
-                <input type="text" id="contact" class="form-control">
+                <input type="text" id="contact" name="telMembre" class="form-control">
                 <label for="">date_Adhesion</label>
-                <input type="date" id="date" class="form-control">
-                <label for="">Tontine</label>
-                <select id="tontine" class="form-select" aria-label="Default select example">
-                  <option selected>Selectionner la tontine</option>
-                  <option value="1">Tontine 1</option>
-                  <option value="2">Tontine 2</option>
-                  <option value="3">Tontine 3</option>
-                </select>
+                <input type="date" id="date" name="dateAdhesion" class="form-control">
+                <label for="">E-mail</label>
+                <input type="mail" id="mailMembre" name="mailMembre" class="form-control">
                 <div class="row mt-4">
-                  
-                <div class="col-4">
-                  <button id="btnEnregistrer" type="submit" class="btn btn-success" data-bs-dismiss="modal" onclick="enregistrer()">Enregistrer</button>
+                  <div class="col-6"></div>
+                <div class="col-3">
+                  <button id="btnEnregistrer" name="enregistrer" type="submit" class="btn btn-success" data-bs-dismiss="modal" onclick="enregistrer()">Enregistrer</button>
                 </div>
-                <div class="col-sm-3"></div>
+                <div class="col-3">
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
+                </div>
+                
                 </div>
             </form>
         </div>
@@ -201,7 +134,7 @@
       </div>
     </div>
   </div><!-- End Vertically centered Modal-->
-  <div class="modal fade" id="verticalycentered" tabindex="-1">
+  <div class="modal fade" id="modalmodif" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -216,21 +149,26 @@
             </a>
           </div>
             <form action="">
+                <input type="hidden" name="mIdMembre" id="mIdMembre">
                 <label for="">Nom</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" name="mNomMembre" id="mNomMembre">
                 <label for="">Prenom</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" name="mPrenomMembre" id="mPrenomMembre">
                 <label for="">Adresse</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" name="mAdresseMembre" id="mAdresseMembre">
                 <label for="">Contact</label>
-                <input type="number" class="form-control">
+                <input type="text" class="form-control" name="mTelMembre" id="mTelMembre">
                 <label for="">date_Adhesion</label>
-                <input type="date" class="form-control">
-                <label for="">Tontine</label>
-                <input type="text" class="form-control">
-                <div class="row mt-4"> 
-                  <div class="col-4">
-                    <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Enregistrer</button>
+                <input type="date" class="form-control" name="mDateMembre" id="mDateMembre">
+                <label for="">e-mail</label>
+                <input type="mail" class="form-control" name="mMailMembre" id="mMailMembre">
+                <div class="row mt-4">
+                  <div class="col-6"></div> 
+                  <div class="col-3">
+                    <button type="submit" class="btn btn-success" data-bs-dismiss="modal" name="btnEnregistrer">Enregistrer</button>
+                  </div>
+                  <div class="col-3">
+                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
                   </div>
                   <div class="col-sm-3"></div>
                 </div>
