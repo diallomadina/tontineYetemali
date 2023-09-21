@@ -28,9 +28,13 @@
           ?>
         </div>
       </div>
+<<<<<<< HEAD
+=======
+        <form action="" method="post">
+>>>>>>> c7c4f58f793b9a1b4703ba8bdc4fbbb9713abcad
         <div class="row">
           <div class="col">
-            <select name="" id="sldTontineCours" class="form-select border-secondary">
+            <select name="choix" id="sldTontineCours" class="form-select border-secondary">
                 <option value="" selected>Choisissez l'option</option>
                 <option value="id">Identifiant</option>
                 <option value="nom">nom</option>
@@ -39,7 +43,7 @@
             </select>
           </div>
           <div class="col">
-            <input type="text" class="form-control border-secondary" placeholder="Saisissez votre text de recherche">
+            <input type="text" class="form-control border-secondary">
           </div>
           <div class="col">
             <button type="button" class="form-control border-secondary bg-warning-light">
@@ -83,8 +87,9 @@
                   dispalyTontineInd();
                 ?>
             </tbody>
-        </table>
+          </table>
         </div>
+        </form>
     </div>
 
     <div class="modal fade" id="modalAjoutTontine" tabindex="-1">

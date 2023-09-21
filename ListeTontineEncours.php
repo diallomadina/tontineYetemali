@@ -19,30 +19,31 @@
 
     <!-- Contenue de la page -->
     <div class="container">
+        <form action="" method="post">
         <div class="row">
           <div class="col">
-            <select name="" id="sldTontineCours" class="form-select border-secondary">
+            <select name="choix" id="sldTontineCours" class="form-select border-secondary">
                 <option value="" selected>Choisissez l'option</option>
-                <option value="id">Identifiant</option>
+                <option value="identifiant">Identifiant</option>
                 <option value="nom">nom</option>
                 <option value="montant">Montant</option>
             </select>
           </div>
           <div class="col">
-            <input type="text" class="form-control border-secondary" placeholder="Saisissez votre text de recherche">
+            <input name="txtRecherche" type="text" class="form-control border-secondary" placeholder="Saisissez votre text de recherche">
           </div>
           <div class="col">
-            <button type="button" class="form-control border-secondary bg-warning-light">
+            <button name="filtrer" type="submit" class="form-control border-secondary bg-warning-light">
               <i class="bi bi-filter"></i>Filtrer
             </button>
           </div>
           <div class="col">
-            <button type="button" class="form-control border-secondary bg-warning-light">
+            <button name="actualiser" type="submit" class="form-control border-secondary bg-warning-light">
               <i class="bi bi-arrow-repeat"></i>Actualiser
             </button>
           </div>
           <div class="col">
-            <button type="button" class="form-control border-secondary bg-warning-light"data-bs-toggle="modal" data-bs-target="#modalAjoutTontine">
+            <button  type="button" class="form-control border-secondary bg-warning-light"data-bs-toggle="modal" data-bs-target="#modalAjoutTontine">
               <i class="bi bi-plus"></i>Nouveau
             </button>
           </div>
@@ -69,53 +70,32 @@
                </tr>
             </thead>
             <tbody id="tbodyAfficheTontine">
-                <tr>
-                    <td>1</td>
-                    <td>235</td>
-                    <td>Tontine N1</td>
-                    <td>09/09/2012</td>
-                    <td>24000</td>
-                    <td>Semaine</td>
-                    <td>4</td>
-                    <td class="btnCoti"><button type="button" class="btn btn-transparent"  data-bs-toggle="modal" data-bs-target="#modalModifTontine" data-bs-placement="bottom" title="Modifier"><i class="bi bi-pen"></i></button></td>
-                    <td class="btnCoti"><button type="button" class="btn btn-transparent  " data-bs-toggle="modal" data-bs-target="#modalSuiviTontine" data-bs-placement="bottom" title="Voir"><i class="bi bi-eye"></i></button></td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>235</td>
-                  <td>Tontine N2</td>
-                  <td>18/09/2012</td>
-                  <td>24000</td>
-                  <td>Mois</td>
-                  <td>7</td>
-                  <td class="btnCoti"><button type="button" class="btn btn-transparent"  data-bs-toggle="modal" data-bs-target="#modalModifTontine" data-bs-placement="bottom" title="Modifier"><i class="bi bi-pen"></i></button></td>
-                  <td class="btnCoti"><button type="button" class="btn btn-transparent  " data-bs-toggle="modal" data-bs-target="#modalSuiviTontine" data-bs-placement="bottom" title="Voir"><i class="bi bi-eye"></i></button></td>
-              </tr>
-              <tr>
-                <td>3</td>
-                    <td>235</td>
-                    <td>Tontine N3</td>
-                    <td>09/9/2002</td>
-                    <td>24000</td>
-                    <td>Annee</td>
-                    <td>4</td>
-                <td class="btnCoti"><button type="button" class="btn btn-transparent"  data-bs-toggle="modal" data-bs-target="#modalModifTontine" data-bs-placement="bottom" title="Modifier"><i class="bi bi-pen"></i></button></td>
-                <td class="btnCoti"><button type="button" class="btn btn-transparent  " data-bs-toggle="modal" data-bs-target="#modalSuiviTontine" data-bs-placement="bottom" title="Voir"><i class="bi bi-eye"></i></button></td>
-              </tr>
-            <tr>
-              <td>1</td>
-                    <td>235</td>
-                    <td>Tontine N1</td>
-                    <td>09/09/2012</td>
-                    <td>24000</td>
-                    <td>Semaine</td>
-                    <td>4</td>
-              <td class="btnCoti"><button type="button" class="btn btn-transparent"  data-bs-toggle="modal" data-bs-target="#modalModifTontine" data-bs-placement="bottom" title="Modifier"><i class="bi bi-pen"></i></button></td>
-              <td class="btnCoti"><button type="button" class="btn btn-transparent  " data-bs-toggle="modal" data-bs-target="#modalSuiviTontine" data-bs-placement="bottom" title="Voir"><i class="bi bi-eye"></i></button></td>
-          </tr>
+                <?php
+                include("php/Agence.php");
+                  if(empty($_POST['txtRecherche'])||isset($_POST['actualiser'])){
+                    dispalyTontineCollective();
+                  }else if (isset($_POST['txtRecherche']) && isset($_POST['filtrer']) && isset($_POST['choix'])){
+                    $choix = $_POST['choix'];
+                    switch($choix){
+                      case 'identifiant': {
+                        dispalyTontineCollectiveWithCode();
+                      } break;
+                      case 'montant': {
+                        dispalyTontineCollectiveMontant();
+                      } break;
+                      case 'nom' : {
+                        dispalyTontineCollectiveWithName();
+                      }break;
+                      default:{
+                        dispalyTontineCollective();
+                      }
+                    }
+                  }
+                ?>
             </tbody>
         </table>
         </div>
+        </form>
     </div>
 
     <div class="modal fade" id="modalAjoutTontine" tabindex="-1">
@@ -141,75 +121,126 @@
                 <div class="card-body">
                   
                   <!-- General Form Elements -->
-                  <form>
-                      <div class="form-group">
-                        <div class="row mb-4">
-                          <label class="col-sm-5  text-center fs-5">Agent</label>
-                          <div class="col-sm-6">
-                            <select name="" id="" class="form-select">
-                              <option value="" selected>Selectionnez l'agent</option>
-                              <option value="">Agent 1</option>
-                              <option value="">Agent 2</option>
-                              <option value="">Agent 3</option>
-                            </select>
-                            <p id="pErNomTontine" class="text-danger d-none">Veuillez saisir un nom</p>
+                  <form method="post" action="">
+                        <div class="form-group">
+                          <div class="row">
+                            <div class="col"></div>
+                            <div class="col">
+                              <?php 
+                                
+                                InsertTontineCollective();
+                              ?>
+                            </div>
+                            <div class="col"></div>
                           </div>
-                          <div class="col-sm-1"></div>
+                          <div class="row mb-4">
+                            
+                            <div class="col">
+                              <label class="fs-5">Agent</label>
+                              <select name="agent" id="" class="form-select border-secondary">
+                                  <?php
+                                    include("php/connection.php");
+                                    $request = "SELECT idAgent, nomAgent, prenomAgent from Agent";
+                                    $result = $con->query($request);
+                                    while($agent= Mysqli_fetch_array($result)){
+                                      $idAgent = $agent['idAgent'];
+                                      echo "<option value='$idAgent'>".$agent['nomAgent']." ".$agent['prenomAgent']."</option>";
+                                    }
+                                  ?>
+                              </select>
+                            </div>
+
+                            <div class="col">
+                              <label class="fs-5">Nom</label>
+                              <input name="nom" type="text" class="form-control border-secondary" placeholder="Nom de la tontine">
+                            </div>
+                            
+                          </div>
+ 
+                          <div class="row mb-4">
+                            
+                            <div class="col">
+                              <label for="inputDate" class="fs-5">Debut</label>
+                              <input name="debut"  type="date" class="form-control border-secondary">
+                            </div>
+                            
+                            <div class="col">
+                              <label class="fs-5">Montant</label>
+                              <input name="montant" type="number" class="form-control border-secondary" placeholder="Montant de la tontine">
+                            </div>
+                          </div>
+
+                        <div class="row mb-4">
+                            
+                            <div class="col">
+                              <label for="" class="fs-5">Frequence</label>
+                              <select name="frequence" id="freqTontine" class="form-select border-secondary">
+                                <option value="1" selected>Jours</option>
+                                <option value="7">Semaines</option>
+                                <option value="30">Mois</option>
+                                <option value="12">Annee</option>
+                              </select>
+                            </div>
+                            
+                            <div class="col">
+                              <label for="inputDate" class="fs-5">Participant</label>
+                              <input name="participant"  type="number" class="form-control border-secondary" placeholder="Nombre de participants">
+                            </div>
                         </div>
-  
-                        <div class="row mb-4">
-                          <label class="col-sm-5  text-center fs-5">Nom</label>
-                          <div class="col-sm-6">
-                            <input id="txtNomTontine" type="text" class="form-control border-secondary" placeholder="Nom de la tontine">
-                            <p id="pErNomTontine" class="text-danger d-none">Veuillez saisir un nom</p>
+                        <div class="row">
+                          <div class="col"></div>
+                          <div class="col">
+                          <button name="ajouter" type="submit" class="btn btn-success form-control">Ajouter</button>
                           </div>
-                          <div class="col-sm-2"></div>
+                          <div class="col"></div>
                         </div>
                         
-                        </div>
                         <div class="row mb-4">
-                          <label for="inputDate" class="col-sm-5  text-center fs-5">Debut</label>
-                          <div class="col-sm-6">
-                            <input id="dtdateDebut"  type="date" class="form-control border-secondary">
-                            <p id="pErDate" class="text-danger d-none">La date ne doit pas contenir des lettres</p>
-                          </div>
-                          <div class="col-sm-2"></div>
-                        </div>
+                          <?php AddParticipation(); ?>
+                            <div class="col">
+                              <label>Tontine</label>
+                              <select name="tontine" id="" class="form-select border-secondary">
+                                  <?php
+                                    include("php/connection.php");
+                                    $request = "SELECT idTontineCollectif, nomTontineCollective, codeTontineCollective from tontineCollective";
+                                    $result = $con->query($request);
+                                    while($agent= mysqli_fetch_array($result)){
+                                      $idAgent = $agent['idTontineCollectif'];
+                                      echo "<option value='$idAgent'>"."(".$agent['codeTontineCollective'].") ".$agent['nomTontineCollective']."</option>";
+                                    }
+                                  ?>
+                              </select>
+                            </div>
+                            <div class="col">
+                              <label class="">Membre</label>
+                              <select name="membre" id="" class="form-select border-secondary">
+                                <?php
+                           
+                                  $request = "SELECT idMembre, nomMembre, prenomMembre from Membre";
+                                  $result = $con -> query($request);
+                                  while($membre = Mysqli_fetch_array($result)){
+                                    $idMembre = $membre['idMembre'];
+                                    echo "<option value='$idMembre'>".$membre['nomMembre']." ".$membre['prenomMembre']."</option>";
+                                  }
                      
-                      <div class="form-group">
-                        <div class="row mb-4">
-                          <label class="col-sm-5  text-center fs-5">Montant</label>
-                          <div class="col-sm-6">
-                            <input id="txtMontantTontine" type="number" class="form-control border-secondary" placeholder="Montant de la tontine">
-                            <p id="pErMontantTontine" class="text-danger d-none">Veuillez saisir un montant</p>
-                          </div>
+                                ?>
+                              </select>
+                            </div>
+                            <div class="col">
+                              <label for="" class=" fs-5"></label>
+                              <button name="associer" type="submit" class="btn btn-success form-control">Associer</button>
+                            </div>
+
+                            <div class="col">
+                              <label for=""></label>
+                              <button id="btnValiderAjoutCoti" type="button" class="btn btn-success form-control">Inviter</button>
+                            </div>
+                            
+                           
+                            
                         </div>
-                        <div class="col-sm-2"></div>
-                      </div>
-                      <div class="row mb-4">
-                          <label for="inputDate" class="col-sm-5  text-center fs-5">Frequence</label>
-                          <div class="col-sm-6">
-                            <select name="" id="freqTontine" class="form-select border-secondary">
-                              <option value="jour" selected>Jours</option>
-                              <option value="semaine">Semaines</option>
-                              <option value="mois">Mois</option>
-                              <option value="annee">Annee</option>
-                            </select>
-                            <p id="pErFreqTontine" class="text-danger d-none">Veuillez definir une frequence</p>
-                          </div>
-                          <div class="col-sm-2"></div>
-                      </div>
-                      
-                      <div class="row">
-                          <label for="inputDate" class="col-sm-5  text-center fs-5">Participant</label>
-                          <div class="col-sm-6">
-                            <input id="dtPaticipantTontine"  type="number" class="form-control border-secondary" placeholder="Nombre de participants">
-                            <p id="pErParticipantTontine" class="text-danger d-none">Veuillez definir le nombre de Participants</p>
-                          </div>
-                          <div class="col-sm-2"></div>
-                      </div>
-    
-                  </form><!-- End General Form Elements -->
+      
+                    </form><!-- End General Form Elements -->
     
                 </div>
               </div>

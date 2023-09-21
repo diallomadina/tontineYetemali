@@ -23,71 +23,79 @@
                   <div class="card-body">
                     
                     <!-- General Form Elements -->
-                    <form>
-                      <div class="row mb-4 mt-4">
-                        <label class="col-sm-3  text-center fs-5">Agence</label>
-                        <div class="col-sm-7">
-                          <select id="selectAgenceAgent" class="form-select border-secondary" aria-label="Default select example">
-                            <option selected >Selectionnez l'Agence</option>
-                            <option value="1">Agence 1</option>
-                            <option value="2">Agence 2</option>
-                            <option value="3">Agence 3</option>
-                          </select>
-                          <p id="pErAgenceAgent" class="text-danger d-none">Veuillez selectionner une Agence</p>
+                    <form method="post" action="" enctype="multipart/form-data">
+                      <div class="row">
+                        <div class="col">
+                          <?php
+                            include("php/Agence.php");
+                            InsertAgent();
+                          ?>
                         </div>
-                        
-                        <div class="col-sm-2"></div>
                       </div>
+                      <div class="row mb-3">
+                        <div class="col">
+                            <label class=" text-center fs-5">Agence</label>
+                            
+                            <select name="agence" class="form-select border-secondary" aria-label="Default select example">
+                            <?php
+                            include("php/connection.php");
+                            $request = "SELECT idAgence, nomAgence from Agence";
+                            $result = $con -> query($request);
+                            while($membre = Mysqli_fetch_array($result)){
+                              $idMembre = $membre['idAgence'];
+                              echo "<option value='$idMembre'>".$membre['nomAgence']."</option>";
+                            }
+                      
+                            ?>
+                            </select>
+                        </div>
                         
-                       
-                        <div class="form-group">
-                          <div class="row mb-4">
-                            <label class="col-sm-3  text-center fs-5">Nom</label>
-                            <div class="col-sm-7">
-                              <input id="txtNomAgent" type="number" class="form-control border-secondary">
-                              <p id="pErNomAgent" class="text-danger d-none">Veuillez saisir un Nom</p>
+                        <div class="col">
+                            <label class=" text-center fs-5">Nom</label>
+                            <div class="col">
+                              <input name="nom" type="text" class="form-control border-secondary">
                             </div>
-                          </div>
-                          <div class="col-sm-2"></div>
                         </div>
+                        
+                        
+                      </div>
 
-                        <div class="form-group">
-                          <div class="row mb-4">
-                            <label class="col-sm-3  text-center fs-5">Prenom</label>
-                            <div class="col-sm-7">
-                              <input id="txtPrenomAgent" type="number" class="form-control border-secondary">
-                              <p id="pErPrenomAgent" class="text-danger d-none">Veuillez saisir un prenom</p>
-                            </div>
+                        
+                      <div class="row mb-3">
+                          <div class="col">
+                            <label class=" text-center fs-5">Prenom</label>
+                            <input name="prenom" type="text" class="form-control border-secondary">
                           </div>
-                          <div class="col-sm-2"></div>
-                        </div>
+                          <div class="col">
+                            <label class="  text-center fs-5">Adresse</label>
+                            <input name="adresse" type="text" class="form-control border-secondary">
+                          </div>
+                          
+                      </div>
                     
-                        <div class="form-group">
-                          <div class="row mb-4">
-                            <label class="col-sm-3  text-center fs-5">Adresse</label>
-                            <div class="col-sm-7">
-                              <input id="txtAdresseAgent" type="number" class="form-control border-secondary">
-                              <p id="pErAdresseAgent" class="text-danger d-none">Veuillez saisir une adresse</p>
-                            </div>
-                          </div>
-                          <div class="col-sm-2"></div>
-                        </div>
 
-                        <div class="form-group">
-                          <div class="row mb-4">
-                            <label class="col-sm-3  text-center fs-5">Telephone</label>
-                            <div class="col-sm-7">
-                              <input id="txtTelAgent" type="number" class="form-control border-secondary">
-                              <p id="pErTelAgent" class="text-danger d-none">Veuillez saisir une adresse</p>
-                            </div>
+                        
+                      <div class="row mb-3">
+                          <div class="col">
+                            <label class=" text-center fs-5">Telephone</label>
+                            <input name="telephone" type="number" class="form-control border-secondary">
                           </div>
-                          <div class="col-sm-2"></div>
-                        </div>
+                          <div class="col">
+                            <label for="" class=" text-center fs-5">Photo</label>
+                            <input type="file" name="photo" id="" accept=".jpg, .png" class="form-control border-secondary">
+                          </div> 
+                           
+                      </div>
+                       
+                      <div class="row mb-3">
+                        <label class=" fs-5">Mail</label>
+                            <input name="mail" type="mail" class="form-control border-secondary">
+                      </div>
 
-                        <div class="row mb-4">
+                        <div class="row mb-3">
                             <div class="col"></div>
                             <div class="col">
-                              <button id="btnValiderAjoutAgent" type="button" class="btn btn-success" style="width: 100%;">Valider</button>
+                              <button name="ajouter" type="submit" class="btn btn-success" style="width: 100%;">Valider</button>
                             </div>
                             <div class="col"></div>
                         </div>
