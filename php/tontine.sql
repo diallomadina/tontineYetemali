@@ -26,6 +26,7 @@ create table Agent(
 --Pour Membre
 create table Membre(
     idMembre int primary key auto_increment,
+    matriculeMembre varchar(100) unique not null,
     nomMembre varchar(100),
     prenomMembre varchar(200),
     adresseMembre varchar(200),
@@ -89,3 +90,14 @@ create table utilisateurs(
     passwrd varchar(50) not null,
     typeUtilisateur varchar(50) not null
 );
+
+INSERT INTO Agent(matriculeAgent, nomAgent, prenomAgent, adresseAgent, telAgent, mailAgent, idAgence)
+Values('YM5326SHHASB', 'Diallo', 'Ibreahima', 'Hamdallay', '6356271878', 'jdhsak@cina', 1),
+('YM532634HASB', 'Sow', 'Mamadou', 'Coja', '6356271878', 'jdhsak@cina', 2),
+('YM5625JASDJ', 'Camara', 'Aissatou', '737', '723782', 'jdhsak@cina', 3),
+('YM53we234HASB', 'Sylla', 'Mamadou', 'Coja', '6356271878', 'jdhsak@cina', 2);
+
+INSERT INTO Membre(matriculeMembre, nomMembre, prenomMembre, adresseMembre, dateAdhesion, telMembre, mailMembre, idAgent)
+Values('YM728AJKHD7', 'Sidibe', 'Alhassane', 'Coja', '12/12/2023', '624317376', 'djkahdj@jdask', 2),
+('YMEHWH378238', 'Camara', 'Oumou', 'Cite', '12/12/2023', '624317376', 'djkahdj@jdask', 1),
+('YJSD778HDAJ', 'Diallo', 'Aissatou', 'Cite', '12/12/2023', '624317376', 'djkahdj@jdask', 3);

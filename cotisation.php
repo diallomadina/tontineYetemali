@@ -23,17 +23,29 @@
                   <div class="card-body">
                     
                     <!-- General Form Elements -->
-                    <form>
-                      <div class="row mb-4 mt-4">
+                    <form method="post" action="">
+                      <div class="row">
+                        <div class="col">
+                          <?php 
+                            include("php/Agence.php");
+                            insertCotisation();
+                          ?>
+                        </div>
+                      </div>
+                      <div class="row mb-4">
                         <label class="col-sm-3  text-center fs-5">Tontine</label>
                         <div class="col-sm-7">
-                          <select id="selectTontineCoti" class="form-select border-secondary" aria-label="Default select example">
-                            <option selected >Selectionnez la tontine</option>
-                            <option value="1">Tontine 1</option>
-                            <option value="2">Tontine 2</option>
-                            <option value="3">Tontine 3</option>
+                          <select name="tontine" class="form-select border-secondary" aria-label="Default select example">
+                              <?php
+                                include("php/connection.php");
+                                $request = "SELECT idTontineIndividuelle, nomTontineIndividuelle, codeTontineIndividuelle from tontineIndividuelle";
+                                $result = $con->query($request);
+                                while($agent= Mysqli_fetch_array($result)){
+                                  $idAgent = $agent['idTontineIndividuelle'];
+                                  echo "<option value='$idAgent'>"."(".$agent['codeTontineIndividuelle'].") ".$agent['nomTontineIndividuelle']."</option>";
+                                }
+                              ?>
                           </select>
-                          <p id="pErTontineCoti" class="text-danger d-none">Veuillez selectionner une tontine</p>
                         </div>
                         
                         <div class="col-sm-2"></div>
@@ -41,13 +53,18 @@
                         <div class="row mb-4">
                             <label class="col-sm-3  text-center fs-5">Membre</label>
                             <div class="col-sm-7">
-                              <select id="selectMembreCoti" class="form-select border-secondary" aria-label="Default select example">
-                                <option selected >Selectionnez le membre</option>
-                                <option value="1">Membre 1</option>
-                                <option value="2">Membre 2</option>
-                                <option value="3">Membre 3</option>
+                              <select name="membre" class="form-select border-secondary" aria-label="Default select example">
+                              <?php
+                           
+                                  $request = "SELECT idMembre, nomMembre, prenomMembre from Membre";
+                                  $result = $con -> query($request);
+                                  while($membre = Mysqli_fetch_array($result)){
+                                    $idMembre = $membre['idMembre'];
+                                    echo "<option value='$idMembre'>".$membre['nomMembre']." ".$membre['prenomMembre']."</option>";
+                                  }
+                           
+                              ?>
                               </select>
-                              <p id="pErMembre" class="text-danger d-none">Veuillez selectionner un menbre</p>
                             </div>
                             <div class="col-sm-2"></div>
                         </div>
@@ -56,8 +73,7 @@
                           <div class="row mb-4">
                             <label class="col-sm-3  text-center fs-5">Montant</label>
                             <div class="col-sm-7">
-                              <input id="txtMontantCoti" type="number" class="form-control border-secondary">
-                              <p id="pErMontant" class="text-danger d-none">Veuillez saisir un montant</p>
+                              <input  name="montant" class="form-control border-secondary">
                             </div>
                           </div>
                           <div class="col-sm-2"></div>
@@ -66,8 +82,7 @@
                         <div class="row mb-4">
                           <label for="inputDate" class="col-sm-3  text-center fs-5">Date</label>
                           <div class="col-sm-7">
-                            <input id="dtCoti"  type="date" class="form-control border-secondary">
-                            <p id="pErDate" class="text-danger d-none">La date ne doit pas contenir des lettres</p>
+                            <input name="debut"  type="date" class="form-control border-secondary">
                           </div>
                           <div class="col-sm-2"></div>
                         </div>
@@ -75,7 +90,10 @@
                         <div class="row mb-4">
                             <div class="col"></div>
                             <div class="col">
-                              <button id="btnValiderAjoutCoti" type="button" class="btn btn-success" style="width: 100%;">Valider</button>
+                              <button name="btnValider" type="submit" class="btn btn-success form-control">Valider</button>
+                            </div>
+                            <div class="col">
+                            <button id="btnValiderAjoutCoti" type="boutton" class="btn btn-danger form-control">Annullee</button>
                             </div>
                             <div class="col"></div>
                         </div>

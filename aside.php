@@ -101,7 +101,7 @@
         </li>
         <li>
           <a href="ListeTontineInd.php">
-            <i class="bi bi-circle"></i><span>En Cours</span>
+            <i class="bi bi-circle"></i><span>Liste</span>
           </a>
         </li>
         <li>
