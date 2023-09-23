@@ -24,15 +24,10 @@
                       <h3 class="fw-bold text-white text-center fw-bold mt-3">Nombre Agences</h3>
                         <?php 
                           include("php/connection.php");
-                          $request = "SELECT count(*) as totalAgence from agence";
+                          $request = "SELECT count(*) from agence";
                           $result = $con -> query($request);
-                          if($result){
-                            $row = mysqli_fetch_assoc($result);
-                            $nombreAgence = $row['totalAgence'];
-                            echo "<p class='fw-bold text-white text-center fw-bolder fs-1'>$nombreAgence</p>";
-                          }else {
-                            echo "Erreur lors de l'exécution de la requête : " . $con->error;
-                          }
+                          $nombre = mysqli_fetch_assoc($result);
+                          echo "<p class='fw-bold text-white text-center fw-bold fs-3'>.'$nombre'.</p>";
                         ?>
                         
                            

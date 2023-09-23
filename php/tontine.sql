@@ -99,6 +99,8 @@ create table utilisateurs(
     typeUtilisateur varchar(50) not null
 );
 
+<<<<<<< HEAD
+=======
 Create table paticipation(
     id int primary key auto_increment,
     Tontine int,
@@ -107,6 +109,7 @@ Create table paticipation(
     constraint fk_pa_mem foreign key (membre) REFERENCES TontineIndividuelle (idTontineIndividuelle)
 );
 
+>>>>>>> c7c4f58f793b9a1b4703ba8bdc4fbbb9713abcad
 INSERT INTO Agent(matriculeAgent, nomAgent, prenomAgent, adresseAgent, telAgent, mailAgent, idAgence)
 Values('YM5326SHHASB', 'Diallo', 'Ibreahima', 'Hamdallay', '6356271878', 'jdhsak@cina', 1),
 ('YM532634HASB', 'Sow', 'Mamadou', 'Coja', '6356271878', 'jdhsak@cina', 2),
@@ -114,7 +117,13 @@ Values('YM5326SHHASB', 'Diallo', 'Ibreahima', 'Hamdallay', '6356271878', 'jdhsak
 ('YM53we234HASB', 'Sylla', 'Mamadou', 'Coja', '6356271878', 'jdhsak@cina', 2);
 
 INSERT INTO Membre(matriculeMembre, nomMembre, prenomMembre, adresseMembre, dateAdhesion, telMembre, mailMembre, idAgent)
+<<<<<<< HEAD
+Values('YM728AJKHD7', 'Sidibe', 'Alhassane', 'Coja', '12/12/2023', '624317376', 'djkahdj@jdask', 2),
+('YMEHWH378238', 'Camara', 'Oumou', 'Cite', '12/12/2023', '624317376', 'djkahdj@jdask', 1),
+('YJSD778HDAJ', 'Diallo', 'Aissatou', 'Cite', '12/12/2023', '624317376', 'djkahdj@jdask', 3);
+=======
 Values('YM728AJKHD7', 'Sidibe', 'Alhassane', 'Coja', '12/12/2023', '624317376', 'djkahdj@jdask', 5),
 ('YMEHWH378238', 'Camara', 'Oumou', 'Cite', '12/12/2023', '624317376', 'djkahdj@jdask', 6),
 ('YJSD778HDAJ', 'Diallo', 'Aissatou', 'Cite', '12/12/2023', '624317376', 'djkahdj@jdask', 7);
 
+>>>>>>> c7c4f58f793b9a1b4703ba8bdc4fbbb9713abcad

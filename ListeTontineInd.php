@@ -28,7 +28,10 @@
           ?>
         </div>
       </div>
+<<<<<<< HEAD
+=======
         <form action="" method="post">
+>>>>>>> c7c4f58f793b9a1b4703ba8bdc4fbbb9713abcad
         <div class="row">
           <div class="col">
             <select name="choix" id="sldTontineCours" class="form-select border-secondary">
