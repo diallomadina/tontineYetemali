@@ -79,7 +79,7 @@
             include("connection.php");
             $text = $_POST['txtRecherche'];
             $i=1;
-            $request = "SELECT * FROM Agence where codeAgence like '%$text%'";
+            $request = "SELECT * FROM Agence where lower(codeAgence) like '%$text%'";
             $Agence = $con->query($request);
             while($Ag = mysqli_fetch_array($Agence)){
                 $id=$Ag["idAgence"];
@@ -101,7 +101,7 @@
                 include("connection.php");
                 $text = $_POST['txtRecherche'];
                 $i=1;
-                $request = "SELECT * FROM Agence where nomAgence like '%$text%'";
+                $request = "SELECT * FROM Agence where lower(nomAgence) like '%$text%'";
                 $Agence = $con->query($request);
                 while($Ag = mysqli_fetch_array($Agence)){
                     $id=$Ag["idAgence"];
@@ -123,7 +123,7 @@
                 include("connection.php");
                 $text = $_POST['txtRecherche'];
                 $i=1;
-                $request = "SELECT * FROM Agence where adresseAgence like '%$text%'";
+                $request = "SELECT * FROM Agence where lower(adresseAgence) like '%$text%'";
                 $Agence = $con->query($request);
                 while($Ag = mysqli_fetch_array($Agence)){
                     $id=$Ag["idAgence"];
@@ -226,7 +226,7 @@
             include("connection.php");
             $text = $_POST['txtRecherche'];
             $i=1;
-            $request = "SELECT codeTontineIndividuelle, nomTontineIndividuelle, debut, montant, nomMembre, prenomMembre FROM TontineIndividuelle T, Membre M where T.idMembre = M.idMembre and codeTontineIndividuelle= '%$text%'";
+            $request = "SELECT codeTontineIndividuelle, nomTontineIndividuelle, debut, montant, nomMembre, prenomMembre FROM TontineIndividuelle T, Membre M where T.idMembre = M.idMembre and lower(codeTontineIndividuelle) like '%$text%'";
             $TontineInd = $con->query($request);
             while($Ti = mysqli_fetch_array($TontineInd)){
                 $Code=$Ti["codeTontineIndividuelle"];
@@ -249,7 +249,7 @@
             include("connection.php");
             $text = $_POST['txtRecherche'];
             $i=1;
-            $request = "SELECT codeTontineIndividuelle, nomTontineIndividuelle, debut, montant, nomMembre, prenomMembre FROM TontineIndividuelle T, Membre M where T.idMembre = M.idMembre and nomTontineIndividuelle= '%$text%'";
+            $request = "SELECT codeTontineIndividuelle, nomTontineIndividuelle, debut, montant, nomMembre, prenomMembre FROM TontineIndividuelle T, Membre M where T.idMembre = M.idMembre and lower(nomTontineIndividuelle) like '%$text%'";
             $TontineInd = $con->query($request);
             while($Ti = mysqli_fetch_array($TontineInd)){
                 $Code=$Ti["codeTontineIndividuelle"];
@@ -272,7 +272,30 @@
             include("connection.php");
             $text = $_POST['txtRecherche'];
             $i=1;
-            $request = "SELECT codeTontineIndividuelle, nomTontineIndividuelle, debut, montant, nomMembre, prenomMembre FROM TontineIndividuelle T, Membre M where T.idMembre = M.idMembre and nomTontineIndividuelle= '%$text%'";
+            $request = "SELECT codeTontineIndividuelle, nomTontineIndividuelle, debut, montant, nomMembre, prenomMembre FROM TontineIndividuelle T, Membre M where T.idMembre = M.idMembre and lower(montant) like '%$text%'";
+            $TontineInd = $con->query($request);
+            while($Ti = mysqli_fetch_array($TontineInd)){
+                $Code=$Ti["codeTontineIndividuelle"];
+            
+                echo "<tr>";
+                    echo"<td>".$i++."</td>";
+                    echo"<td>".$Ti['codeTontineIndividuelle']."</td>";
+                    echo"<td>".$Ti['nomTontineIndividuelle']."</td>";
+                    echo"<td>".$Ti['debut']."</td>"; 
+                    echo"<td>".$Ti['montant']."</td>";
+                    echo"<td>".$Ti['nomMembre']." ".$Ti['prenomMembre']."</td>";
+                    echo"<td class='btnCoti'><a  class='btn btn-transparent editTontineInd' data-id='2'  data-bs-toggle='modal' data-bs-target='#modalModifTontine' data-bs-placement='bottom' title='Modifier'><i class='bi bi-pen'></i></a></td>";
+                    echo"<td class='btnCoti'><button type='button' class='btn btn-transparent' data-bs-toggle='modal' data-bs-target='#modalSuiviTontine' data-bs-placement='bottom' title='Voir'><i class='bi bi-eye'></i></button></td>";
+                echo "</tr>";
+            }
+        }
+
+        // Afficher la tontine individuelle par Montant
+        function dispalyTontineIndWithMembre(){
+            include("connection.php");
+            $text = $_POST['txtRecherche'];
+            $i=1;
+            $request = "SELECT codeTontineIndividuelle, nomTontineIndividuelle, debut, montant, nomMembre, prenomMembre FROM TontineIndividuelle T, Membre M where T.idMembre = M.idMembre and (lower(nomMembre) like '%$text%' or lower(prenomMembre) like '%$text%')";
             $TontineInd = $con->query($request);
             while($Ti = mysqli_fetch_array($TontineInd)){
                 $Code=$Ti["codeTontineIndividuelle"];
@@ -537,7 +560,7 @@
         include("connection.php");
         $text = $_POST['txtRecherche'];
         $i=1;
-        $request = "SELECT codeTontineCollective, nomTontineCollective, debut, montant, frequence, nombreparticipant FROM TontineCollective where codeTontineCollective like '%$text%'";
+        $request = "SELECT codeTontineCollective, nomTontineCollective, debut, montant, frequence, nombreparticipant FROM TontineCollective where lower(codeTontineCollective) like '%$text%'";
         $TontineInd = $con->query($request);
         while($Ti = mysqli_fetch_array($TontineInd)){
             $Code=$Ti["codeTontineCollective"];
@@ -561,7 +584,7 @@
         include("connection.php");
         $text = $_POST['txtRecherche'];
         $i=1;
-        $request = "SELECT codeTontineCollective, nomTontineCollective, debut, montant, frequence, nombreparticipant FROM TontineCollective where nomTontineCollective like '%$text%'";
+        $request = "SELECT codeTontineCollective, nomTontineCollective, debut, montant, frequence, nombreparticipant FROM TontineCollective where lower(nomTontineCollective) like '%$text%'";
         $TontineInd = $con->query($request);
         while($Ti = mysqli_fetch_array($TontineInd)){
             $Code=$Ti["codeTontineCollective"];
@@ -586,7 +609,7 @@
         include("connection.php");
         $text = $_POST['txtRecherche'];
         $i=1;
-        $request = "SELECT codeTontineCollective, nomTontineCollective, debut, montant, frequence, nombreparticipant FROM TontineCollective where montant = '%$text%'";
+        $request = "SELECT codeTontineCollective, nomTontineCollective, debut, montant, frequence, nombreparticipant FROM TontineCollective where lower(montant) like '%$text%'";
         $TontineInd = $con->query($request);
         while($Ti = mysqli_fetch_array($TontineInd)){
             $Code=$Ti["codeTontineCollective"];
@@ -659,7 +682,7 @@
         include("connection.php");
         $text = $_POST['txtRecherche'];
         $i=1;
-        $request = "SELECT codePayement, nomTontineCollective, datePayement, montantPayement, nomMembre, prenomMembre FROM Payement C, TontineCollective T, Membre M where C.idMembre = M.idMembre and C.idTontineCollectif = T.idTontineCollectif and codePayement like '%$text%'";
+        $request = "SELECT codePayement, nomTontineCollective, datePayement, montantPayement, nomMembre, prenomMembre FROM Payement C, TontineCollective T, Membre M where C.idMembre = M.idMembre and C.idTontineCollectif = T.idTontineCollectif and lower(codePayement) like '%$text%'";
         $TontineInd = $con->query($request);
         while($Ti = mysqli_fetch_array($TontineInd)){
             
@@ -680,7 +703,7 @@
         include("connection.php");
         $text = $_POST['txtRecherche'];
         $i=1;
-        $request = "SELECT codePayement, nomTontineCollective, datePayement, montantPayement, nomMembre, prenomMembre FROM Payement C, TontineCollective T, Membre M where C.idMembre = M.idMembre and C.idTontineCollectif = T.idTontineCollectif and nomTontineCollective like '%$text%'";
+        $request = "SELECT codePayement, nomTontineCollective, datePayement, montantPayement, nomMembre, prenomMembre FROM Payement C, TontineCollective T, Membre M where C.idMembre = M.idMembre and C.idTontineCollectif = T.idTontineCollectif and lower(nomTontineCollective) like '%$text%'";
         $TontineInd = $con->query($request);
         while($Ti = mysqli_fetch_array($TontineInd)){
             
@@ -701,7 +724,7 @@
         include("connection.php");
         $text = $_POST['txtRecherche'];
         $i=1;
-        $request = "SELECT codePayement, nomTontineCollective, datePayement, montantPayement, nomMembre, prenomMembre FROM Payement C, TontineCollective T, Membre M where C.idMembre = M.idMembre and C.idTontineCollectif = T.idTontineCollectif and nomMembre like '%$text%'  or prenomMembre like '%$text%'";
+        $request = "SELECT codePayement, nomTontineCollective, datePayement, montantPayement, nomMembre, prenomMembre FROM Payement C, TontineCollective T, Membre M where C.idMembre = M.idMembre and C.idTontineCollectif = T.idTontineCollectif and (lower(nomMembre) like '%$text%'  or lower(prenomMembre) like '%$text%')";
         $TontineInd = $con->query($request);
         while($Ti = mysqli_fetch_array($TontineInd)){
             
@@ -722,7 +745,7 @@
         include("connection.php");
         $text = $_POST['txtRecherche'];
         $i=1;
-        $request = "SELECT codePayement, nomTontineCollective, datePayement, montantPayement, nomMembre, prenomMembre FROM Payement C, TontineCollective T, Membre M where C.idMembre = M.idMembre and C.idTontineCollectif = T.idTontineCollectif and montantPayement like '%$text%'";
+        $request = "SELECT codePayement, nomTontineCollective, datePayement, montantPayement, nomMembre, prenomMembre FROM Payement C, TontineCollective T, Membre M where C.idMembre = M.idMembre and C.idTontineCollectif = T.idTontineCollectif and lower(montantPayement) like '%$text%'";
         $TontineInd = $con->query($request);
         while($Ti = mysqli_fetch_array($TontineInd)){
             
@@ -744,7 +767,7 @@
         $date1 = $_POST['date1'];
         $date2 = $_POST['date2'];
         $i=1;
-        $request = "SELECT codePayement, nomTontineCollective, datePayement, montantPayement, nomMembre, prenomMembre FROM Payement C, TontineCollective T, Membre M where C.idMembre = M.idMembre and C.idTontineCollectif = T.idTontineCollectif Between '$date1' AND '$date2'";
+        $request = "SELECT codePayement, nomTontineCollective, datePayement, montantPayement, nomMembre, prenomMembre FROM Payement C, TontineCollective T, Membre M where C.idMembre = M.idMembre and C.idTontineCollectif = T.idTontineCollectif and datePayement Between '$date1' AND '$date2'";
         $TontineInd = $con->query($request);
         while($Ti = mysqli_fetch_array($TontineInd)){
 
@@ -821,7 +844,7 @@
         include("connection.php");
         $text = $_POST['txtRecherche'];
         $i=1;
-        $request = "SELECT photoAgent, matriculeAgent, nomAgent, prenomAgent, adresseAgent, telAgent, mailAgent, nomAgence FROM Agent A, Agence C where C.idAgence = A.idAgence and matriculeAgent LIKE '%$text%'";
+        $request = "SELECT photoAgent, matriculeAgent, nomAgent, prenomAgent, adresseAgent, telAgent, mailAgent, nomAgence FROM Agent A, Agence C where C.idAgence = A.idAgence and lower(matriculeAgent) LIKE '%$text%'";
         $Agent = $con->query($request);
         while($Ag = mysqli_fetch_array($Agent)){
             
@@ -847,7 +870,7 @@
         include("connection.php");
         $text = $_POST['txtRecherche'];
         $i=1;
-        $request = "SELECT photoAgent, matriculeAgent, nomAgent, prenomAgent, adresseAgent, telAgent, mailAgent, nomAgence FROM Agent A, Agence C where C.idAgence = A.idAgence and nomAgent LIKE '%$text%'";
+        $request = "SELECT photoAgent, matriculeAgent, nomAgent, prenomAgent, adresseAgent, telAgent, mailAgent, nomAgence FROM Agent A, Agence C where C.idAgence = A.idAgence and lower(nomAgent) LIKE '%$text%'";
         $Agent = $con->query($request);
         while($Ag = mysqli_fetch_array($Agent)){
             
@@ -873,7 +896,7 @@
         include("connection.php");
         $text = $_POST['txtRecherche'];
         $i=1;
-        $request = "SELECT photoAgent, matriculeAgent, nomAgent, prenomAgent, adresseAgent, telAgent, mailAgent, nomAgence FROM Agent A, Agence C where C.idAgence = A.idAgence and prenomAgent LIKE '%$text%'";
+        $request = "SELECT photoAgent, matriculeAgent, nomAgent, prenomAgent, adresseAgent, telAgent, mailAgent, nomAgence FROM Agent A, Agence C where C.idAgence = A.idAgence and lower(prenomAgent) LIKE '%$text%'";
         $Agent = $con->query($request);
         while($Ag = mysqli_fetch_array($Agent)){
             
@@ -899,7 +922,7 @@
         include("connection.php");
         $text = $_POST['txtRecherche'];
         $i=1;
-        $request = "SELECT photoAgent, matriculeAgent, nomAgent, prenomAgent, adresseAgent, telAgent, mailAgent, nomAgence FROM Agent A, Agence C where C.idAgence = A.idAgence and adresseAgent LIKE '%$text%'";
+        $request = "SELECT photoAgent, matriculeAgent, nomAgent, prenomAgent, adresseAgent, telAgent, mailAgent, nomAgence FROM Agent A, Agence C where C.idAgence = A.idAgence and lower(adresseAgent) LIKE '%$text%'";
         $Agent = $con->query($request);
         while($Ag = mysqli_fetch_array($Agent)){
             
@@ -925,7 +948,7 @@
         include("connection.php");
         $text = $_POST['txtRecherche'];
         $i=1;
-        $request = "SELECT photoAgent, matriculeAgent, nomAgent, prenomAgent, adresseAgent, telAgent, mailAgent, nomAgence FROM Agent A, Agence C where C.idAgence = A.idAgence and nomAgence LIKE '%$text%'";
+        $request = "SELECT photoAgent, matriculeAgent, nomAgent, prenomAgent, adresseAgent, telAgent, mailAgent, nomAgence FROM Agent A, Agence C where C.idAgence = A.idAgence and lower(nomAgence) LIKE '%$text%'";
         $Agent = $con->query($request);
         while($Ag = mysqli_fetch_array($Agent)){
             

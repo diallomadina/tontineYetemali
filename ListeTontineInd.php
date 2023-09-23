@@ -388,8 +388,8 @@
                     selectMembre.selectedIndex = j;
                     break; // Sortir de la boucle dès que la correspondance est trouvée
                 }
-            }
-              };
+               }
+            };
           }
       }
 
