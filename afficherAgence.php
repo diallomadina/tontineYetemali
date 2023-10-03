@@ -29,12 +29,8 @@
                             </div>
                         </div>
                        
-<<<<<<< HEAD
-                            <div class="row">
-                                    <div class="col">
-=======
                           <form action="" method="post">
-                          <div class="row">
+                            <div class="row">
                                     <div class="col mt-4">
                                       <select name="choix" id="" class="form-select">
                                         <option value="" selected>Option de Filtre</option>
@@ -44,7 +40,6 @@
                                       </select>
                                     </div>
                                     <div class="col mt-4">
->>>>>>> c7c4f58f793b9a1b4703ba8bdc4fbbb9713abcad
                                         <div class="form-group">
                                             <div class="col">
                                                 <input name="txtRecherche" type="text" class="form-control bi bi-chevron-compact-down"  id="champ_text_agence">
@@ -82,43 +77,43 @@
                                 </div>
                             </div>
                             <div class="row mt-4">
-                            <table id="tableAgence" class="table table-bordered table-responsive table-compressed table-hover table-striped">
-                              <thead class="bg-success">
-                              <tr class="bg-success">
-                                      <th class="text-center bg-success text-white">N°</th>
-                                      <th class="text-center bg-success text-white">Code</th>
-                                      <th class="text-center bg-success text-white">Nom Agence</th>
-                                      <th class="text-center bg-success text-white">Telephone</th>
-                                      <th class="text-center bg-success text-white">Adresse</th>
-                                      <th class="text-center bg-success text-white" colspan="2">Action</th>
-                              </tr>
-                              </thead>
-                              <tbody class="text-center">
-                                  <?php
-                                    if(empty($_POST['txtRecherche'])||isset($_POST['actualiser'])){
-                                      displayAgence();
-                                    }else if (isset($_POST['txtRecherche'])&&isset($_POST['filtrer'])&&isset($_POST['choix'])){
-                                      $choix = $_POST['choix'];
-                                      switch($choix){
-                                        case 'code' : {
-                                          displayAgenceWithCode();
-                                        }break;
-                                        case 'nom' : {
-                                          displayAgenceWithName();
-                                        }break;
-                                        case 'adresse' : {
-                                          displayAgenceWithAdresse();
-                                        }break;
-                                        default : {
+                                <table id="tableAgence" class="table table-bordered table-responsive table-compressed table-hover table-striped">
+                                  <thead class="bg-success">
+                                  <tr class="bg-success">
+                                          <th class="text-center bg-success text-white">N°</th>
+                                          <th class="text-center bg-success text-white">Code</th>
+                                          <th class="text-center bg-success text-white">Nom Agence</th>
+                                          <th class="text-center bg-success text-white">Telephone</th>
+                                          <th class="text-center bg-success text-white">Adresse</th>
+                                          <th class="text-center bg-success text-white" colspan="2">Action</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody class="text-center">
+                                      <?php
+                                        if(empty($_POST['txtRecherche'])||isset($_POST['actualiser'])){
                                           displayAgence();
+                                        }else if (isset($_POST['txtRecherche'])&&isset($_POST['filtrer'])&&isset($_POST['choix'])){
+                                          $choix = $_POST['choix'];
+                                          switch($choix){
+                                            case 'code' : {
+                                              displayAgenceWithCode();
+                                            }break;
+                                            case 'nom' : {
+                                              displayAgenceWithName();
+                                            }break;
+                                            case 'adresse' : {
+                                              displayAgenceWithAdresse();
+                                            }break;
+                                            default : {
+                                              displayAgence();
+                                            }
+                                          }
                                         }
-                                      }
-                                    }
+                                        
                                     
-                                
-                                  ?>
-                              </tbody>
-                          </table>
+                                      ?>
+                                  </tbody>
+                                </table>
                             </div>
                           </form>  
                                 
@@ -191,39 +186,6 @@
                                             </div>
                                         </div>
                                         <!-- Fin Modal pour ajouter -->
-<<<<<<< HEAD
-                                </div>
-                            </div>
-                                
-                       
-                 </div>
-                  <div class="row mt-5">     
-                        <!-- Table -->
-                        <form action="afficherAgence.php" method="post">
-                          <table id="tableAgence" class="table table-bordered table-responsive table-compressed table-hover table-striped">
-                              <thead class="bg-success">
-                              <tr class="bg-success">
-                                      <th class="text-center bg-success text-white">N°</th>
-                                      <th class="text-center bg-success text-white">Identifiant</th>
-                                      <th class="text-center bg-success text-white">Nom Agence</th>
-                                      <th class="text-center bg-success text-white">Telephone</th>
-                                      <th class="text-center bg-success text-white">Adresse</th>
-                                      <th class="text-center bg-success text-white" colspan="2">Action</th>
-                              </tr>
-                              </thead>
-                              <tbody class="text-center">
-                                  <?php
-                                    
-                                    displayAgence();
-                                
-                                  ?>
-                              </tbody>
-                          </table>
-                        </form>
-                                        
-                            <!-- End Table  -->
-=======
->>>>>>> c7c4f58f793b9a1b4703ba8bdc4fbbb9713abcad
                            <!-- Le modal pour modifier -->
                            <div class="modal fade" id="modalModifAgence" tabindex="-1">
                             <div class="modal-dialog modal-dialog-centered">

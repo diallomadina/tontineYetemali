@@ -15,15 +15,15 @@
   </nav>
 </div><!-- End Page Title -->
 <div class="container">
-  <div class="row mt-2">
+  <div class="row mb-4 mt-2">
       
       <div class="col-12">
           <div class="card">
-              <div class="row mt-2 p-2">
+              <div class="row mb-4 mt-2 p-2">
                 <div class="col"></div>
                 <label for="">Rechercher par:</label>
                   <div class="col-2">  
-                    <input id="contact" type="text" name="champRecherche"  class="form-control bi bi-chevron-compact-down">
+                    <input id="contact" type="text" name="champRecherche"  class="form-control border-secondary bi bi-chevron-compact-down">
                   </div>
                   <div class="col-2 ">
                     <button class="btn  btn-secondary" type="submit" name="rechercher">
@@ -32,19 +32,19 @@
                     </button>
                 </div>
                  <!-- <div class="col-2">
-                      <button class="form-control btn btn-success">
+                      <button class="form-control border-secondary btn btn-success">
                         <i class="ri ri-filter-line"></i>
                         <span id="btnFiltrer">Filtrer</span>
                       </button>
                   </div>-->
                   <div class="col-2">
-                      <button class="form-control btn btn-success" type="submit" name="actualiser">
+                      <button class="form-control border-secondary btn btn-success" type="submit" name="actualiser">
                         <i class="bi bi-refresh"></i> 
                         <span id="btnActualiser">Actualiser</span>
                       </button>
                   </div>
                   <div class="col-2">
-                    <button class="form-control btn btn-success" type="submit" name="nouveau"  data-bs-toggle="modal" data-bs-target="#modalNouveau" >
+                    <button class="form-control border-secondary btn btn-success" type="submit" name="nouveau"  data-bs-toggle="modal" data-bs-target="#modalNouveau" >
                       <i class="bi bi-plus"></i>
                       <span id="btnNouveau">Nouveau</span>
                     </button> 
@@ -56,17 +56,18 @@
                     </button>
                 </div>
               </div>
-              <div class="row" >                       
+              <div class="row mb-4" >                       
                 <div class="col-12">
                   <table id="tableMembre" class=" table table-bordered table-responsive table-hover table-striped" >
                     <thead>
                         <th  class="text-center bg-success text-white" >N°</th>
-                        <th  class="text-center bg-success text-white" >Identifiant</th>
+                        <th  class="text-center bg-success text-white" >Code</th>
+                        <th  class="text-center bg-success text-white" >Photo</th>
                         <th  class="text-center bg-success text-white" >Nom</th>
                         <th  class="text-center bg-success text-white" >Prenom</th>
                         <th  class="text-center bg-success text-white" >Adresse</th>
                         <th  class="text-center bg-success text-white" >Contact</th>
-                        <th  class="text-center bg-success text-white" >Date_Adhesion</th>
+                        <th  class="text-center bg-success text-white" >Date d'adhesion</th>
                         <th  class="text-center bg-success text-white" >e-mail</th>
                         <th  class="text-center bg-success text-white">Action</th>
                     </thead>
@@ -88,6 +89,7 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
+          <h3>Nouveau Membre</h3>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -104,21 +106,50 @@
                   enregistrer();
                   modifier();
                  ?>
-                <label for="">Identifiant</label>
-                <input type="text" name="idMembre" id="" class="form-control">
-                <label for="">Nom</label>
-                <input type="text" id="nom" name="nomMembre" class="form-control">
-                <label for="">Prenom</label>
-                <input type="text" id="prenom" name="prenomMembre" class="form-control">
-                <label for="">Adresse</label>
-                <input type="text" id="adresse" name="adresseMembre" class="form-control">
-                <label for="">Contact</label>
-                <input type="text" id="contact" name="telMembre" class="form-control">
-                <label for="">date_Adhesion</label>
-                <input type="date" id="date" name="dateAdhesion" class="form-control">
-                <label for="">E-mail</label>
-                <input type="mail" id="mailMembre" name="mailMembre" class="form-control">
-                <div class="row mt-4">
+                 <div class="row mb-4">
+                    <div class="col">
+                       <label for="">Nom</label>
+                       <input type="text" id="nom" name="nomMembre" class="form-control border-secondary">
+                    </div>
+                    <div class="col">
+                        <label for="">Prenom</label>
+                        <input type="text" id="prenom" name="prenomMembre" class="form-control border-secondary">
+                    </div>
+                 </div>
+
+                 <div class="row mb-4">
+                    <div class="col">
+                      <label for="">Adresse</label>
+                      <input type="text" id="adresse" name="adresseMembre" class="form-control border-secondary">
+                    </div>
+                    <div class="col">
+                      <label for="">Contact</label>
+                      <input type="text" id="contact" name="telMembre" class="form-control border-secondary">
+                    </div>
+                 </div>
+                
+                 <div class="row mb-4">
+                    <div class="col">
+                        <label for="">date_Adhesion</label>
+                        <input type="date" id="date" name="dateAdhesion" class="form-control border-secondary">
+                    </div>
+                    <div class="col">
+                        <label for="">E-mail</label>
+                      <input type="mail" id="mailMembre" name="mailMembre" class="form-control border-secondary">
+                    </div>
+                 </div>
+
+                 <div class="row mb-4">
+                    <div class="col">
+                        <label for="">Agent</label>
+                        <select name="agent" id="" class="form-control border-secondary"></select>
+                    </div>
+                    <div class="col">
+                        <label for="">Photo</label>
+                      <input type="file" id="photo" name="photo" class="form-control border-secondary">
+                    </div>
+                 </div>
+                <div class="row mb-4 mt-4">
                   <div class="col-6"></div>
                 <div class="col-3">
                   <button id="btnEnregistrer" name="enregistrer" type="submit" class="btn btn-success" data-bs-dismiss="modal" onclick="enregistrer()">Enregistrer</button>
@@ -148,21 +179,51 @@
               <span class="d-none d-lg-block text-warning">mali</span>
             </a>
           </div>
-            <form action="">
-                <input type="hidden" name="mIdMembre" id="mIdMembre">
-                <label for="">Nom</label>
-                <input type="text" class="form-control" name="mNomMembre" id="mNomMembre">
-                <label for="">Prenom</label>
-                <input type="text" class="form-control" name="mPrenomMembre" id="mPrenomMembre">
-                <label for="">Adresse</label>
-                <input type="text" class="form-control" name="mAdresseMembre" id="mAdresseMembre">
-                <label for="">Contact</label>
-                <input type="text" class="form-control" name="mTelMembre" id="mTelMembre">
-                <label for="">date_Adhesion</label>
-                <input type="date" class="form-control" name="mDateMembre" id="mDateMembre">
-                <label for="">e-mail</label>
-                <input type="mail" class="form-control" name="mMailMembre" id="mMailMembre">
-                <div class="row mt-4">
+            <form action="" method="POST">
+            <div class="row mb-4">
+                    <div class="col">
+                       <label for="">Nom</label>
+                       <input type="text" id="nom" name="nomMembre" class="form-control border-secondary">
+                    </div>
+                    <div class="col">
+                        <label for="">Prenom</label>
+                        <input type="text" id="prenom" name="prenomMembre" class="form-control border-secondary">
+                    </div>
+                 </div>
+
+                 <div class="row mb-4">
+                    <div class="col">
+                      <label for="">Adresse</label>
+                      <input type="text" id="adresse" name="adresseMembre" class="form-control border-secondary">
+                    </div>
+                    <div class="col">
+                      <label for="">Contact</label>
+                      <input type="text" id="contact" name="telMembre" class="form-control border-secondary">
+                    </div>
+                 </div>
+                
+                 <div class="row mb-4">
+                    <div class="col">
+                        <label for="">date_Adhesion</label>
+                        <input type="date" id="date" name="dateAdhesion" class="form-control border-secondary">
+                    </div>
+                    <div class="col">
+                        <label for="">E-mail</label>
+                      <input type="mail" id="mailMembre" name="mailMembre" class="form-control border-secondary">
+                    </div>
+                 </div>
+
+                 <div class="row mb-4">
+                    <div class="col">
+                        <label for="">Agent</label>
+                        <select name="agent" id="" class="form-control border-secondary"></select>
+                    </div>
+                    <div class="col">
+                        <label for="">Photo</label>
+                      <input type="file" id="photo" name="photo" class="form-control border-secondary">
+                    </div>
+                 </div>
+                <div class="row mb-4 mt-4">
                   <div class="col-6"></div> 
                   <div class="col-3">
                     <button type="submit" class="btn btn-success" data-bs-dismiss="modal" name="btnEnregistrer">Enregistrer</button>
@@ -185,7 +246,7 @@
       <div class="modal-content">
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         <h2 class="text-center fw-blod">Informations Personnelles</h2>  
-        <div class="row mt-3 p-2"> 
+        <div class="row mb-4 mt-3 p-2"> 
           <div class="col-6">
             <p><span class="fw-bold ms-3">Identifiant: </span> <span > A1 </span></p>
             <p><span class="fw-bold ms-3">Nom: </span> <span>Diallo</span></p>
@@ -197,12 +258,12 @@
             <p><span class="fw-bold ms-3">Contact: </span> <span id=>625444313</span></p>
           </div>
         </div>
-        <div class="row">
+        <div class="row mb-4">
           <p><span class="fw-bold ms-3">Nombre de tontine participé: </span> <span >2</span></p>
           <p><span class="fw-bold ms-3">Montant total recuperé: </span> <span>5000000</span></p>
           <p><span class="fw-bold ms-3">Nombre de tontine en cours: </span> <span>1</span></p>
         </div>
-        <div class="row">
+        <div class="row mb-4">
           <div class="col-6">
             <h4 class="text-center fw-blod ">Tontine1:</h4>
             <p><span class="fw-bold ms-3">Payement Effectué: </span> <span>200000</span></p>

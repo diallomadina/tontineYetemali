@@ -4,74 +4,88 @@
 
 <!-- Debut du main -->
   <main class="main" id="main">
-    <div class="container">
-        <div class="row">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-  
-                <div class="d-flex justify-content-center py-4">
-                  <a href="index.html" class="logo d-flex align-items-center w-auto">
-                    <img src="assets/img/yetemali.jpg" alt="">
-                    <span class="d-none d-lg-block text-success">Yete</span>
-                    <span class="d-none d-lg-block text-warning">mali</span>
-                  </a>
-                </div><!-- End Logo -->
-  
-                <div class="card mb-2">
-                  <div class="card-body">
-                    <form class="row g-3 needs-validation" novalidate>
-                      <div class="col-12">
-                        <label for="" class="form-label">Nom </label>
-                        <div class="input-group has-validation">
-                          <input type="text" name="" class="form-control " id="yourUsername" required>
-                          <div class="invalid-feedback">Votre nom.</div>
+     <div class="pagetitle">
+        <h1>Nouveau Membre</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.php">Accueil</a></li>
+            <li class="breadcrumb-item">Membre</li>
+            <li class="breadcrumb-item active">Nouveau</li>
+          </ol>
+        </nav>
+      </div>
+
+      <div class="container">
+          <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+              <div class="card">
+                  <h1 class="card-title rounded-4 text-center text-black fs-1 fw-3 bg-warning-light">Nouveau Membre</h1> 
+                  <div class=" card-body">
+                      <div class="row mb-4">
+                        <div class="col">
+                          <label for="">Nom</label>
+                          <input type="text" id="nom" name="nomMembre" class="form-control border-secondary">
                         </div>
-                      </div>
-                      <div class="col-12">
-                        <label for="" class="form-label">Prenom</label>
-                        <input type="text" name="" class="form-control " id="yourPassword" required>
-                        <div class="invalid-feedback">Entrer votre Prenom!</div>
-                      </div>
-                      <div class="col-12">
-                          <label for="" class="form-label">Adresse</label>
-                          <input type="text" name="" class="form-control " id="yourPassword" required>
-                          <div class="invalid-feedback">Entrer votre Adresse!</div>
+                        <div class="col">
+                            <label for="">Prenom</label>
+                            <input type="text" id="prenom" name="prenomMembre" class="form-control border-secondary">
                         </div>
-                      <div class="col-12">
-                          <label for="" class="form-label">Telephone</label>
-                          <input type="text" name="" class="form-control " id="yourPassword" required>
-                          <div class="invalid-feedback">Entrer votre Contact!</div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col">
+                          <label for="">Adresse</label>
+                          <input type="text" id="adresse" name="adresseMembre" class="form-control border-secondary">
                         </div>
-                        <div class="col-12">
-                          <label for="" class="form-label">Date_Adhesion</label>
-                          <input type="date" name="" class="form-control " id="yourPassword" required>
-                          <div class="invalid-feedback">Entrer la date!</div>
+                        <div class="col">
+                          <label for="">Contact</label>
+                          <input type="text" id="contact" name="telMembre" class="form-control border-secondary">
                         </div>
-                        <div class="col-12">
-                          <label for="" class="form-label"><table>Tontine</table></label>
-                          <input type="text" name="" class="form-control " id="yourPassword" required>
-                          <div class="invalid-feedback">Entrer le nom de votre tontine!</div>
+                    </div>
+                    
+                    <div class="row mb-4">
+                        <div class="col">
+                            <label for="">date_Adhesion</label>
+                            <input type="date" id="date" name="dateAdhesion" class="form-control border-secondary">
                         </div>
-                      <div class="col-12">
-                        <button class="btn btn-success boutton" type="submit">Enregistrer</button>
-                      </div>   
-                    </form>
+                        <div class="col">
+                            <label for="">E-mail</label>
+                          <input type="mail" id="mailMembre" name="mailMembre" class="form-control border-secondary">
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col">
+                            <label for="">Agent</label>
+                            <select name="agent" id="" class="form-control border-secondary"></select>
+                        </div>
+                        <div class="col">
+                            <label for="">Photo</label>
+                          <input type="file" id="photo" name="photo" class="form-control border-secondary">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col"></div>
+                        <div class="col">
+                          <button type="submit" class="bg-success form-control text-center">
+                              Ajouter
+                          </button>
+                        </div>
+                        <div class="col">
+                          <button type="button" class="bg-danger form-control text-center">
+                              Ajouter
+                          </button>
+                        </div>
+                        <div class="col"></div>
+                    </div>
                   </div>
-                </div>
-                <div class="credits">
-                  <!-- All the links in the footer should remain intact. -->
-                  <!-- You can delete the links only if you purchased the pro version. -->
-                  <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                  <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-                  Designed by <a class="text-success">Yetemali</a>
-                </div>
-                
               </div>
             </div>
+            <div class="col-2"></div> 
           </div>
-        </div>
-    </div>
+      </div>
   </main><!-- End #main -->
 <!-- Fin du main -->
 

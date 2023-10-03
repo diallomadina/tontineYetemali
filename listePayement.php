@@ -85,7 +85,7 @@
                               </button>
                            </div>
                         </div>
-                        </div>
+                   </div>
         <div class="row mt-5">
                 
                 
@@ -240,6 +240,15 @@
 <!-- <! Fin du main -- -->
 <?php include("footer.php"); ?>
 <?php include("script.php"); ?>
+<script>
+    $(document).ready(function () {
+      $('#btnPrintCoti').click(function (e) { 
+        e.preventDefault();
+        Alert("dakj")
+      });
+ });
+
+</script>
 <!-- End #main -->
 
 

@@ -76,6 +76,11 @@
           </a>
         </li>
         <li>
+          <a href="gestionTontine.php">
+            <i class="bi bi-circle"></i><span>Gerer</span>
+          </a>
+        </li>
+        <li>
           <a href="ListeTontineEncours.php">
             <i class="bi bi-circle"></i><span>En Cours</span>
           </a>

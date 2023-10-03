@@ -4,6 +4,7 @@
        
         if(isset($_POST['nomMembre']) && isset($_POST['prenomMembre']) && isset($_POST['adresseMembre']) && isset($_POST['dateAdhesion']) && isset($_POST['telMembre']) && isset($_POST['mailMembre']) && isset($_POST['enregistrer'])){
             $nom = $_POST['nomMembre'];
+
             $Prenom = $_POST['prenomMembre'];
             $adresse = $_POST['adresseMembre'];
             $date = $_POST['dateAdhesion'];
@@ -28,7 +29,8 @@
             $id = $memb['idMembre'];
             echo "<tr>";
                     echo "<td>".$i."</td>";
-                    echo "<td>".$memb['idMembre']."</td>";
+                    echo "<td>".$memb['matriculeMembre']."</td>";
+                    echo "<td>".$memb['photoMembre']."</td>";
                     echo "<td>".$memb['nomMembre']."</td>";
                     echo "<td>".$memb['prenomMembre']."</td>";
                     echo "<td>".$memb['adresseMembre']."</td>";

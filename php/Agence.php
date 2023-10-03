@@ -998,4 +998,25 @@
            
         }
     }
+
+        function listAgent(){
+            include("php/connection.php");
+            $request = "SELECT idAgent, nomAgent, prenomAgent from Agent";
+            $result = $con->query($request);
+            while($agent= Mysqli_fetch_array($result)){
+            $idAgent = $agent['idAgent'];
+            echo "<option value='$idAgent'>".$agent['nomAgent']." ".$agent['prenomAgent']."</option>";
+            }
+        
+        }
+
+        function listMembre($idAgent){
+            include("php/connection.php");
+            $request = "SELECT idMembre, nomMembre, prenomMembre from Membre, Agent where idAgent=$idAgent";
+            $result = $con -> query($request);
+            while($membre = Mysqli_fetch_array($result)){
+            $idMembre = $membre['idMembre'];
+            echo "<option value='$idMembre'>".$membre['nomMembre']." ".$membre['prenomMembre']."</option>";
+            }
+        }
 ?>

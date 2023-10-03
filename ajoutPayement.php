@@ -32,59 +32,60 @@
                         </div>
                       </div>
                       <div class="row mb-4">
-                        <label class="col-sm-3  text-center fs-5">Tontine</label>
-                        <div class="col-sm-7">
-                          <select name="tontine" class="form-select border-secondary" aria-label="Default select example">
-                              <?php
-                                include("php/connection.php");
-                                $request = "SELECT idTontineCollectif, nomTontineCollective, codeTontineCollective from tontineCollective";
-                                $result = $con->query($request);
-                                while($agent= Mysqli_fetch_array($result)){
-                                  $idAgent = $agent['idTontineCollectif'];
-                                  echo "<option value='$idAgent'>"."(".$agent['codeTontineCollective'].") ".$agent['nomTontineCollective']."</option>";
-                                }
-                              ?>
-                          </select>
+                        <label class="col fs-5 ms-3">Tontine</label>
+                        <div class="row">
+                          <div class="input-group ms-3">
+                              <input type="text" id="searchTontine" class="form-control border-secondary " placeholder="Rechercher une tontine">
+                              <select name="tontine" class="form-select border-secondary" aria-label="Default select example">
+                                  <option value="0" selected>Cliquez pour choisir</option>  
+                                  <?php
+                                    include("php/connection.php");
+                                    $request = "SELECT idTontineCollectif, nomTontineCollective, codeTontineCollective from tontineCollective";
+                                    $result = $con->query($request);
+                                    while($agent= Mysqli_fetch_array($result)){
+                                      $idAgent = $agent['idTontineCollectif'];
+                                      echo "<option value='$idAgent'>"."(".$agent['codeTontineCollective'].") ".$agent['nomTontineCollective']."</option>";
+                                    }
+                                  ?>
+                              </select>
+                          </div>
                         </div>
                         
-                        <div class="col-sm-2"></div>
                       </div>
                         <div class="row mb-4">
-                            <label class="col-sm-3  text-center fs-5">Membre</label>
-                            <div class="col-sm-7">
-                              <select name="membre" class="form-select border-secondary" aria-label="Default select example">
-                              <?php
-                           
-                                  $request = "SELECT idMembre, nomMembre, prenomMembre from Membre";
-                                  $result = $con -> query($request);
-                                  while($membre = Mysqli_fetch_array($result)){
-                                    $idMembre = $membre['idMembre'];
-                                    echo "<option value='$idMembre'>".$membre['nomMembre']." ".$membre['prenomMembre']."</option>";
-                                  }
-                           
-                              ?>
-                              </select>
+                            <label class="col fs-5 ms-3">Membre</label>
+                            <div class="row">
+                                  <div class="ms-3 input-group">
+                                  <input type="text" id="searchMembre" class="form-control border-secondary" placeholder="Rechercher un menbre" >
+                                  <select name="membre" class="form-select border-secondary" aria-label="Default select example">
+                                    <option value="0" selected>Cliquez pour choisir</option>  
+                                    <?php
+                                
+                                        $request = "SELECT idMembre, nomMembre, prenomMembre from Membre";
+                                        $result = $con -> query($request);
+                                        while($membre = Mysqli_fetch_array($result)){
+                                          $idMembre = $membre['idMembre'];
+                                          echo "<option value='$idMembre'>".$membre['nomMembre']." ".$membre['prenomMembre']."</option>";
+                                        }
+                                
+                                    ?>
+                                   </select>
+                                  </div>
                             </div>
-                            <div class="col-sm-2"></div>
                         </div>
                        
-                        <div class="form-group">
                           <div class="row mb-4">
-                            <label class="col-sm-3  text-center fs-5">Montant</label>
-                            <div class="col-sm-7">
-                              <input  name="montant" class="form-control border-secondary">
+                            <div class="col">
+                              <label class="text-center fs-5">Montant</label>
+                                <input  name="montant" class="form-control border-secondary">
+                            </div>
+                            <div class="col">
+                              <label for="inputDate" class="  text-center fs-5">Date</label>
+                              <input name="debut"  type="date" class="form-control border-secondary">
                             </div>
                           </div>
-                          <div class="col-sm-2"></div>
-                        </div>
                     
-                        <div class="row mb-4">
-                          <label for="inputDate" class="col-sm-3  text-center fs-5">Date</label>
-                          <div class="col-sm-7">
-                            <input name="debut"  type="date" class="form-control border-secondary">
-                          </div>
-                          <div class="col-sm-2"></div>
-                        </div>
+                        
 
                         <div class="row mb-4">
                             <div class="col"></div>
@@ -92,7 +93,7 @@
                               <button name="btnValider" type="submit" class="btn btn-success form-control">Valider</button>
                             </div>
                             <div class="col">
-                            <button id="btnValiderAjoutCoti" type="boutton" class="btn btn-danger form-control">Annullee</button>
+                            <button id="annullee" type="button" class="btn btn-danger form-control">Annullee</button>
                             </div>
                             <div class="col"></div>
                         </div>
@@ -112,4 +113,36 @@
 
 <?php include("footer.php"); ?>
 <?php include("script.php"); ?>
+<script>
+  $(document).ready(function () {
+    $('#annullee').click(function (e) { 
+      e.preventDefault();
+      
+    });
+
+    function updateSelectOptions(searchInput, selectElement) {
+            var searchTerm = searchInput.val().toLowerCase();
+            selectElement.find('option').each(function () {
+                var optionText = $(this).text().toLowerCase();
+                if (optionText.includes(searchTerm)) {
+                    $(this).show();
+                   
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+
+        // Écouteurs d'événements pour les champs de recherche
+        $('#searchTontine').on('input', function () {
+            updateSelectOptions($(this), $('select[name="tontine"]'));
+        });
+
+        $('#searchMembre').on('input', function () {
+            updateSelectOptions($(this), $('select[name="membre"]'));
+        });
+  });
+
+</script>
+
 <!-- End #main -->

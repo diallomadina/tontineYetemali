@@ -1295,6 +1295,13 @@ input {
   
 }
 
+.inputText {
+  border-bottom: none;
+}
+.inputSelect {
+  border-top: none;
+}
+
 
 
 
