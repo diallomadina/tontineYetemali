@@ -12,7 +12,7 @@ class AgenceController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -20,7 +20,8 @@ class AgenceController extends Controller
      */
     public function create()
     {
-        return view('agences.afficherAgence');
+        $agences = Agence::all();
+        return view('agences.afficherAgence',compact('agences'));
     }
 
     public function createAjout()

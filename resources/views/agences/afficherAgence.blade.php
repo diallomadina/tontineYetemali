@@ -79,11 +79,22 @@
                                     <th class="text-center bg-success text-white">Nom Agence</th>
                                     <th class="text-center bg-success text-white">Telephone</th>
                                     <th class="text-center bg-success text-white">Adresse</th>
-                                    <th class="text-center bg-success text-white" colspan="2">Action</th>
+                                    <th class="text-center bg-success text-white">Action</th>
                             </tr>
                             </thead>
                             <tbody>
+                                <?php $i=0; ?>
+                                @foreach ( $agences as $agence )
 
+                                    <tr>
+                                        <td>{{ $i++ }}</td>
+                                        <td>{{ $agence->codeAgence }}</td>
+                                        <td>{{ $agence->nomAgence }}</td>
+                                        <td>{{ $agence->telAgence }}</td>
+                                        <td>{{ $agence->adresseAgence }}</td>
+                                        <td class='btnCoti'><a href='$id' data-id='1' class='btn btn-transparent editAgence'  data-bs-toggle='modal' data-bs-target='#modalModifAgence' data-bs-placement='bottom' title='Modifier'><i class='bi bi-pen'></i></a></td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                           </table>
                       </div>

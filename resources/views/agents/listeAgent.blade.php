@@ -42,7 +42,7 @@
                           </div>
                           <div class="col-sm">
                               <div class="form-group">
-                              
+
                               <input name="txtRecherche" type="text" class="form-control bi bi-search" id="txtRechercheAgent">
                               </div>
                           </div>
@@ -71,7 +71,7 @@
                                   <i class="bi bi-plus"></i> Nouveau
                                   </button>
                             </div>
-                          
+
                           </div>
                           <!-- Fin pour ajouter  -->
                           <div class="col-sm ">
@@ -95,33 +95,38 @@
                                     <th class="text-center bg-success text-white">Contact</th>
                                     <th class="text-center bg-success text-white">Mail</th>
                                     <th class="text-center bg-success text-white">Agence</th>
-                                    <th class="text-center bg-success text-white" colspan="2">Action</th>
+                                    <th class="text-center bg-success text-white">Action</th>
                               </tr>
                             </thead>
                             <tbody id="tbodyAfficheIdentifiant">
-
+                                {{-- <?php $i=0; ?>
+                                @foreach ($agents as $agent)
+                                    <tr>
+                                        <td class='btnCoti'><a  class='btn btn-transparent editAgent'  data-bs-toggle='modal' data-bs-target='#modalModifAgent' data-bs-placement='bottom' title='Modifier'><i class='bi bi-pen'></i></a></td>
+                                    </tr>
+                                @endforeach --}}
                             </tbody>
                         </table>
                               <!-- End Table  -->
                       </div>
-                      
+
               </form>
 
-              
+
       </div>
       <div class="row mt-5">
-              
+
 
                   <!-- Le modal pour ajouter -->
                   <div class="modal fade" id="modalAjoutAgentsation" tabindex="-1">
                             <div class="modal-dialog modal-dialog-centered">
                               <div class="modal-content">
                                 <div class="modal-header text-center">
-                                              
+
                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                                 <div class="modal-body">
-                                  
+
                                   <div class="d-flex justify-content-center py-4">
                                     <a href="#" class="logo d-flex align-items-center w-auto">
                                       <img src="assets/img/yetemali.jpg" alt="">
@@ -131,27 +136,27 @@
                                   </div>
                                   <!-- General Form Elements -->
                                   <form method="post" action="" enctype="multipart/form-data">
-                                    
+
                                     <div class="row mb-3">
                                       <div class="col">
                                           <label class=" text-center fs-5">Agence</label>
-                                          
+
                                           <select name="agence" class="form-select border-secondary" aria-label="Default select example">
-  
+
                                           </select>
                                       </div>
-                                      
+
                                       <div class="col">
                                           <label class=" text-center fs-5">Nom</label>
                                           <div class="col">
                                             <input name="nom" type="text" class="form-control border-secondary">
                                           </div>
                                       </div>
-                                      
-                                      
+
+
                                     </div>
 
-                                      
+
                                     <div class="row mb-3">
                                         <div class="col">
                                           <label class=" text-center fs-5">Prenom</label>
@@ -161,11 +166,11 @@
                                           <label class="  text-center fs-5">Adresse</label>
                                           <input name="adresse" type="text" class="form-control border-secondary">
                                         </div>
-                                        
-                                    </div>
-                                  
 
-                                      
+                                    </div>
+
+
+
                                     <div class="row mb-3">
                                         <div class="col">
                                           <label class=" text-center fs-5">Telephone</label>
@@ -174,10 +179,10 @@
                                         <div class="col">
                                           <label for="" class=" text-center fs-5">Photo</label>
                                           <input type="file" name="photo" id="" accept=".jpg, .png" class="form-control border-secondary">
-                                        </div> 
-                                        
+                                        </div>
+
                                     </div>
-                                    
+
                                     <div class="row mb-3">
                                       <label class=" fs-5">Mail</label>
                                           <input name="mail" type="mail" class="form-control border-secondary">
@@ -187,26 +192,26 @@
                                       <button name ="ajouter" type="submit" class="btn btn-success boutton">Valider</button>
                                       <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
                                       </div>
-                    
+
                                   </form><!-- End General Form Elements -->
                                 </div>
-                                
+
                               </div>
-                            </div>  
+                            </div>
                           </div>
                           <!-- Fin Modal pour ajouter -->
-              
+
 
               <!-- Debut modal pour Modification -->
               <div class="modal fade" id="modalModifAgent" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                     <div class="modal-header text-center">
-                                              
+
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      
+
                       <div class="d-flex justify-content-center">
                         <a href="#" class="logo d-flex align-items-center w-auto">
                           <img src="assets/img/yetemali.jpg" alt="">
@@ -215,7 +220,7 @@
                         </a>
                       </div>
                       <!-- General Form Elements -->
-                      
+
                             <!-- Partie de l'ajout -->
                           <div class="card rounded-4">
                             <h1 class="card-title rounded-4 text-center text-black fs-1 fw-3 bg-warning-light">Modification</h1>
@@ -226,23 +231,23 @@
                                     <div class="row mb-3">
                                       <div class="col">
                                           <label class=" text-center fs-5">Agence</label>
-                                          
+
                                           <select name="Magence" id="Magence" class="form-select border-secondary" aria-label="Default select example">
 
                                           </select>
                                       </div>
-                                      
+
                                       <div class="col">
                                           <label class=" text-center fs-5">Nom</label>
                                           <div class="col">
                                             <input name="Mnom" id="Mnom" type="text" class="form-control border-secondary">
                                           </div>
                                       </div>
-                                      
-                                      
+
+
                                     </div>
 
-                                      
+
                                     <div class="row mb-3">
                                         <div class="col">
                                           <label class=" text-center fs-5">Prenom</label>
@@ -252,11 +257,11 @@
                                           <label class="  text-center fs-5">Adresse</label>
                                           <input name="Madresse" id="Madresse" type="text" class="form-control border-secondary">
                                         </div>
-                                        
-                                    </div>
-                                  
 
-                                      
+                                    </div>
+
+
+
                                     <div class="row mb-3">
                                         <div class="col">
                                           <label class=" text-center fs-5">Telephone</label>
@@ -265,10 +270,10 @@
                                         <div class="col">
                                           <label for="" class=" text-center fs-5">Photo</label>
                                           <input type="file" name="Mphoto" id="Mphoto" accept=".jpg, .png" class="form-control border-secondary">
-                                        </div> 
-                                        
+                                        </div>
+
                                     </div>
-                                    
+
                                     <div class="row mb-3">
                                       <label class=" fs-5">Mail</label>
                                           <input name="Mmail" id="Mmail" type="mail" class="form-control border-secondary">
@@ -278,16 +283,16 @@
                                       <button name ="Majouter" type="submit" class="btn btn-success boutton">Valider</button>
                                       <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
                                     </div>
-                    
+
                                   </form><!-- End General Form Elements -->
-                            
+
                             </div>
                           </div>
-        
-                      
+
+
                     </div>
-                    
-                </div>  
+
+                </div>
               </div>
 
           <!-- modal de confirmation de suppression -->
@@ -333,7 +338,7 @@
                   // Sélectionner la valeur dans le champ de sélection "mMembre"
             var membreText = this.cells[8].innerHTML; // Contenu de la cellule "Membre"
             var selectMembre = document.getElementById("Magence");
-            
+
             // Parcourir les options du champ de sélection et sélectionner la correspondante
             for (var j = 0; j < selectMembre.options.length; j++) {
                 if (selectMembre.options[j].text === membreText) {

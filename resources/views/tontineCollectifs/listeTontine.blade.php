@@ -68,7 +68,13 @@
                </tr>
             </thead>
             <tbody id="tbodyAfficheTontine">
-
+                  {{-- <?php $i=0; ?>
+                @foreach ($agents as $agent)
+                    <tr>
+                        <td class='btnCoti'><a  class='btn btn-transparent editTontineInd' data-id='2'  data-bs-toggle='modal' data-bs-target='#modalModifTontine' data-bs-placement='bottom' title='Modifier'><i class='bi bi-pen'></i></a></td>
+                        <td class='btnCoti'><button type='button' class='btn btn-transparent' data-bs-toggle='modal' data-bs-target='#modalSuiviTontine' data-bs-placement='bottom' title='Voir'><i class='bi bi-eye'></i></button></td>
+                    </tr>
+                @endforeach --}}
             </tbody>
         </table>
         </div>
