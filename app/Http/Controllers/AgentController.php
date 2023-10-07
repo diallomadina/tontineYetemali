@@ -12,7 +12,7 @@ class AgentController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -47,7 +47,7 @@ class AgentController extends Controller
         if($validation->fails()){
             return redirect()->back()->withErrors($validation)->withInput();
         }else{
-            
+
         }
     }
 

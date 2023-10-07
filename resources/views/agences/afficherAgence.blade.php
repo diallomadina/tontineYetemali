@@ -83,7 +83,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <?php $i=0; ?>
+                                <?php $i=1; ?>
                                 @foreach ( $agences as $agence )
 
                                     <tr>

@@ -12,7 +12,9 @@ class AgenceController extends Controller
      */
     public function index()
     {
-
+        $nombreAgence = Agence::count();
+        
+        return view('index', ['nombreAgences' =>$nombreAgence]);
     }
 
     /**

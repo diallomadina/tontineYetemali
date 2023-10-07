@@ -24,6 +24,8 @@ use App\Http\Controllers\VersementController;
 Route::get('/', function () {
     return view('index');
 })->name('acceuil');
+Route::get('/',[AgenceController::class, 'index'])->name('acceuil');
+
 
 // Les Routes pour les agences
 Route::get('/agences/afficherAgence',[AgenceController::class, 'create'])->name('afficherAgence');

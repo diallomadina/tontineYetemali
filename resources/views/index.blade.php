@@ -17,15 +17,17 @@
 
         <form action="" method="post">
             <div class="row">
-              <div class="col ms-2 contenuTb">
-                <h2 class="fw-bold text-success text-end fw-bold mt-1"><a href="{{ route('afficherAgence') }}" class="fw-bold text-success">Agences</a></h2>
-                <div class="row">
-                    <div class="col">
-                        <i class="bi bi-house fs-1 fw-bold"></i>
+                <div class="col ms-2 contenuTb">
+                    <div class="row">
+                        <div class="col mt-4 ms-2">
+                            <img src="{{ asset('agence.png') }}" height="150" width="150" alt="">
+                        </div>
+                        <div class="col">
+                            <h2 class="fw-bold text-success text-end fw-bold mt-1"><a href="{{ route('afficherAgence') }}" class="fw-bold text-success">Agences</a></h2>
+                            <span class="">{{ $nombreAgences }}</span>
+                        </div>
                     </div>
-                    <div class="col"></div>
                 </div>
-              </div>
                 <div class="col ms-5 contenuTb">
                   <h2 class=" text-end fw-bold mt-1"><a href="{{ route('listeAgent') }}" class="fw-bold text-success">Agent</a></h2>
                   <div class="row">
