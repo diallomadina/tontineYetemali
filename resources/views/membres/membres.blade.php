@@ -14,13 +14,13 @@
   </div><!-- End Page Title -->
   <div class="container">
   <div class="row mb-4 mt-2">
-      
+
       <div class="col-12">
           <div class="card">
               <div class="row mb-4 mt-2 p-2">
                 <div class="col"></div>
                 <label for="">Rechercher par:</label>
-                  <div class="col-2">  
+                  <div class="col-2">
                     <input id="contact" type="text" name="champRecherche"  class="form-control border-secondary bi bi-chevron-compact-down">
                   </div>
                   <div class="col-2 ">
@@ -37,7 +37,7 @@
                   </div>-->
                   <div class="col-2">
                       <button class="form-control border-secondary btn btn-success" type="submit" name="actualiser">
-                        <i class="bi bi-refresh"></i> 
+                        <i class="bi bi-refresh"></i>
                         <span id="btnActualiser">Actualiser</span>
                       </button>
                   </div>
@@ -45,7 +45,7 @@
                     <button class="form-control border-secondary btn btn-success" type="submit" name="nouveau"  data-bs-toggle="modal" data-bs-target="#modalNouveau" >
                       <i class="bi bi-plus"></i>
                       <span id="btnNouveau">Nouveau</span>
-                    </button> 
+                    </button>
                   </div>
                   <div class="col-2">
                     <button class="btn btn-primary" type="submit" name="imprimer">
@@ -54,7 +54,7 @@
                     </button>
                 </div>
               </div>
-              <div class="row mb-4" >                       
+              <div class="row mb-4" >
                 <div class="col-12">
                   <table id="tableMembre" class=" table table-bordered table-responsive table-hover table-striped" >
                     <thead>
@@ -67,16 +67,22 @@
                         <th  class="text-center bg-success text-white" >Contact</th>
                         <th  class="text-center bg-success text-white" >Date d'adhesion</th>
                         <th  class="text-center bg-success text-white" >e-mail</th>
-                        <th  class="text-center bg-success text-white">Action</th>
+                        <th  class="text-center bg-success text-white" colspan="2">Action</th>
                     </thead>
                     <tbody>
-
+                         {{-- <?php $i=0; ?>
+                        @foreach ($agents as $agent)
+                            <tr>
+                                <td class='btnCoti'><a  class='btn btn-transparent editAgent'  data-bs-toggle='modal' data-bs-target='#modalmodif' data-bs-placement='bottom' title='Modifier'><i class='bi bi-pen'></i></a></td>
+                                <td class='btnCoti'><a  class='btn btn-transparent editAgent'  data-bs-toggle='modal' data-bs-target='#modalInfoMembre' data-bs-placement='bottom' title='Modifier'><i class='bi bi-eye'></i></a></td>
+                            </tr>
+                        @endforeach --}}
                     </tbody>
-                  </table> 
+                  </table>
                 </div>
-                 
+
               </div>
-                                 
+
           </div>
       </div>
   </div><!-- End Pills Tabs -->
@@ -118,7 +124,7 @@
                       <input type="text" id="contact" name="telMembre" class="form-control border-secondary">
                     </div>
                  </div>
-                
+
                  <div class="row mb-4">
                     <div class="col">
                         <label for="">date_Adhesion</label>
@@ -148,11 +154,11 @@
                 <div class="col-3">
                 <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
                 </div>
-                
+
                 </div>
             </form>
         </div>
-        
+
       </div>
     </div>
   </div><!-- End Vertically centered Modal-->
@@ -192,7 +198,7 @@
                       <input type="text" id="contact" name="telMembre" class="form-control border-secondary">
                     </div>
                  </div>
-                
+
                  <div class="row mb-4">
                     <div class="col">
                         <label for="">date_Adhesion</label>
@@ -215,7 +221,7 @@
                     </div>
                  </div>
                 <div class="row mb-4 mt-4">
-                  <div class="col-6"></div> 
+                  <div class="col-6"></div>
                   <div class="col-3">
                     <button type="submit" class="btn btn-success" data-bs-dismiss="modal" name="btnEnregistrer">Enregistrer</button>
                   </div>
@@ -226,7 +232,7 @@
                 </div>
             </form>
         </div>
-        
+
       </div>
     </div>
   </div>
@@ -236,8 +242,8 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        <h2 class="text-center fw-blod">Informations Personnelles</h2>  
-        <div class="row mb-4 mt-3 p-2"> 
+        <h2 class="text-center fw-blod">Informations Personnelles</h2>
+        <div class="row mb-4 mt-3 p-2">
           <div class="col-6">
             <p><span class="fw-bold ms-3">Identifiant: </span> <span > A1 </span></p>
             <p><span class="fw-bold ms-3">Nom: </span> <span>Diallo</span></p>
@@ -270,18 +276,18 @@
             <p><span class="fw-bold ms-3">Retard de payement: </span> <span>1</span></p>
             <p><span class="fw-bold ms-3">Date de prise: </span> <span>11/09/23</span></p>
           </div>
-          
-        
+
+
         </div>
-        
-        
-        
-        
+
+
+
+
         <div class="modal-footer">
           <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
         </div>
       </div>
-    </div>  
+    </div>
   </div>
 </main>
 <!-- Fin du main -->
@@ -289,4 +295,3 @@
 
 
 
-         

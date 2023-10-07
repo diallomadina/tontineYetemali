@@ -12,7 +12,9 @@ class AgenceController extends Controller
      */
     public function index()
     {
-        //
+        $nombreAgence = Agence::count();
+        
+        return view('index', ['nombreAgences' =>$nombreAgence]);
     }
 
     /**
@@ -20,7 +22,8 @@ class AgenceController extends Controller
      */
     public function create()
     {
-        return view('agences.afficherAgence');
+        $agences = Agence::all();
+        return view('agences.afficherAgence',compact('agences'));
     }
 
     public function createAjout()
