@@ -13,7 +13,7 @@ class AgenceController extends Controller
     public function index()
     {
         $nombreAgence = Agence::count();
-        
+
         return view('index', ['nombreAgences' =>$nombreAgence]);
     }
 
@@ -47,8 +47,11 @@ class AgenceController extends Controller
             return redirect()->back()->withErrors($validation)->withInput();
         }else {
             $code = Agence::OrderBy('id', 'desc')->first();
-            $codeAgence = 'YMAG'.$code->id+1;
-
+            if($code == null){
+                $codeAgence = 'YMAG1';
+            }else {
+                $codeAgence = 'YMAG'.($code->id+1);
+            }
             $Agence = new Agence;
             $Agence->codeAgence = $codeAgence;
             $Agence->nomAgence = $request->input('nomAgence');
@@ -56,10 +59,37 @@ class AgenceController extends Controller
             $Agence->telAgence = $request->input('telAgence');
             $Agence->mailAgence= $request->input('mailAgence');
             $Agence->save();
-            return redirect()->back()->with('message', "Enregistrement effectuee avec success");
+            return redirect()->back()->with('success', "Enregistrement effectuee avec success");
         }
     }
 
+     public function update(Request $request)
+    {
+        $validation = Validator::make($request->all(),[
+            'MnomAgence'=>'required|min:3|max:70',
+            'MadresseAgence'=>'required|min:3|max:40',
+            'MtelAgence'=>'required|min:9|max:20|',
+            'MmailAgence'=>'required|email',
+        ]);
+
+        if($validation->fails()){
+            return redirect()->back()->withErrors($validation)->withInput();
+        }else {
+
+            $code = $request->input('idAgence');
+            $agence = Agence::where('codeAgence', $code)->first();
+            if (!$agence) {
+                return redirect()->back()->with('error', "L'agence avec le code donné n'existe pas.");
+            }
+
+            $agence->nomAgence = $request->input('MnomAgence');
+            $agence->adresseAgence = $request->input('MadresseAgence');
+            $agence->telAgence = $request->input('MtelAgence');
+            $agence->mailAgence= $request->input('MmailAgence');
+            $agence->save();
+            return redirect()->back()->with('success', "Modication effectuee avec success");
+        }
+    }
     /**
      * Display the specified resource.
      */
@@ -79,10 +109,6 @@ class AgenceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.

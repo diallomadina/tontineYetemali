@@ -237,11 +237,11 @@
         </aside><!-- End Sidebar-->
 
             @yield('content')
-        <a
+        <div
             href="#"
             class="back-to-top d-flex align-items-center justify-content-center"
-            ><i class="bi bi-arrow-up-short">CopyRigt 2023 Concu par DLC</i>
-        </a>
+            ><i class="bi bi-arrow-up-short text-center">CopyRigt 2023 Conçu par Digital Learning Center</i>
+    </div>
              <!-- Vendor JS Files -->
 
         <script src="{{asset('assets/js/EditMem.js')}}"></script>
@@ -259,6 +259,5 @@
         <script src="{{asset('assets/vendor/php-email-form/validate.js')}}"></script>
 
         <!-- Template Main JS File -->
-        <script src="{{asset('assets/js/main.js')}}"></script>
     </body>
 </html>

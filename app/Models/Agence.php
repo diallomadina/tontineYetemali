@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Agence extends Model
 {
     use HasFactory;
+    public function Agents(){
+        return $this->hasMany(Agents::class);
+    }
 }

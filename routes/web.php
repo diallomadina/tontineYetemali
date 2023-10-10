@@ -33,6 +33,7 @@ Route::get('/agences/afficherAgence',[AgenceController::class, 'create'])->name(
 Route::get('/agences/ajoutAgence', [AgenceController::class, 'createAjout'])->name('ajoutAgence');
 
 Route::post('/agences/ajoutAgence', [AgenceController::class, 'store'])->name('storeAgence');
+Route::post('/agences/updateAgence', [AgenceController::class, 'update'])->name('updateAgence');
 
 // Les Routes pour les agents
 Route::get('/agents/ajoutAgent',[AgentController::class, 'createAjout'])->name('ajoutAgent');
@@ -40,6 +41,12 @@ Route::get('/agents/ajoutAgent',[AgentController::class, 'createAjout'])->name('
 Route::get('/agents/listeAgent',[AgentController::class, 'create'])->name('listeAgent');
 
 Route::post('/agents/ajoutAgent',[AgentController::class, 'store'])->name('storeAgent');
+
+Route::post('/agents/listeAgent/Modification',[AgentController::class, 'update'])->name('updateAgent');
+
+Route::get('/agents/listeAgent/search',[AgentController::class, 'search'])->name('searchAgent');
+
+
 
 
 // Les routes pour cotisations

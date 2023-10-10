@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nomAgence');
             $table->string('adresseAgence');
             $table->string('telAgence');
-            $table->string('mailAgence');
+            $table->string('mailAgence')->nullable();
             $table->timestamps();
         });
     }

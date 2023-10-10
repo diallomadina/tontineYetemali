@@ -21,7 +21,9 @@
             <div class="card-body">
                 <div class="row">
                   <div class="col">
-
+                        @if (Session::has('success'))
+                             <div class="alert alert-success text-center fw-bold">{{Session::get("success")}}</div>
+                        @endif
                   </div>
                 </div>
               <!-- General Form Elements -->
@@ -32,8 +34,13 @@
                       <label class=" text-center fs-5">Agence</label>
 
                       <select name="agence" id="agence" class="form-select border-secondary" aria-label="Default select example">
-
+                        @foreach ($agences as $agence)
+                            <option value="{{ $agence->id }}">{{ $agence->nomAgence }}</option>
+                        @endforeach
                       </select>
+                      @error('agence')
+                        <span class="text-center text-danger">{{ $message }}</span>
+                      @enderror
                   </div>
 
                   <div class="col">
@@ -90,7 +97,7 @@
 
                 <div class="row mb-3">
                   <div class="col">
-                    <label class=" fs-5">Mail</label>
+                    <label class=" fs-5">Email</label>
                     <input name="mail" id="mail" type="mail" class="form-control border-secondary">
                     @error('mail')
                         <span class="text-center text-danger">{{ $message }}</span>

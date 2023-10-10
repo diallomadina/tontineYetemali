@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('montant');
             $table->string('frequence');
             $table->integer('nombreParticipant');
-            $table->foreignId('agent')->references('id')->on('personnes')->onDelete('cascade');
+            $table->foreignId('agent')->references('id')->on('agents')->onDelete('cascade');
             $table->timestamps();
         });
     }

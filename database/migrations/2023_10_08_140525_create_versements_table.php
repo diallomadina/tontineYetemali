@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('montantVersement');
             $table->date('dateVersement');
             $table->foreignId('tontine')->references('id')->on('tontine_collectives')->onDelete('cascade');
-            $table->foreignId('membre')->references('id')->on('personnes')->onDelete('cascade');
+            $table->foreignId('membre')->references('id')->on('membres')->onDelete('cascade');
             $table->timestamps();
         });
     }

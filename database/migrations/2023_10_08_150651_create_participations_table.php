@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('participations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tontine')->references('id')->on('tontine_collectives')->onDelete('cascade');
-            $table->foreignId('membre')->references('id')->on('personnes')->onDelete('cascade');
+            $table->foreignId('membre')->references('id')->on('membres')->onDelete('cascade');
             $table->timestamps();
         });
     }

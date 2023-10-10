@@ -16,8 +16,8 @@
         <div class="col-sm-6 mt-3">
             <div class="row">
                 <div class="col">
-                     @if(Session::has('message'))
-                            <div class="alert alert-success text-center fw-bold">{{Session::get("message")}}</div>
+                     @if(Session::has('success'))
+                            <div class="alert alert-success text-center fw-bold">{{Session::get("success")}}</div>
                         @endif
                 </div>
             </div>

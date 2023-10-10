@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Agent extends Model
 {
     use HasFactory;
+    public function agences()
+    {
+        return $this->belongsTo(Agence::class,'id');
+    }
 }

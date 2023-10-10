@@ -11,17 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('personnes', function (Blueprint $table) {
+        Schema::create('agents', function (Blueprint $table) {
             $table->id();
-            $table->string('codePersonne')->unique();
-            $table->string('nomPersonne');
-            $table->string('prenomPersonne');
-            $table->string('adressePersonne');
-            $table->string('telPersonne');
-            $table->string('mailPersonne')->nullable();
-            $table->string('photoPersonne')->nullable();
+            $table->string('codeAgent')->unique();
+            $table->string('nomAgent');
+            $table->string('prenomAgent');
+            $table->string('adresseAgent');
+            $table->string('telAgent');
+            $table->string('mailAgent')->nullable();
+            $table->string('photoAgent')->nullable();
             $table->date('dateAdhesion');
-            $table->string('typePersonne');
             $table->foreignId('Agence')->references('id')->on('agences')->onDelete('cascade');
             $table->timestamps();
         });
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('personnes');
+        Schema::dropIfExists('agents');
     }
 };
