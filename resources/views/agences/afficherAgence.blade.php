@@ -19,7 +19,7 @@
             <div class="row">
 
 
-                    <form action="" method="post">
+                    <form action="{{ route('searchAgence') }}" method="post">
                         <div class="row">
                             <div class="col messages">
                                 @if(Session::has('success'))
@@ -46,6 +46,7 @@
                             </div>
 
                         </div>
+                        @csrf
                       <div class="row">
                               <div class="col mt-4">
                                 <select name="choix" id="" class="form-select">
@@ -53,6 +54,7 @@
                                   <option value="nom">Nom</option>
                                   <option value="code">Code</option>
                                   <option value="adresse">Adresse</option>
+                                  <option value="statut">Statut</option>
                                 </select>
                               </div>
                               <div class="col mt-4">
@@ -71,9 +73,11 @@
                               </div>
                               <div class="col mt-4">
                                   <div class="form-group">
-                                      <button name="actualiser" type="submit" class="btn btn-warning text-center form-control" id=" btn-actualiser-agence">
-                                      <i class="bi bi-repeat"></i> <span class="">Actualiser</span>
-                                      </button>
+                                      <a href="{{ route('afficherAgence') }}">
+                                        <button name="actualiser" type="submit" class="btn btn-warning text-center form-control" id=" btn-actualiser-agence">
+                                            <i class="bi bi-repeat"></i> <span class="">Actualiser</span>
+                                         </button>
+                                    </a>
                                   </div>
                               </div>
                               <div class="col mt-4">
@@ -102,7 +106,8 @@
                                     <th class="text-center bg-success text-white">Telephone</th>
                                     <th class="text-center bg-success text-white">Adresse</th>
                                     <th class="text-center bg-success text-white">Email</th>
-                                    <th class="text-center bg-success text-white">Action</th>
+                                    <th class="text-center bg-success text-white">Statut</th>
+                                    <th class="text-center bg-success text-white" colspan="2">Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -116,7 +121,21 @@
                                         <td>{{ $agence->telAgence }}</td>
                                         <td>{{ $agence->adresseAgence }}</td>
                                         <td>{{ $agence->mailAgence }}</td>
+                                        <td>
+                                            @if ($agence->statut == 1)
+                                            Actif
+                                            @else
+                                                Arrêté
+                                            @endif
+                                        </td>
                                         <td class='btnCoti'><a href='$id' data-id='1' class='btn btn-transparent editAgence'  data-bs-toggle='modal' data-bs-target='#modalModifAgence' data-bs-placement='bottom' title='Modifier'><i class='bi bi-pen'></i></a></td>
+                                        <td class='btnCoti'>
+                                            @if ($agence->statut == 1)
+                                                <a href='$id' data-id='2' class='btn btn-transparent arretAgence'  data-bs-toggle='modal' data-bs-target='#modalSuspendAgence' data-bs-placement='bottom' title='Arreter'><i class='bi bi-exclamation-triangle'></i></a>
+                                            @else
+                                                <a href='$id' data-id='3' class='btn btn-transparent actifAgence'  data-bs-toggle='modal' data-bs-target='#modalActifAgence' data-bs-placement='bottom' title='Activer'><i class='bi bi-check'></i></a>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -184,7 +203,7 @@
                                                   <div class="row mb-4">
                                                     <label class="col-sm-4  text-center fs-5">Mail</label>
                                                     <div class="col-sm-6">
-                                                     <input name="mailAgence" id="mailAgence" type="mail" class="form-control border-secondary">
+                                                     <input name="mailAgence"  type="mail" class="form-control border-secondary">
                                                     </div>
                                                     <div class="col-sm-2"></div>
 
@@ -205,86 +224,135 @@
                                   </div>
                                   <!-- Fin Modal pour ajouter -->
                       <!-- Le modal pour modifier -->
-                      <div class="modal fade" id="modalModifAgence" tabindex="-1">
-                      <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-                          <div class="modal-header text-center">
-                              <h1 class="card-title text-center text-black fs-3 fw-3">Modification de l'agence</h1>
+                    <div class="modal fade" id="modalModifAgence" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                             <div class="modal-content">
+                                <div class="modal-header text-center">
+                                    <h1 class="card-title text-center text-black fs-3 fw-3">Modification de l'agence</h1>
 
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                          <div class="d-flex justify-content-center py-4">
-                              <a href="#" class="logo d-flex align-items-center w-auto">
-                              <img src="assets/img/yetemali.jpg" alt="">
-                              <span class="d-none d-lg-block text-success">Yete</span>
-                              <span class="d-none d-lg-block text-warning">mali</span>
-                              </a>
-                          </div>
-                          <div class="card mt-2 rounded-4">
-                            <div class="card-body">
-
-                              <!-- General Form Elements -->
-                              <form method="post" action="{{ route('updateAgence') }}">
-                                @csrf
-                                <div class="row mb-4 mt-4">
-                                  <div class="col-sm-6">
-                                    <input name="idAgence" id="idAgence" type="hidden" class="form-control border-secondary" readonly>
-                                  </div>
-                                  <div class="col-sm-2"></div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="row mb-4 mt-4">
-                                  <label class="col-sm-4  text-center fs-5">Agence</label>
-                                  <div class="col-sm-6">
-                                    <input name="MnomAgence" id="nomAgence" type="text" class="form-control border-secondary">
-
-                                  </div>
-                                  <div class="col-sm-2"></div>
-                                </div>
-                                <div class="row mb-4">
-                                    <label class="col-sm-4  text-center fs-5">Telephone</label>
-                                    <div class="col-sm-6">
-                                      <input name="MtelAgence" id="telAgence" type="tel" class="form-control border-secondary">
-
+                                <div class="modal-body">
+                                    <div class="d-flex justify-content-center py-4">
+                                        <a href="#" class="logo d-flex align-items-center w-auto">
+                                        <img src="assets/img/yetemali.jpg" alt="">
+                                        <span class="d-none d-lg-block text-success">Yete</span>
+                                        <span class="d-none d-lg-block text-warning">mali</span>
+                                        </a>
                                     </div>
-                                    <div class="col-sm-2"></div>
-                                  </div>
-                                  <div class="row mb-4">
-                                      <label class="col-sm-4  text-center fs-5">Adresse</label>
-                                      <div class="col-sm-6">
-                                        <input name="MadresseAgence" id="adresseAgence" type="text" class="form-control border-secondary">
+                                    <div class="card mt-2 rounded-4">
+                                        <div class="card-body">
 
-                                      </div>
-                                      <div class="col-sm-2"></div>
-                                  </div>
-                                  <div class="row mb-4">
-                                    <label class="col-sm-4  text-center fs-5">Email</label>
-                                    <div class="col-sm-6">
-                                      <input name="MmailAgence" id="mailAgence" type="mail" class="form-control border-secondary">
+                                        <!-- General Form Elements -->
+                                        <form method="post" action="{{ route('updateAgence') }}">
+                                            @csrf
+                                            <div class="row mb-4 mt-4">
+                                            <div class="col-sm-6">
+                                                <input name="idAgence" id="idAgence" type="hidden" class="form-control border-secondary" readonly>
+                                            </div>
+                                            <div class="col-sm-2"></div>
+                                            </div>
+                                            <div class="row mb-4 mt-4">
+                                            <label class="col-sm-4  text-center fs-5">Agence</label>
+                                            <div class="col-sm-6">
+                                                <input name="MnomAgence" id="nomAgence" type="text" class="form-control border-secondary">
 
+                                            </div>
+                                            <div class="col-sm-2"></div>
+                                            </div>
+                                            <div class="row mb-4">
+                                                <label class="col-sm-4  text-center fs-5">Telephone</label>
+                                                <div class="col-sm-6">
+                                                <input name="MtelAgence" id="telAgence" type="tel" class="form-control border-secondary">
+
+                                                </div>
+                                                <div class="col-sm-2"></div>
+                                            </div>
+                                            <div class="row mb-4">
+                                                <label class="col-sm-4  text-center fs-5">Adresse</label>
+                                                <div class="col-sm-6">
+                                                    <input name="MadresseAgence" id="adresseAgence" type="text" class="form-control border-secondary">
+
+                                                </div>
+                                                <div class="col-sm-2"></div>
+                                            </div>
+                                            <div class="row mb-4">
+                                                <label class="col-sm-4  text-center fs-5">Email</label>
+                                                <div class="col-sm-6">
+                                                <input name="MmailAgence" id="mailAgence" type="mail" class="form-control border-secondary">
+
+                                                </div>
+                                                <div class="col-sm-2"></div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button  type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
+                                                <button type="submit" name="MbtnValiderAgence" class="btn btn-success boutton">Valider</button>
+                                            </div>
+
+                                        </form><!-- End General Form Elements -->
+
+
+                                        </div>
                                     </div>
-                                    <div class="col-sm-2"></div>
                                 </div>
 
-                                  <div class="modal-footer">
-                                    <button  type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
-                                    <button type="submit" name="MbtnValiderAgence" class="btn btn-success boutton">Valider</button>
-                                  </div>
-
-                              </form><!-- End General Form Elements -->
-
-
-                            </div>
-                          </div>
-                          </div>
-
-                      </div>
-                      </div>
-                  </div>
+                             </div>
+                        </div>
+                    </div>
                   <!-- Fin Modal pour modifier l'agence -->
-                          <!-- modal de confirmation de suppression -->
 
+                    <!-- modal de confirmation d'arret de l'agence -->
 
+                    <div class="modal fade" id="modalSuspendAgence" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title fw-bold">Confirmation</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form action="{{ route('arretAgence') }}" method="post">
+                                    @csrf
+                                    <div class="modal-body text-center fw-bold">
+                                            <input type="hidden" name="codeAgenceArret" id="codeAgenceArret">
+                                            Voulez-vous vraiment arreter cette agence?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                        <button type="submit" class="btn btn-danger">Arreter</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Fin modal de confirmation d'arret de l'agence -->
+
+                     <!-- modal de confirmation d'activation de l'agence -->
+
+                     <div class="modal fade" id="modalActifAgence" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title fw-bold">Confirmation</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form action="{{ route('actifAgence') }}" method="post">
+                                    @csrf
+                                    <div class="modal-body text-center fw-bold">
+                                            <input type="hidden" name="codeAgenceActivation" id="codeAgenceActivation">
+                                            Voulez-vous vraiment Reativer cette agence?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                        <button type="submit" class="btn btn-danger">Activer</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Fin modal de confirmation d'activation de l'agence -->
               </div>
 
         </div>
@@ -306,7 +374,25 @@ function editerInfoAgence() {
             document.getElementById("nomAgence").value = this.cells[2].innerHTML;
             document.getElementById("telAgence").value = this.cells[3].innerHTML;
             document.getElementById("adresseAgence").value = this.cells[4].innerHTML;
-            document.getElementById("mailAgence").value = this.cells[5].content;
+            document.getElementById("mailAgence").value = this.cells[5].innerHTML;
+        };
+    }
+}
+
+function activerAgence() {
+    for (var i = 1; i < tableAgence.rows.length; i++) {
+        tableAgence.rows[i].onclick = function () {
+            document.getElementById("codeAgenceActivation").value = this.cells[1].innerHTML;
+
+        };
+    }
+}
+
+function arreterAgence() {
+    for (var i = 1; i < tableAgence.rows.length; i++) {
+        tableAgence.rows[i].onclick = function () {
+            document.getElementById("codeAgenceArret").value = this.cells[1].innerHTML;
+
         };
     }
 }
@@ -315,6 +401,18 @@ $('.editAgence').click(function (e) {
     e.preventDefault();
     editerInfoAgence();
 });
+
+$('.arretAgence').click(function (e) {
+    e.preventDefault();
+    arreterAgence();
+});
+
+$('.actifAgence').click(function (e) {
+    e.preventDefault();
+    activerAgence();
+});
+
+
 
 
 // Pour récupérer les données de la tontine individuelle

@@ -12,9 +12,22 @@
       </ol>
     </nav>
   </div>
+
       <div class="row">
         <div class="col-lg-3"></div>
         <div class="col-lg-6">
+            {{-- Boutton pour afficher la liste --}}
+            <div class="row mb-4">
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col">
+                    <a href="{{ route('listePayement') }}">
+                        <button name="afficher" type="submit" class="form-control bg-success text-white">Afficher</button>
+                    </a>
+                </div>
+
+            </div>
           <!-- Partie de l'ajout -->
           <div class="card rounded-4">
             <h1 class="card-title rounded-4 text-center text-black fs-1 fw-3 bg-warning-light">Effectuer un Versement</h1>
@@ -23,8 +36,10 @@
             <form method="post" action="{{ route('ajoutPayement') }}">
                 @csrf
                 <div class="row">
-                  <div class="col">
-
+                    <div class="col">
+                        @if (Session::has('success'))
+                             <div class="alert alert-success text-center fw-bold">{{Session::get("success")}}</div>
+                        @endif
                   </div>
                 </div>
                 <div class="row mb-4">
@@ -33,8 +48,13 @@
                     <div class="input-group ms-3">
                         <input type="text" id="searchTontine" class="form-control border-secondary " placeholder="Rechercher une tontine">
                         <select name="tontine" class="form-select border-secondary" aria-label="Default select example">
-                            <option value="0" selected>Cliquez pour choisir</option>
-
+                            <option value="">Cliquez pour choisir</option>
+                            @foreach ($tontinesC as $tontines )
+                                <option value="{{ $tontines->id }}">{{ $tontines->nomTontineC.' ('.$tontines->codeTontineC.')' }}</option>
+                            @endforeach
+                            @error('tontine')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </select>
                     </div>
                   </div>
@@ -44,11 +64,16 @@
                       <label class="col fs-5 ms-3">Membre</label>
                       <div class="row">
                             <div class="ms-3 input-group">
-                            <input type="text" id="searchMembre" class="form-control border-secondary" placeholder="Rechercher un menbre" >
-                            <select name="membre" class="form-select border-secondary" aria-label="Default select example">
-                              <option value="0" selected>Cliquez pour choisir</option>
-
-                              </select>
+                                <input type="text" id="searchMembre" class="form-control border-secondary" placeholder="Rechercher un menbre" >
+                                <select name="membre" class="form-select border-secondary" aria-label="Default select example">
+                                    <option value="" selected>Cliquez pour choisir</option>
+                                    @foreach ($membres as  $membre)
+                                        <option value="{{ $membre->id }}">{{ $membre->nomMembre.' '.$membre->prenomMembre.' ('.$membre->codeMembre.')' }}</option>
+                                    @endforeach
+                                    @error('membre')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </select>
                             </div>
                       </div>
                   </div>
@@ -63,8 +88,8 @@
                       </div>
                       <div class="col">
                         <label for="inputDate" class="  text-center fs-5">Date</label>
-                        <input name="debut" id="debut"  type="date" class="form-control border-secondary">
-                        @error('debut')
+                        <input name="date" id="date"  type="date" class="form-control border-secondary">
+                        @error('date')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                       </div>

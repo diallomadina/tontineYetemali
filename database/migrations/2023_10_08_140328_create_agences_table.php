@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('adresseAgence');
             $table->string('telAgence');
             $table->string('mailAgence')->nullable();
+            $table->boolean('statut')->nullable();
             $table->timestamps();
         });
     }

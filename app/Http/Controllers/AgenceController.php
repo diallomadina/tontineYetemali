@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Agence;
+use Illuminate\Support\Facades\Request as FacadesRequest;
+
 class AgenceController extends Controller
 {
     /**
@@ -12,9 +14,7 @@ class AgenceController extends Controller
      */
     public function index()
     {
-        $nombreAgence = Agence::count();
-
-        return view('index', ['nombreAgences' =>$nombreAgence]);
+       
     }
 
     /**
@@ -22,7 +22,7 @@ class AgenceController extends Controller
      */
     public function create()
     {
-        $agences = Agence::all();
+        $agences = Agence::orderBy('statut', 'desc')->get();
         return view('agences.afficherAgence',compact('agences'));
     }
 
@@ -58,6 +58,7 @@ class AgenceController extends Controller
             $Agence->adresseAgence = $request->input('adresseAgence');
             $Agence->telAgence = $request->input('telAgence');
             $Agence->mailAgence= $request->input('mailAgence');
+            $Agence->statut= true;
             $Agence->save();
             return redirect()->back()->with('success', "Enregistrement effectuee avec success");
         }
@@ -90,31 +91,55 @@ class AgenceController extends Controller
             return redirect()->back()->with('success', "Modication effectuee avec success");
         }
     }
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+
+    public function arretAgence(Request $request){
+        $code = $request->input('codeAgenceArret');
+        $agences = Agence::where('codeAgence', $code)->first();
+        if (!$agences) {
+            return redirect()->back()->with('error', "L'agence avec le code donné n'existe pas.");
+        }
+        $agences->statut = false;
+        $agences->save();
+        return redirect()->back()->with('success', "Agence arreter avec succes");
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function actifAgence(Request $request){
+        $code = $request->input('codeAgenceActivation');
+        $agences = Agence::where('codeAgence', $code)->first();
+        if (!$agences) {
+            return redirect()->back()->with('error', "L'agence avec le code donné n'existe pas.");
+        }
+        $agences->statut = true;
+        $agences->save();
+        return redirect()->back()->with('success', "Agence reativer avec succes");
+    }
+    public function search(Request $request)
     {
-        //
+        $choix = $request->input('choix');
+        $recherche = $request->input('txtRecherche');
+        $agences = Agence::query(); // Initialisez la requête de base.
+
+        if ($choix == 'nom') {
+            $agences->where('nomAgence', 'like', '%' . $recherche . '%');
+        } elseif ($choix == 'code') {
+            $agences->where('codeAgence', 'like', '%' . $recherche . '%');
+        } elseif ($choix == 'adresse') {
+            $agences->where('adresseAgence', 'like', '%' . $recherche . '%');
+        } elseif ($choix == 'statut') {
+            if ($recherche == 'Actif') {
+                $agences->where('statut', true);
+            } else if ($recherche == 'Arrêté') {
+                $agences->where('statut', false);
+            }
+        }else {
+            $agences = Agence::orderBy('statut', 'desc');
+        }
+
+        // Exécutez la requête et récupérez les résultats.
+        $agences = $agences->get();
+
+        return view('agences.afficherAgence', compact('agences'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

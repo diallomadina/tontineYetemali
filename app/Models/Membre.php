@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Membre extends Model
 {
     use HasFactory;
+    public function totinesC(){
+        return $this->belongsToMany(TontineCollective::class);
+    }
+
+    public function tontinesI(){
+        return $this->hasMany(TontineIndividuelle::class);
+    }
 }

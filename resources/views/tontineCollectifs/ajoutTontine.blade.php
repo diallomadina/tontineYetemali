@@ -12,14 +12,32 @@
       </ol>
     </nav>
   </div>
+
       <div class="row mt-4">
         <div class="col-sm-1"></div>
         <div class="col-sm-10 mt-5">
+            <div class="row mb-3">
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col">
+                    <a href="{{ route('listeTontine') }}">
+                        <button name="afficher" type="submit" class="form-control bg-success text-white">Afficher</button>
+                    </a>
+                </div>
+              </div>
           <!-- Partie de l'ajout -->
           <div class="card rounded-4 mb-5">
             <h1 class="card-title rounded-4 text-center text-black fs-1 fw-3 bg-warning-light">Nouvelle Tontine Collective</h1>
             <div class="card-body">
-
+                <div class="row">
+                    <div class="col">
+                          @if (Session::has('success'))
+                               <div class="alert alert-success text-center fw-bold">{{Session::get("success")}}</div>
+                          @endif
+                    </div>
+                </div>
               <!-- General Form Elements -->
               <form method="post" action="{{ route('ajoutTontine') }}">
                 @csrf
@@ -36,7 +54,9 @@
                       <div class="col">
                         <label class="fs-5">Agent</label>
                         <select name="agent" id="agent" class="form-select border-secondary">
-
+                            @foreach ($agents as $agent )
+                                <option value="{{ $agent->id }}">{{ $agent->nomAgent.' '. $agent->prenomAgent.'    ('.$agent->codeAgent.') ' }}</option>
+                            @endforeach
                         </select>
                       </div>
 

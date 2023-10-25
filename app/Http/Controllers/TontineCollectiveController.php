@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agent;
+use App\Models\TontineCollective;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -20,12 +22,15 @@ class TontineCollectiveController extends Controller
      */
     public function createTontine()
     {
-        return view('tontineCollectifs.ajoutTontine');
+        $agents = Agent::all();
+        return view('tontineCollectifs.ajoutTontine', compact('agents'));
     }
 
     public function createListeTontine()
     {
-        return view('tontineCollectifs.listeTontine');
+        $agents = Agent::all();
+        $tontines = TontineCollective::with('agents')->get();
+        return view('tontineCollectifs.listeTontine', compact('tontines', 'agents'));
     }
 
     public function createHistoriqueTontine()
@@ -45,45 +50,84 @@ class TontineCollectiveController extends Controller
         $validation = Validator::make($request->all(),[
             'nom'=>'required',
             'debut'=>'required|date',
-            'montant'=>'required|numeric',
+            'montant'=>'required',
             'frequence'=>'required',
-            'participant'=>'required|number',
+            'participant'=>'required',
         ]);
 
         if($validation->fails()){
             return redirect()->back()->withErrors($validation)->withInput();
+        }else{
+            $agent = new Agent();
+            $tontines = new TontineCollective();
+            $code = TontineCollective::OrderBy('id', 'desc')->first();
+            if($code == null){
+                $codeTontineC = 'YMTC1';
+            }else{
+                $codeTontineC='YMTC'.($code->id+1);
+            }
+            $tontines->codeTontineC = $codeTontineC;
+            $tontines->nomTontineC = $request->nom;
+            $tontines->debutTontineC = $request->debut;
+            $tontines->montant = $request->montant;
+            $tontines->frequence = $request->frequence;
+            $tontines->nombreParticipant = $request->participant;
+            $tontines->agent = $request->agent;
+            $tontines->save();
+            return redirect()->back()->with('success','Enregistrement effectuer avec succes');
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+
+    public function update(Request $request)
     {
-        //
+        $validation = Validator::make($request->all(),[
+            'nom'=>'required',
+            'debut'=>'required|date',
+            'montant'=>'required',
+            'frequence'=>'required',
+            'participant'=>'required',
+        ]);
+
+        if($validation->fails()){
+            return redirect()->back()->withErrors($validation)->withInput();
+        }else{
+
+            $code = $request->input('code');
+            $tontines = TontineCollective::where('codeTontineC',$code)->first();
+            if(!$tontines){
+                return redirect()->back()->with('error', "La tontine avec le code donné n'existe pas.");
+            }
+            $tontines->nomTontineC = $request->nom;
+            $tontines->debutTontineC = $request->debut;
+            $tontines->montant = $request->montant;
+            $tontines->frequence = $request->frequence;
+            $tontines->nombreParticipant = $request->participant;
+            $tontines->agent = $request->agent;
+            $tontines->save();
+            return redirect()->back()->with('success','Modification effectuer avec succes');
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+    // La fonction pour recherher les tontines
+    public function search(Request $request){
+        $choix = $request->input('choix');
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        $recherche = $request->input('txtRecherche');
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $tontines = TontineCollective::query();
+
+        if($choix == 'identifiant'){
+            $tontines = TontineCollective::where('codeTontineC', 'like', '%' . $recherche .'%');
+        }else if($choix == 'nom'){
+            $tontines = TontineCollective::where('nomTontineC', 'like', '%' . $recherche .'%');
+        }else if($choix == 'montant'){
+            $tontines = TontineCollective::where('montant', 'like', '%' . $recherche .'%');
+        }else{
+             $tontines = TontineCollective::with('agents');
+        }
+        $tontines = $tontines->get();
+        $agents = Agent::all();
+        return view('tontineCollectifs.listeTontine', compact('tontines', 'agents'));
     }
 }

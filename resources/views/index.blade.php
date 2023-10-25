@@ -24,7 +24,7 @@
                         </div>
                         <div class="col">
                             <h2 class="fw-bold text-success text-end fw-bold mt-1"><a href="{{ route('afficherAgence') }}" class="fw-bold text-success">Agences</a></h2>
-                            <span class="nombre">{{ $nombreAgences }}</span>
+                            <span class="nombre">{{ $nombreAgence }}</span>
                         </div>
                     </div>
                 </div>
@@ -34,7 +34,8 @@
                         <img src="{{ asset('agent.png') }}" height="150" width="160" alt="">
                     </div>
                     <div class="col">
-                        <h2 class=" text-end fw-bold mt-1"><a href="{{ route('listeAgent') }}" class="fw-bold text-success">Agents</a></h2>
+                            <h2 class=" text-end fw-bold mt-1"><a href="{{ route('listeAgent') }}" class="fw-bold text-success">Agents</a></h2>
+                            <span class="nombre">{{ $nombreAgent }}</span>
                     </div>
                 </div>
               </div>

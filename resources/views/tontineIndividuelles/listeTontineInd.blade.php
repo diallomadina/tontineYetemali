@@ -16,11 +16,33 @@
 
     <!-- Contenue de la page -->
     <div class="container">
-      <div class="row">
-        <div class="col">
+        <div class="row">
+            <div class="col">
+              <div class="col messages">
+                  @if(Session::has('success'))
+                      <div class="alert alert-success text-center fw-bold fs-24">
+                          {{ Session::get('success') }}
+                      </div>
+                  @endif
 
-        </div>
-      </div>
+                  @if(Session::has('error'))
+                      <div class="alert alert-danger">
+                          {{ Session::get('error') }}
+                      </div>
+                  @endif
+
+                  @if($errors->any())
+                      <div class="alert alert-danger">
+                          <ul>
+                              @foreach ($errors->all() as $error)
+                                  <li>{{ $error }}</li>
+                              @endforeach
+                          </ul>
+                      </div>
+                  @endif
+              </div>
+            </div>
+          </div>
         <form action="" method="post">
         <div class="row">
           <div class="col">
@@ -33,7 +55,7 @@
             </select>
           </div>
           <div class="col">
-            <input type="text" class="form-control border-secondary">
+            <input type="text" name="txtRecherhce" class="form-control border-secondary">
           </div>
           <div class="col">
             <button type="button" class="form-control border-secondary bg-warning-light">
@@ -68,11 +90,29 @@
                      <th class="text-center bg-success text-white">Date de debut</th>
                      <th class="text-center bg-success text-white">Montant</th>
                      <th class="text-center bg-success text-white">Membre</th>
-                     <th class="text-center bg-success text-white" colspan="2">Action</th>
+                     <th class="text-center bg-success text-white">Agent</th>
+                     <th class="text-center bg-success text-white">Voir</th>
+                     <th class="text-center bg-success text-white">Payer</th>
                </tr>
             </thead>
             <tbody>
-
+                @foreach ($tontinesI as $tontine)
+                    <tr>
+                        <td>{{ $loop->iteration  }}</td>
+                        <td>{{ $tontine->codeTontineI }}</td>
+                        <td>{{ $tontine->nomTontineI }}</td>
+                        <td>{{ $tontine->debutTontineI }}</td>
+                        <td>{{ $tontine->montantTontineI }}</td>
+                        <td>{{ $tontine->membres->nomMembre.' '.$tontine->membres->prenomMembre }}</td>
+                        <td>{{ $tontine->agents->nomAgent.' '.$tontine->agents->prenomAgent }}</td>
+                        <td class="btnCoti">
+                            <a href='#'  class='btn btn-transparent voirTontineI'  data-bs-toggle='modal' data-bs-target='#modalvoirTontineI' data-bs-placement='bottom' title='Voir'><i class='bi bi-eye'></i></a>
+                        </td>
+                        <td style="width: 50px">
+                            <a href="" class="btn btn-success">Payer</a>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
           </table>
         </div>
@@ -96,145 +136,104 @@
               </a>
             </div>
             <!-- General Form Elements -->
-            <form method="post" action="">
-                      <div class="row mb-4 mt-4">
-                        <label class="col-sm-3  text-center fs-5">Agent</label>
-                        <div class="col-sm-7">
-                          <select name="agent" class="form-select border-secondary" aria-label="Default select example">
+             <!-- General Form Elements -->
+             <form method="post" action="{{ route('ajoutTontineInd') }}">
+                @csrf
 
+                <div class="row mb-3">
+                    <label class="ms-3 fs-5">Agent</label>
+                    <div class="input-group">
+                          <input type="text" id="searchAgent" class="form-control border-secondary ms-3" placeholder="Recherher l'agent">
+                          <select name="agent" id="agent" class="form-select border-secondary" aria-label="Default select example">
+                                <option value="">Cliquez pour choisir</option>
+                                @foreach ($agents as $agent)
+                                    <option value="{{ $agent->id }}">{{ $agent->nomAgent.' '.$agent->prenomAgent }}</option>
+                                @endforeach
                           </select>
 
+                    </div>
+
+                </div>
+
+                <div class="row mb-3 mt-4">
+                  <label class="fs-5 ms-3">Membre</label>
+                  <div class="input-group">
+                    <input type="text" id="searchMembre" class="form-control border-secondary ms-3 mr-3" placeholder="Recherhcher le membre">
+                    <select name="membre" id="membre" class="form-select border-secondary" aria-label="Default select example">
+                        <option value="">Cliquez pour choisir</option>
+                        @foreach ($membres as $membre)
+                            <option value="{{ $membre->id }}">{{ $membre->nomMembre.' '.$membre->prenomMembre.' ('.$membre->codeMembre.')' }}</option>
+                        @endforeach
+                    </select>
+
+                  </div>
+
+                </div>
+
+                  <div class="form-group">
+                    <div class="row mb-3">
+                      <label class=" fs-5 ms-3">Nom</label>
+                        <div class="row">
+                            <div class="col-12">
+                                <input name="nom" id="nom" type="text" class="form-control border-secondary ms-3">
+                            </div>
+
                         </div>
 
-                        <div class="col-sm-2"></div>
+                    </div>
+
+
+                  </div>
+
+                  <div class="form-group">
+                    <div class="row mb-3">
+                      <label class="ms-3 fs-5">Debut</label>
+                      <div class="row">
+                            <div class="col-12">
+                                <input name="debut" id="debut" type="date" class="form-control border-secondary ms-3">
+                            </div>
                       </div>
 
-                      <div class="row mb-4 mt-4">
-                        <label class="col-sm-3  text-center fs-5">Membre</label>
-                        <div class="col-sm-7">
-                          <select name="membre" class="form-select border-secondary" aria-label="Default select example">
+                    </div>
 
-                          </select>
+
+                  </div>
+
+                  <div class="form-group">
+                    <div class="row mb-3">
+                      <label class="ms-3 fs-5">Montant</label>
+                      <div class="row">
+                        <div class="col-12">
+                            <input name="montant" id="montant" type="number" class="form-control border-secondary ms-3">
                         </div>
-
-                        <div class="col-sm-2"></div>
                       </div>
+                    </div>
 
-                        <div class="form-group">
-                          <div class="row mb-4">
-                            <label class="col-sm-3  text-center fs-5">Nom</label>
-                            <div class="col-sm-7">
-                              <input name="nom" type="text" class="form-control border-secondary">
-                            </div>
-                          </div>
-                          <div class="col-sm-2"></div>
-                        </div>
 
-                        <div class="form-group">
-                          <div class="row mb-4">
-                            <label class="col-sm-3  text-center fs-5">Debut</label>
-                            <div class="col-sm-7">
-                              <input name="debut" type="date" class="form-control border-secondary">
-                            </div>
-                          </div>
-                          <div class="col-sm-2"></div>
-                        </div>
+                  </div>
 
-                        <div class="form-group">
-                          <div class="row mb-4">
-                            <label class="col-sm-3  text-center fs-5">Montant</label>
-                            <div class="col-sm-7">
-                              <input name="montant" type="number" class="form-control border-secondary">
-                            </div>
-                          </div>
-                          <div class="col-sm-2"></div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" name="btnValider" class="btn btn-warning boutton">Valider</button>
-                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
-                        </div>
-                    </form><!-- End General Form Elements -->
+                  <div class="row mb-3">
+                      <div class="col"></div>
+                      <div class="col">
+                        <button name="btnValider" type="submit" class="btn btn-success form-control">Valider</button>
+                      </div>
+                      <div class="col">
+                        <button name="btnAnulle" id="bntAnnulee" type="button" class="btn btn-danger form-control">Annulée</button>
+                      </div>
+                      <div class="col"></div>
+                  </div>
+
+              </form><!-- End General Form Elements -->
           </div>
 
         </div>
       </div>
   </div>
     <!-- Fin Modal pour ajouter -->
-  <!-- Debut modal pour Modification -->
-  <div class="modal fade" id="modalModifTontine" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header text-center">
-          <h1 class="text-center text-black fs-1 fw-3 bg-warning-light-light">Modification</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
 
-          <div class="d-flex justify-content-center py-4">
-            <a href="#" class="logo d-flex align-items-center w-auto">
-              <img src="assets/img/yetemali.jpg" alt="">
-              <span class="d-none d-lg-block text-success">Yete</span>
-              <span class="d-none d-lg-block text-warning">mali</span>
-            </a>
-          </div>
-          <!-- General Form Elements -->
-          <form method="post" action="">
-                      <input type="hidden" name="idTontineInd" id="idTontineInd">
-
-                      <div class="row mb-4 mt-4">
-                        <label class="col-sm-3  text-center fs-5">Membre</label>
-                        <div class="col-sm-7">
-                          <select id="mMembre" name="mMembre" class="form-select border-secondary" aria-label="Default select example">
-
-                          </select>
-                        </div>
-
-                        <div class="col-sm-2"></div>
-                      </div>
-
-                        <div class="form-group">
-                          <div class="row mb-4">
-                            <label class="col-sm-3  text-center fs-5">Nom</label>
-                            <div class="col-sm-7">
-                              <input name="mNom" id="mNom" type="text" class="form-control border-secondary">
-                            </div>
-                          </div>
-                          <div class="col-sm-2"></div>
-                        </div>
-
-                        <div class="form-group">
-                          <div class="row mb-4">
-                            <label class="col-sm-3  text-center fs-5">Debut</label>
-                            <div class="col-sm-7">
-                              <input name="mDebut" id="mDebut" type="date" class="form-control border-secondary">
-                            </div>
-                          </div>
-                          <div class="col-sm-2"></div>
-                        </div>
-
-                        <div class="form-group">
-                          <div class="row mb-4">
-                            <label class="col-sm-3  text-center fs-5">Montant</label>
-                            <div class="col-sm-7">
-                              <input name="mMontant" id="mMontant" type="number" class="form-control border-secondary">
-                            </div>
-                          </div>
-                          <div class="col-sm-2"></div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" name="mBtnValider" class="btn btn-success boutton">Valider</button>
-                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
-                        </div>
-                    </form><!-- End General Form Elements -->
-        </div>
-
-      </div>
-    </div>
-  </div>
-  <!-- Fin modal pour modification -->
 
   <!-- Debut Modal pour Voir le suivi -->
-                <div class="modal fade" id="modalSuiviTontine" tabindex="-1">
+                <div class="modal fade" id="modalvoirTontineI" tabindex="-1">
                   <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

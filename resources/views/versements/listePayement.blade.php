@@ -14,13 +14,35 @@
     </div><!-- End Page Title -->
 
             <div class="row">
-              <div class="col">
+                <div class="row">
+                    <div class="col">
+                      <div class="col messages">
+                          @if(Session::has('success'))
+                              <div class="alert alert-success text-center fw-bold fs-24">
+                                  {{ Session::get('success') }}
+                              </div>
+                          @endif
 
-              </div>
-            </div>
-            <div class="row">
-                    <form action="" method="post" class="form-inline bg-light">
+                          @if(Session::has('error'))
+                              <div class="alert alert-danger">
+                                  {{ Session::get('error') }}
+                              </div>
+                          @endif
 
+                          @if($errors->any())
+                              <div class="alert alert-danger">
+                                  <ul>
+                                      @foreach ($errors->all() as $error)
+                                          <li>{{ $error }}</li>
+                                      @endforeach
+                                  </ul>
+                              </div>
+                          @endif
+                      </div>
+                    </div>
+                  </div>
+                    <form action="{{ route('searchVersement') }}" method="post" class="form-inline bg-light">
+                        @csrf
                         <div class="row mt-3">
                           <div class="col-sm">
                             <label for=""></label>
@@ -37,8 +59,8 @@
                                 <option value="" selected>Choisissez l'option</option>
                                 <option value="identifiant">Identifiant</option>
                                 <option value="tontine">Tontine</option>
-                                <option value="Membre">Membre</option>
-                                <option value="Montant">Montant</option>
+                                <option value="membre">Membre</option>
+                                <option value="montant">Montant</option>
                              </select>
                             </div>
                            </div>
@@ -98,7 +120,16 @@
                    </tr>
                 </thead>
                 <tbody id="tbodyAfficheTontine">
-
+                    @foreach ($versements as $versement )
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $versement->codeVersement }}</td>
+                            <td>{{ $versement->tontinesC->nomTontineC.' ('.$versement->tontinesC->codeTontineC.')' }}</td>
+                            <td>{{ $versement->membres->nomMembre.' '.$versement->membres->prenomMembre }}</td>
+                            <td>{{ $versement->montantVersement }}</td>
+                            <td>{{ $versement->dateVersement }}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
                   <!-- End Table  -->
@@ -130,52 +161,68 @@
                       <h1 class="card-title rounded-4 text-center text-black fs-1 fw-3 bg-warning-light">Nouveau Payement</h1>
                       <div class="card-body">
 
-                      <form method="post" action="">
+                        <form method="post" action="{{ route('ajoutPayement') }}">
+                            @csrf
 
-                        <div class="row mb-4">
-                          <label class="col-sm-3  text-center fs-5">Tontine</label>
-                          <div class="col-sm-7">
-                            <select name="tontine" class="form-select border-secondary" aria-label="Default select example">
-
-                            </select>
-                          </div>
-
-                          <div class="col-sm-2"></div>
-                        </div>
-                          <div class="row mb-4">
-                              <label class="col-sm-3  text-center fs-5">Membre</label>
-                              <div class="col-sm-7">
-                                <select name="membre" class="form-select border-secondary" aria-label="Default select example">
-
-                                </select>
-                              </div>
-                              <div class="col-sm-2"></div>
-                          </div>
-
-                          <div class="form-group">
                             <div class="row mb-4">
-                              <label class="col-sm-3  text-center fs-5">Montant</label>
-                              <div class="col-sm-7">
-                                <input  name="montant" class="form-control border-secondary">
+                              <label class="col fs-5 ms-3">Tontine</label>
+                              <div class="row">
+                                <div class="input-group ms-3">
+                                    <input type="text" id="searchTontine" class="form-control border-secondary " placeholder="Rechercher une tontine">
+                                    <select name="tontine" class="form-select border-secondary" aria-label="Default select example">
+                                        <option value="">Cliquez pour choisir</option>
+                                        @foreach ($tontinesC as $tontines )
+                                            <option value="{{ $tontines->id }}">{{ $tontines->nomTontineC.' ('.$tontines->codeTontineC.')' }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
                               </div>
+
                             </div>
-                            <div class="col-sm-2"></div>
-                          </div>
+                              <div class="row mb-4">
+                                  <label class="col fs-5 ms-3">Membre</label>
+                                  <div class="row">
+                                        <div class="ms-3 input-group">
+                                            <input type="text" id="searchMembre" class="form-control border-secondary" placeholder="Rechercher un menbre" >
+                                            <select name="membre" class="form-select border-secondary" aria-label="Default select example">
+                                                <option value="" selected>Cliquez pour choisir</option>
+                                                @foreach ($membres as  $membre)
+                                                    <option value="{{ $membre->id }}">{{ $membre->nomMembre.' '.$membre->prenomMembre.' ('.$membre->codeMembre.')' }}</option>
+                                                @endforeach
 
-                          <div class="row mb-4">
-                            <label for="inputDate" class="col-sm-3  text-center fs-5">Date</label>
-                            <div class="col-sm-7">
-                              <input name="debut"  type="date" class="form-control border-secondary">
-                            </div>
-                            <div class="col-sm-2"></div>
-                          </div>
+                                            </select>
+                                        </div>
+                                  </div>
+                              </div>
 
-                          <div class="modal-footer">
-                            <button type="submit" name="btnValider" class="btn bg-warning-light boutton">Valider</button>
-                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
-                          </div>
+                                <div class="row mb-4">
+                                  <div class="col">
+                                    <label class="text-center fs-5">Montant</label>
+                                      <input  name="montant" id="montant" class="form-control border-secondary">
 
-                      </form><!-- End General Form Elements -->
+                                  </div>
+                                  <div class="col">
+                                    <label for="inputDate" class="  text-center fs-5">Date</label>
+                                    <input name="date" id="date"  type="date" class="form-control border-secondary">
+
+                                  </div>
+                                </div>
+
+
+
+                              <div class="row mb-4">
+                                  <div class="col"></div>
+                                  <div class="col">
+                                    <button name="btnValider" type="submit" class="btn btn-success form-control">Valider</button>
+                                  </div>
+                                  <div class="col">
+                                  <button id="annullee" type="button" class="btn btn-danger form-control">Annullee</button>
+                                  </div>
+                                  <div class="col"></div>
+                              </div>
+
+                        </form><!-- End General Form Elements -->
 
                       </div>
                     </div>

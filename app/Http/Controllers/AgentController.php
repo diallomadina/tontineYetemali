@@ -22,7 +22,7 @@ class AgentController extends Controller
      */
     public function createAjout()
     {
-        $agences = Agence::all();
+        $agences = Agence::where('statut', true)->get();
         return view('agents.ajoutAgent',compact('agences'));
     }
 
@@ -31,7 +31,8 @@ class AgentController extends Controller
     public function create()
     {
         $agences = Agence::all();
-       $agents = Agent::with('Agences')->get();
+       $agents = Agent::with('agences')->orderBy('statutAgent', 'desc')->get();
+
         return view('agents.listeAgent', compact('agents', 'agences'));
     }
 
@@ -73,6 +74,7 @@ class AgentController extends Controller
             $agent->telAgent=$request->telephone;
             $agent->dateAdhesion=$request->date;
             $agent->mailAgent=$request->mail;
+            $agent->statutAgent= true;
             $agent->photoAgent=$request->photo->store(config("photo.path"), "public");
             $agent->save();
             return redirect()->back()->with('success', 'Enregistrement effectuer avec success');
@@ -98,7 +100,7 @@ class AgentController extends Controller
             $code = $request->input('code');
             $agent = Agent::where('codeAgent', $code)->first();
             if(!$agent){
-                return redirect()->back()->with('error', "Lagent avec le code donné n'existe pas.");
+                return redirect()->back()->with('error', "L'agent avec le code donné n'existe pas.");
             }
 
             $agent->agence = $request->agence;
@@ -117,29 +119,64 @@ class AgentController extends Controller
         }
     }
 
+    // La fonction pour suspendre l'agent
+    public function suspendAgent(Request $request){
+        $code = $request->input('codeAgentSuspend');
+        $agents = Agent::where('codeAgent', $code)->first();
+        if (!$agents) {
+            return redirect()->back()->with('error', "L'agence avec le code donné n'existe pas.");
+        }
+        $agents->statutAgent = false;
+        $agents->save();
+        return redirect()->back()->with('success', "Agent suspendu avec succes");
+    }
+
+    // Fonction pour reintegrer l'agent
+    public function reintgrerAgent(Request $request){
+        $code = $request->input('codeReintegreAgent');
+        $agents = Agent::where('codeAgent', $code)->first();
+        if (!$agents) {
+            return redirect()->back()->with('error', "L'agence avec le code donné n'existe pas.");
+        }
+        $agents->statutAgent = true;
+        $agents->save();
+        return redirect()->back()->with('success', "Agent reintegrer avec succes");
+    }
+
     public function search(Request $request){
         // Je recupere la valeur choisi dans le champs select
         $choix = $request->input('choix');
 
         // Je recupere la valeur qui sera saisi dans le champ filtrer
-        $recherche = $request->input('txtRecherhche');
-        dd($recherche);
+        $recherche = $request->input('recherche_element');
+
+        $agents = Agent::query();
+        $agents->with('agences');
         //Effectuer la recherche en fonction du choix de l'utilisateur
         if($choix === 'identifiant'){
-            $agents = Agent::where('codeAgent', 'like', '%' . $recherche .'%')->get();
+            $agents = Agent::where('codeAgent', 'like', '%' . $recherche .'%');
         }else if($choix==='nom'){
-            $agents = Agent::where('nomAgent', 'like', '%' . $recherche . '%')->get();
+            $agents = Agent::where('nomAgent', 'like', '%' . $recherche . '%');
         }else if($choix === 'prenom'){
-            $agents = Agent::where('prenomAgent', 'like', '%' . $recherche . '%')->get();
+            $agents = Agent::where('prenomAgent', 'like', '%' . $recherche . '%');
         }else if($choix === 'adresse'){
-            $agents = Agent::where('adresseAgent', 'like', '%' . $recherche . '%')->get();
+            $agents = Agent::where('adresseAgent', 'like', '%' . $recherche . '%');
         }else if($choix === 'agence'){
-            // $agents = Agent::where('agence', function ($query) use ($recherche){
-            //     $query->where('nomAgence', 'like', '%' . $recherche . '%');
-            // })->get();
-        }else {
-            //  $agents = Agent::with('Agences')->get();
+            $agents = Agent::whereHas('agences', function ($query) use ($recherche){
+                $query->where('nomAgence', 'like', '%' . $recherche . '%');
+            });
+        }else if($choix=='statut'){
+            if($recherche == 'En service'){
+                $agents->where('statutAgent', true);
+            }else if($recherche == 'Suspendu'){
+                $agents->where('statutAgent', false);
+            }
         }
+        else {
+             $agents = Agent::with('Agences');
+        }
+
+        $agents = $agents->get();
          $agences = Agence::all();
 
         return view('agents.listeAgent', compact('agents','agences'));

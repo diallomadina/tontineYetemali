@@ -17,7 +17,35 @@
 
     <!-- Contenue de la page -->
     <div class="container">
-        <form action="" method="post">
+        <form action="{{ route('searchTontineC') }}" method="post">
+            @csrf
+            <div class="row">
+                <div class="col">
+                  <div class="col messages">
+                      @if(Session::has('success'))
+                          <div class="alert alert-success text-center fw-bold fs-24">
+                              {{ Session::get('success') }}
+                          </div>
+                      @endif
+
+                      @if(Session::has('error'))
+                          <div class="alert alert-danger">
+                              {{ Session::get('error') }}
+                          </div>
+                      @endif
+
+                      @if($errors->any())
+                          <div class="alert alert-danger">
+                              <ul>
+                                  @foreach ($errors->all() as $error)
+                                      <li>{{ $error }}</li>
+                                  @endforeach
+                              </ul>
+                          </div>
+                      @endif
+                  </div>
+                </div>
+              </div>
         <div class="row">
           <div class="col">
             <select name="choix" id="sldTontineCours" class="form-select border-secondary">
@@ -36,9 +64,11 @@
             </button>
           </div>
           <div class="col">
-            <button name="actualiser" type="submit" class="form-control border-secondary bg-warning-light">
-              <i class="bi bi-arrow-repeat"></i>Actualiser
-            </button>
+            <a href="{{ route('listeTontine') }}">
+                <button name="actualiser" type="submit" class="form-control border-secondary bg-warning-light">
+                    <i class="bi bi-arrow-repeat"></i>Actualiser
+                </button>
+            </a>
           </div>
           <div class="col">
             <button  type="button" class="form-control border-secondary bg-warning-light"data-bs-toggle="modal" data-bs-target="#modalAjoutTontine">
@@ -54,7 +84,7 @@
 
         <!-- Partie du tableau -->
         <div class="row mt-5">
-          <table id="tableAffichageCoti" class="table table-bordered table-responsive table-compressed table-hover table-striped">
+          <table id="tableAffichageCoti" class="table text-center table-bordered table-responsive table-compressed table-hover table-striped">
             <thead class="bg-success">
                <tr class="bg-success">
                      <th class="text-center bg-success text-white">N°</th>
@@ -64,17 +94,36 @@
                      <th class="text-center bg-success text-white">Montant</th>
                      <th class="text-center bg-success text-white">Frequence</th>
                      <th class="text-center bg-success text-white">Participants</th>
+                     <th class="text-center bg-success text-white">Agent</th>
                      <th class="text-center bg-success text-white" colspan="2">Action</th>
                </tr>
             </thead>
             <tbody id="tbodyAfficheTontine">
-                  {{-- <?php $i=0; ?>
-                @foreach ($agents as $agent)
+
+                @foreach ($tontines as $tontineC)
                     <tr>
-                        <td class='btnCoti'><a  class='btn btn-transparent editTontineInd' data-id='2'  data-bs-toggle='modal' data-bs-target='#modalModifTontine' data-bs-placement='bottom' title='Modifier'><i class='bi bi-pen'></i></a></td>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $tontineC->codeTontineC }}</td>
+                        <td>{{ $tontineC->nomTontineC }}</td>
+                        <td>{{ $tontineC->debutTontineC }}</td>
+                        <td>{{ $tontineC->montant }}</td>
+                        <td>
+                            @if ($tontineC->frequence == 1)
+                                Jours
+                                @elseif ($tontineC->frequence == 7)
+                                Semaine
+                                @elseif ($tontineC->frequence == 30)
+                                Mois
+                                @else
+                                Annee
+                            @endif
+                        </td>
+                        <td>{{ $tontineC->nombreParticipant }}</td>
+                        <td>{{ $tontineC->agents->nomAgent.' '.$tontineC->agents->prenomAgent }}</td>
+                        <td class='btnCoti'><a  class='btn btn-transparent editTontineInd' data-bs-toggle='modal' data-bs-target='#modalModifTontine' data-bs-placement='bottom' title='Modifier'><i class='bi bi-pen'></i></a></td>
                         <td class='btnCoti'><button type='button' class='btn btn-transparent' data-bs-toggle='modal' data-bs-target='#modalSuiviTontine' data-bs-placement='bottom' title='Voir'><i class='bi bi-eye'></i></button></td>
                     </tr>
-                @endforeach --}}
+                @endforeach
             </tbody>
         </table>
         </div>
@@ -82,133 +131,101 @@
     </div>
 
     <div class="modal fade" id="modalAjoutTontine" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header text-center">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header text-center">
 
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-          <div class="modal-body">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
 
-            <div class="d-flex justify-content-center py-4">
-              <a href="#" class="logo d-flex align-items-center w-auto">
-                <img src="assets/img/yetemali.jpg" alt="">
-                <span class="d-none d-lg-block text-success">Yete</span>
-                <span class="d-none d-lg-block text-warning">mali</span>
-              </a>
-            </div>
-            <!-- General Form Elements -->
-            <form>
-              <div class="card rounded-4">
-                <h1 class="card-title rounded-4 text-center text-black fs-1 fw-3 bg-warning-light-light">Nouvelle Tontine</h1>
-                <div class="card-body">
+                    <div class="d-flex justify-content-center py-4">
+                        <a href="#" class="logo d-flex align-items-center w-auto">
+                            <img src="{{ asset('assets/img/yetemali.jpg') }}" alt="">
+                            <span class="d-none d-lg-block text-success">Yete</span>
+                            <span class="d-none d-lg-block text-warning">mali</span>
+                        </a>
+                    </div>
+                    <!-- General Form Elements -->
+                    <div class="card rounded-4">
+                        <h1 class="card-title rounded-4 text-center text-black fs-1 fw-3 bg-warning-light-light">Nouvelle Tontine</h1>
+                        <div class="card-body">
 
-                  <!-- General Form Elements -->
-                  <form method="post" action="">
-                        <div class="form-group">
-                          <div class="row">
-                            <div class="col"></div>
-                            <div class="col">
+                            <!-- General Form Elements -->
+                            <form method="post" action="{{ route('ajoutTontine') }}">
+                                @csrf
+                                <div class="form-group">
+                                <div class="row">
+                                    <div class="col"></div>
+                                    <div class="col">
 
-                            </div>
-                            <div class="col"></div>
-                          </div>
-                          <div class="row mb-4">
+                                    </div>
+                                    <div class="col"></div>
+                                </div>
+                                <div class="row mb-4">
 
-                            <div class="col">
-                              <label class="fs-5">Agent</label>
-                              <select name="agent" id="" class="form-select border-secondary">
+                                    <div class="col">
+                                    <label class="fs-5">Agent</label>
+                                    <select name="agent" id="" class="form-select border-secondary">
+                                        @foreach ($agents as $agent )
+                                            <option value="{{ $agent->id }}">{{ $agent->nomAgent.' '. $agent->prenomAgent.'    ('.$agent->codeAgent.') ' }}</option>
+                                        @endforeach
+                                    </select>
+                                    </div>
 
-                              </select>
-                            </div>
+                                    <div class="col">
+                                    <label class="fs-5">Nom</label>
+                                    <input name="nom" type="text" class="form-control border-secondary" placeholder="Nom de la tontine">
+                                    </div>
 
-                            <div class="col">
-                              <label class="fs-5">Nom</label>
-                              <input name="nom" type="text" class="form-control border-secondary" placeholder="Nom de la tontine">
-                            </div>
+                                </div>
 
-                          </div>
+                                <div class="row mb-4">
 
-                          <div class="row mb-4">
+                                    <div class="col">
+                                    <label for="inputDate" class="fs-5">Debut</label>
+                                    <input name="debut"  type="date" class="form-control border-secondary">
+                                    </div>
 
-                            <div class="col">
-                              <label for="inputDate" class="fs-5">Debut</label>
-                              <input name="debut"  type="date" class="form-control border-secondary">
-                            </div>
+                                    <div class="col">
+                                    <label class="fs-5">Montant</label>
+                                    <input name="montant" type="number" class="form-control border-secondary" placeholder="Montant de la tontine">
+                                    </div>
+                                </div>
 
-                            <div class="col">
-                              <label class="fs-5">Montant</label>
-                              <input name="montant" type="number" class="form-control border-secondary" placeholder="Montant de la tontine">
-                            </div>
-                          </div>
+                                <div class="row mb-4">
 
-                        <div class="row mb-4">
+                                    <div class="col">
+                                    <label for="" class="fs-5">Frequence</label>
+                                    <select name="frequence" id="freqTontine" class="form-select border-secondary">
+                                        <option value="1" selected>Jours</option>
+                                        <option value="7">Semaines</option>
+                                        <option value="30">Mois</option>
+                                        <option value="12">Annee</option>
+                                    </select>
+                                    </div>
 
-                            <div class="col">
-                              <label for="" class="fs-5">Frequence</label>
-                              <select name="frequence" id="freqTontine" class="form-select border-secondary">
-                                <option value="1" selected>Jours</option>
-                                <option value="7">Semaines</option>
-                                <option value="30">Mois</option>
-                                <option value="12">Annee</option>
-                              </select>
-                            </div>
+                                    <div class="col">
+                                    <label for="inputDate" class="fs-5">Participant</label>
+                                    <input name="participant"  type="number" class="form-control border-secondary" placeholder="Nombre de participants">
+                                    </div>
+                                </div>
 
-                            <div class="col">
-                              <label for="inputDate" class="fs-5">Participant</label>
-                              <input name="participant"  type="number" class="form-control border-secondary" placeholder="Nombre de participants">
-                            </div>
-                        </div>
-                        <div class="row">
-                          <div class="col"></div>
-                          <div class="col">
-                          <button name="ajouter" type="submit" class="btn btn-success form-control">Ajouter</button>
-                          </div>
-                          <div class="col"></div>
-                        </div>
-
-                        <div class="row mb-4">
-
-                            <div class="col">
-                              <label>Tontine</label>
-                              <select name="tontine" id="" class="form-select border-secondary">
-
-                              </select>
-                            </div>
-                            <div class="col">
-                              <label class="">Membre</label>
-                              <select name="membre" id="" class="form-select border-secondary">
-
-                              </select>
-                            </div>
-                            <div class="col">
-                              <label for="" class=" fs-5"></label>
-                              <button name="associer" type="submit" class="btn btn-success form-control">Associer</button>
-                            </div>
-
-                            <div class="col">
-                              <label for=""></label>
-                              <button id="btnValiderAjoutCoti" type="button" class="btn btn-success form-control">Inviter</button>
-                            </div>
-
-
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-warning boutton">Valider</button>
+                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
+                                </div>
+                            </form><!-- End General Form Elements -->
 
                         </div>
-
-                    </form><!-- End General Form Elements -->
+                    </div>
 
                 </div>
-              </div>
 
-            </form><!-- End General Form Elements -->
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-warning boutton">Valider</button>
-            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
-          </div>
+            </div>
         </div>
-      </div>
-  </div>
+     </div>
+    </div>
     <!-- Fin Modal pour ajouter -->
   <!-- Debut modal pour Modification -->
   <div class="modal fade" id="modalModifTontine" tabindex="-1">
@@ -228,92 +245,82 @@
             </a>
           </div>
           <!-- General Form Elements -->
-          <form>
                 <!-- Partie de l'ajout -->
                 <div class="card rounded-4">
 
                   <div class="card-body">
 
                     <!-- General Form Elements -->
-                    <form>
+                    <form method="post" action="{{ route('updateTontineC') }}">
+                        @csrf
                         <div class="form-group">
-                          <div class="row mb-4 mt-2">
-                            <label class="col-sm-5  text-center fs-5">Agent</label>
-                            <div class="col-sm-6">
-                              <select name="" id="" class="form-select">
-                                <option value="" selected>Selectionnez l'agent</option>
-                                <option value="">Agent 1</option>
-                                <option value="">Agent 2</option>
-                                <option value="">Agent 3</option>
-                              </select>
-                              <p id="pErNomTontine" class="text-danger d-none">Veuillez saisir un nom</p>
-                            </div>
-                            <div class="col-sm-1"></div>
-                          </div>
+                        <div class="row">
+                            <div class="col"></div>
+                            <div class="col">
 
-                          <div class="row mb-4">
-                            <label class="col-sm-5 text-center fs-5">Nom</label>
-                            <div class="col-sm-6">
-                              <input id="txtNomTontine" type="text" class="form-control border-secondary" placeholder="Nom de la tontine">
-                              <p id="pErNomTontine" class="text-danger d-none">Veuillez saisir un nom</p>
                             </div>
-                            <div class="col-sm-1"></div>
-                          </div>
-
-                          </div>
-                          <div class="row mb-4">
-                            <label for="inputDate" class="col-sm-5  text-center fs-5">Debut</label>
-                            <div class="col-sm-6">
-                              <input id="dtdateDebut"  type="date" class="form-control border-secondary">
-                              <p id="pErDate" class="text-danger d-none">La date ne doit pas contenir des lettres</p>
-                            </div>
-                            <div class="col-sm-2"></div>
-                          </div>
-
-                        <div class="form-group">
-                          <div class="row mb-4">
-                            <label class="col-sm-5  text-center fs-5">Montant</label>
-                            <div class="col-sm-6">
-                              <input id="txtMontantTontine" type="number" class="form-control border-secondary" placeholder="Montant de la tontine">
-                              <p id="pErMontantTontine" class="text-danger d-none">Veuillez saisir un montant</p>
-                            </div>
-                          </div>
-                          <div class="col-sm-2"></div>
+                            <div class="col"></div>
                         </div>
                         <div class="row mb-4">
-                            <label for="inputDate" class="col-sm-5 text-center fs-5">Frequence</label>
-                            <div class="col-sm-6">
-                              <select name="" id="freqTontine" class="form-select border-secondary">
-                                <option value="jour" selected>Jours</option>
-                                <option value="semaine">Semaines</option>
-                                <option value="mois">Mois</option>
-                                <option value="annee">Annee</option>
-                              </select>
-                              <p id="pErFreqTontine" class="text-danger d-none">Veuillez definir une frequence</p>
+                            <input type="hidden" name="code" id="code">
+                            <div class="col">
+                            <label class="fs-5">Agent</label>
+                            <select name="agent" id="mAgent" class="form-select border-secondary">
+                                @foreach ($agents as $agent )
+                                    <option value="{{ $agent->id }}">{{ $agent->nomAgent.' '. $agent->prenomAgent.'    ('.$agent->codeAgent.') ' }}</option>
+                                @endforeach
+                            </select>
                             </div>
-                            <div class="col-sm-1"></div>
+
+                            <div class="col">
+                            <label class="fs-5">Nom</label>
+                            <input name="nom" id="mNom" type="text" class="form-control border-secondary" placeholder="Nom de la tontine">
+                            </div>
+
                         </div>
 
-                        <div class="row">
-                            <label for="inputDate" class="col-sm-5  text-center fs-5">Participant</label>
-                            <div class="col-sm-6">
-                              <input id="dtPaticipantTontine"  type="number" class="form-control border-secondary" placeholder="Nombre de participants">
-                              <p id="pErParticipantTontine" class="text-danger d-none">Veuillez definir le nombre de Participants</p>
+                        <div class="row mb-4">
+
+                            <div class="col">
+                            <label for="inputDate" class="fs-5">Debut</label>
+                            <input name="debut" id="mDebut"  type="date" class="form-control border-secondary">
                             </div>
-                            <div class="col-sm-2"></div>
+
+                            <div class="col">
+                            <label class="fs-5">Montant</label>
+                            <input name="montant" id="mMontant" type="number" class="form-control border-secondary" placeholder="Montant de la tontine">
+                            </div>
                         </div>
 
+                        <div class="row mb-4">
+
+                            <div class="col">
+                            <label for="" class="fs-5">Frequence</label>
+                            <select name="frequence" id="mfrequence" class="form-select border-secondary">
+                                <option value="1" selected>Jours</option>
+                                <option value="7">Semaines</option>
+                                <option value="30">Mois</option>
+                                <option value="12">Annee</option>
+                            </select>
+                            </div>
+
+                            <div class="col">
+                            <label for="inputDate" class="fs-5">Participant</label>
+                            <input name="participant" id="mparticipant"  type="number" class="form-control border-secondary" placeholder="Nombre de participants">
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-warning boutton">Valider</button>
+                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
+                        </div>
                     </form><!-- End General Form Elements -->
 
                   </div>
                 </div>
 
-          </form><!-- End General Form Elements -->
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success boutton">Valider</button>
-          <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
-        </div>
+
       </div>
     </div>
   </div>
@@ -381,5 +388,102 @@
 </main>
 <!-- Fin du main -->
 @endsection
+<script src="{{asset('assets/js/jquery.min.js')}}"></script>
+<script>
+    $(document).ready(function () {
+        var tableAffichageCoti = document.getElementById('tableAffichageCoti');
+
+        function editerTontineI() {
+            for (var i = 0; i < tableAffichageCoti.rows.length; i++) {
+              tableAffichageCoti.rows[i].onclick = function () {
+                    document.getElementById("code").value = this.cells[1].innerHTML;
+                    document.getElementById("mNom").value = this.cells[2].innerHTML;
+                    document.getElementById("mDebut").value = this.cells[3].innerHTML;
+                    document.getElementById("mMontant").value = this.cells[4].innerHTML;
+                    document.getElementById("mfrequence").value = this.cells[5].innerHTML;
+                    document.getElementById("mparticipant").value = this.cells[6].innerHTML;
+
+
+                      // Sélectionnez la valeur de la cellule "Agent"
+                    var agentText = this.cells[7].innerHTML;
+
+                    // Sélectionnez le champ de sélection "mAgent"
+                    var selectAgent = document.getElementById("mAgent");
+
+                    // Parcourez les options du champ de sélection
+                    for (var j = 0; j < selectAgent.options.length; j++) {
+                        var optionText = selectAgent.options[j].text;
+                        if (agentText.includes(optionText)) {
+                            // Si le texte de l'option est inclus dans la cellule "Agent", définissez cette option comme sélectionnée
+                            selectAgent.selectedIndex = j;
+                            break; // Sortez de la boucle dès que la correspondance est trouvée
+                        }
+                    }
+                };
+            }
+        }
+
+
+      $('.editTontineInd').click(function (e) {
+          e.preventDefault();
+          editerTontineI();
+      });
+
+
+
+
+
+
+        $('#btnPrintAgent').click(function () {
+            // Créez un clone de la table pour l'impression
+            var printTable = document.getElementById('tableAffichageAgent').cloneNode(true);
+
+            // Créez un élément pour le titre
+            var tableTitle = document.createElement('caption');
+            tableTitle.innerHTML = 'Liste des Agents'; // Titre personnalisé
+
+            // Créez un élément pour le logo de l'entreprise
+            var companyLogo = document.createElement('img');
+            companyLogo.src = '{{ asset('assets/img/yetemali.jpg') }}'; // Remplacez par l'URL de votre logo
+            companyLogo.alt = 'Logo de l\'entreprise';
+
+            // Créez un élément pour la date
+            var currentDate = document.createElement('p');
+            currentDate.innerText = 'Date: ' + new Date().toLocaleDateString(); // Remplacez par la date souhaitée
+
+            // Créez un conteneur pour ces éléments
+            var header = document.createElement('div');
+            header.appendChild(companyLogo);
+            header.appendChild(tableTitle);
+            header.appendChild(currentDate);
+
+            // Ajoutez le conteneur au clone de la table
+            printTable.insertBefore(header, printTable.firstChild);
+
+            // Masquez les boutons d'action et d'autres éléments non pertinents pour l'impression
+            var elementsToHide = document.querySelectorAll('.btnCoti');
+            for (var i = 0; i < elementsToHide.length; i++) {
+                elementsToHide[i].style.display = 'none';
+            }
+
+            // Créez une nouvelle fenêtre d'impression et imprimez le tableau
+            var printWindow = window.open('', '', 'width=600,height=600');
+            printWindow.document.open();
+            printWindow.document.write('<html><head><title>Liste des Agents</title></head><body>');
+            printWindow.document.write(printTable.outerHTML);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+            printWindow.close();
+
+            // Réaffichez les éléments masqués après l'impression
+            for (var i = 0; i < elementsToHide.length; i++) {
+                elementsToHide[i].style.display = 'table-cell';
+            }
+        });
+    });
+
+
+</script>
 
 

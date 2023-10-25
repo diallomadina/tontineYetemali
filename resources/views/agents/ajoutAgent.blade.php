@@ -12,6 +12,16 @@
       </ol>
     </nav>
   </div>
+  <div class="row mb-4">
+    <div class="col"></div>
+    <div class="col"></div>
+    <div class="col"></div>
+    <div class="col">
+        <a href="{{ route('listeAgent') }}">
+            <button name="afficher" type="submit" class="form-control bg-success text-white">Afficher</button>
+        </a>
+    </div>
+  </div>
       <div class="row">
         <div class="col-sm-2"></div>
         <div class="col-sm-8">

@@ -147,6 +147,25 @@
                     </ul>
                 </li><!-- End Tontine Individuelle Nav -->
 
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-journal-text"></i><span>Versement </span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                        <a href="{{route('ajoutPayement')}}">
+                            <i class="bi bi-circle"></i><span>Effectuer</span>
+                        </a>
+                        </li>
+                        <li>
+                        <a href="{{route('listePayement')}}">
+                            <i class="bi bi-circle"></i><span>Historique</span>
+                        </a>
+                        </li>
+                    </ul>
+                </li><!-- End Forms Nav -->
+                
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-target="#tontineIndividuelle-nav" data-bs-toggle="collapse" href="#">
                         <i class="bi bi-journal-text"></i><span>Tontine Individuelle</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -171,23 +190,6 @@
                     </ul>
                 </li><!-- End Tontine Collective Nav -->
 
-                <li class="nav-item">
-                    <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-                        <i class="bi bi-journal-text"></i><span>Versement </span><i class="bi bi-chevron-down ms-auto"></i>
-                    </a>
-                    <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                        <li>
-                        <a href="{{route('ajoutPayement')}}">
-                            <i class="bi bi-circle"></i><span>Effectuer</span>
-                        </a>
-                        </li>
-                        <li>
-                        <a href="{{route('listePayement')}}">
-                            <i class="bi bi-circle"></i><span>Historique</span>
-                        </a>
-                        </li>
-                    </ul>
-                </li><!-- End Forms Nav -->
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-target="#cotisation-nav" data-bs-toggle="collapse" href="#">

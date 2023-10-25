@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('mailAgent')->nullable();
             $table->string('photoAgent')->nullable();
             $table->date('dateAdhesion');
+            $table->boolean('statutAgent');
             $table->foreignId('Agence')->references('id')->on('agences')->onDelete('cascade');
             $table->timestamps();
         });
