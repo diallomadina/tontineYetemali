@@ -13,12 +13,33 @@
     </nav>
   </div><!-- End Page Title -->
 
-  <div class="container">
-                        <div class="row">
-                          <div class="col">
+    <div class="container">
+        <div class="row">
+            <div class="col messages">
+                @if(Session::has('success'))
+                    <div class="alert alert-success text-center fw-bold fs-24">
+                        {{ Session::get('success') }}
+                    </div>
+                @endif
 
-                          </div>
-                        </div>
+                @if(Session::has('error'))
+                    <div class="alert alert-danger">
+                        {{ Session::get('error') }}
+                    </div>
+                @endif
+
+                @if($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            </div>
+
+        </div>
         <div class="row acacher">
             <form action="" class="form-inline bg-light">
                   <div class="row">
@@ -27,20 +48,24 @@
                           <div class="col">
                             <label for="">Selectionner la tontine</label>
                             <div class="input-group">
-                                <input type="text" class="form-control border-secondary">
-                                <select name="tontine"  class="form-select border-secondary">
-
+                                <input type="text" id="searchTontine" class="form-control border-secondary" placeholder="saisissez le nom de la cotisation">
+                                <select name="tontine" id="tontine"  class="form-select border-secondary">
+                                    <option value="">Choisir la cotisation</option>
+                                    @foreach ($tontinesI as $tontines )
+                                        <option value="{{ $tontines->id }}">{{ $tontines->nomTontineI.' ('.$tontines->codeTontineI.')' }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                           </div>
                     </div>
 
                     <div class="col-sm-2 ">
-                        <label for=""></label>
+                        <label for="">Cliquez pour afficher</label>
                         <button id="btnAfficheCoti" type="button" class="form-control bg-warning-light text-center">
                             <i class="bi bi-list"></i>Afficher
                         </button>
                     </div>
+
                     <div class="col-sm"></div>
                   </div>
 
@@ -50,19 +75,19 @@
                       <div class="col-sm">
                           <div class="form-group">
                           <label for="">Rechercher une date</label>
-                          <input type="date" class="form-control" id="txtRechercheCoti">
+                          <input type="date" name="dateRecherche" id="dateRecherche" class="form-control" id="">
                           </div>
                       </div>
                       <div class="col-sm">
                         <div class="form-group">
-                            <label for="form-label"></label>
+                            <label for="form-label" class="text-white">Filtrer</label>
                             <button id="btnSearchCoti" type="button" class="form-control bg-warning-light text-center">
                                 <i class="bi bi-filter"></i>Filtrer
                             </button>
                         </div>
                       </div>
                       <div class="col-sm ">
-                        <label for=""></label>
+                        <label for="form-label" class="text-white">Acutaliser</label>
                         <button id="btnActualiseCoti" type="button" class="form-control bg-warning-light text-center">
                             <i class="bi bi-repeat"> </i>Actualiser
                         </button>
@@ -70,7 +95,7 @@
                       <!-- Colonne pour bouton ajouter -->
                       <div class="col-sm ">
                         <div class="form-group">
-                            <label for=""></label>
+                            <label for="form-label" class="text-white">Nouveau</label>
                             <button id="btnNewCoti" type="button" class=" bg-warning-light text-center form-control"  data-bs-toggle="modal" data-bs-target="#modalAjoutCotisation">
                               <i class="bi bi-plus"></i>Nouveau
                               </button>
@@ -78,216 +103,282 @@
                       </div>
                       <!-- Fin pour ajouter  -->
                       <div class="col-sm ">
-                        <label for=""></label>
+                        <label for="form-label" class="text-white">Imprimer</label>
                         <button id="btnPrintCoti" type="button" class=" form-control bg-warning-light text-center">
                             <i class="bi bi-printer"></i>Imprimer
                         </button>
                       </div>
                   </div>
 
-      </form>
-  </div>
-  <div id="blocTable" class="row mt-5 ">
-      <!-- Table -->
-        <table id="tableAffichageCoti" class="table text-center table-bordered table-responsive table-compressed table-hover table-striped">
-          <thead class="bg-success">
-              <tr class="bg-success">
-                    <th class="text-center bg-success text-white">N°</th>
-                    <th class="text-center bg-success text-white">Code</th>
-                    <th class="text-center bg-success text-white">Tontine</th>
-                    <th class="text-center bg-success text-white">Membre</th>
-                    <th class="text-center bg-success text-white">Montant</th>
-                    <th class="text-center bg-success text-white">Date</th>
+            </form>
+         </div>
+        <div id="blocTable" class="row mt-3">
+            <!-- Table -->
+             <table id="tableAffichageCoti" class="table text-center table-bordered table-responsive table-compressed table-hover table-striped">
+                <thead class="bg-success">
+                    <tr class="bg-success">
+                            <th class="text-center bg-success text-white">N°</th>
+                            <th class="text-center bg-success text-white">Code</th>
+                            <th class="text-center bg-success text-white">Tontine</th>
+                            <th class="text-center bg-success text-white">Membre</th>
+                            <th class="text-center bg-success text-white">Montant</th>
+                            <th class="text-center bg-success text-white">Date</th>
 
-              </tr>
-          </thead>
-          <tbody id="tbodyAfficheTontine">
-               
-          </tbody>
-      </table>
+                    </tr>
+                </thead>
+                <tbody id="tbodyAfficheTontine">
+
+                </tbody>
+            </table>
             <!-- End Table  -->
+        </div>
 
+    </div>
 
-            <!-- Le modal pour ajouter -->
-         <div class="modal fade" id="modalAjoutCotisation" tabindex="-1">
-              <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header text-center">
-                            <h2 class="text-center">Ajout d'une cotisation</h2>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                  <div class="modal-body">
-
-                    <div class="d-flex justify-content-center py-4">
-                      <a href="#" class="logo d-flex align-items-center w-auto">
-                        <img src="assets/img/yetemali.jpg" alt="">
-                        <span class="d-none d-lg-block text-success">Yete</span>
-                        <span class="d-none d-lg-block text-warning">mali</span>
-                      </a>
+     <div class="modal fade" id="modalAjoutCotisation" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h2 class="text-center">Ajout d'une cotisation</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <!-- General Form Elements -->
-                    <form method="post" action="{{ route('cotisation') }}">
-                        @csrf
-                        <div class="row">
-                          <div class="col">
 
-                          </div>
+                    <div class="modal-body">
+
+                        <div class="d-flex justify-content-center py-4">
+                        <a href="#" class="logo d-flex align-items-center w-auto">
+                            <img src="{{ asset('assets/img/yetemali.jpg') }}" alt="">
+                            <span class="d-none d-lg-block text-success">Yete</span>
+                            <span class="d-none d-lg-block text-warning">mali</span>
+                        </a>
                         </div>
-                        <div class="row mb-4">
-                          <label class="col fs-5 ms-3">Tontine</label>
-                          <div class="row">
-                            <div class="input-group ms-3">
-                                <input type="text" id="searchTontine" class="form-control border-secondary " placeholder="Rechercher une tontine">
-                                <select name="tontine" class="form-select border-secondary" aria-label="Default select example">
-                                    <option value="0" selected>Cliquez pour choisir</option>
+                        <form method="post" action="{{ route('StoreCotisation') }}">
+                            @csrf
 
-                                </select>
-                            </div>
-                          </div>
-
-                        </div>
-                          <div class="row mb-4">
-                              <label class="col fs-5 ms-3">Membre</label>
-                              <div class="row">
-                                    <div class="ms-3 input-group">
-                                    <input type="text" id="searchMembre" class="form-control border-secondary" placeholder="Rechercher un menbre" >
-                                    <select name="membre" class="form-select border-secondary" aria-label="Default select example">
-                                      <option value="0" selected>Cliquez pour choisir</option>
-
-                                      </select>
-                                    </div>
-                              </div>
-                          </div>
 
                             <div class="row mb-4">
-                              <div class="col">
-                                <label class="text-center fs-5">Montant</label>
-                                  <input  name="montant" id="montant" class="form-control border-secondary">
-                                  @error('montant')
-                                    <span class="text-danger">{{ $message }}</span>
-                                  @enderror
+                                <label class="col fs-5 ms-3">Membre</label>
+                                <div class="row">
+                                      <div class="ms-3 input-group">
+                                            <input type="text" id="searchMembre" class="form-control border-secondary" placeholder="Rechercher un menbre" >
+                                            <select name="membre" id="membre" class="form-select border-secondary" aria-label="Default select example">
+                                                <option value="0" selected>Cliquez pour choisir</option>
+                                                @foreach ($membres as  $membre)
+                                                    <option value="{{ $membre->id }}">{{ $membre->nomMembre.' '.$membre->prenomMembre.' ('.$membre->codeMembre.')' }}</option>
+                                                @endforeach
+
+                                            </select>
+                                      </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row mb-4">
+                              <label class="col fs-5 ms-3">Tontine</label>
+                              <div class="row">
+                                <div class="input-group ms-3">
+                                    <input type="text" id="searchTontineA" class="form-control border-secondary " placeholder="Rechercher une tontine">
+                                    <select name="tontine" class="form-select border-secondary" aria-label="Default select example">
+                                        <option value="" selected>Cliquez pour choisir</option>
+
+                                    </select>
+                                </div>
                               </div>
-                              <div class="col">
-                                <label for="inputDate" class="  text-center fs-5">Date</label>
-                                <input name="debut" id="debut"  type="date" class="form-control border-secondary">
-                                @error('debut')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                              </div>
+
                             </div>
 
 
+                                <div class="row mb-4">
 
-                          <div class="row mb-4">
-                              <div class="col"></div>
-                              <div class="col">
-                                <button name="btnValider" type="submit" class="btn btn-success form-control">Valider</button>
-                              </div>
-                              <div class="col">
-                              <button id="annullee" type="button" class="btn btn-danger form-control">Annullée</button>
-                              </div>
-                              <div class="col"></div>
-                          </div>
+                                  <div class="col ms-3" style="margin-right: 10px">
+                                    <label for="inputDate" class="  text-center fs-5">Date</label>
+                                    <input name="debut" id="debut"  type="date" class="form-control border-secondary">
 
-                    </form><!-- End General Form Elements -->
+                                  </div>
+                                </div>
+
+
+
+                              <div class="row mb-4">
+                                  <div class="col"></div>
+                                  <div class="col">
+                                    <button name="btnValider" type="submit" class="btn btn-success form-control">Valider</button>
+                                  </div>
+                                  <div class="col">
+                                  <button id="annullee" type="button" class="btn btn-danger form-control">Annullée</button>
+                                  </div>
+                                  <div class="col"></div>
+                              </div>
+
+                        </form><!-- End General Form Elements -->
 
 
                     </div>
-               </div>
             </div>
-                    <!-- Fin Modal pour ajouter -->
-                  <!-- Debut modal pour Modification -->
-                  <div class="modal fade" id="modalModifCotisation" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-                        <div class="modal-header text-center">
-
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-
-                          <div class="d-flex justify-content-center py-4">
-                            <a href="#" class="logo d-flex align-items-center w-auto">
-                              <img src="assets/img/yetemali.jpg" alt="">
-                              <span class="d-none d-lg-block text-success">Yete</span>
-                              <span class="d-none d-lg-block text-warning">mali</span>
-                            </a>
-                          </div>
-                          <!-- General Form Elements -->
-                          <form>
-                                <!-- Partie de l'ajout -->
-                              <div class="card rounded-4">
-                                <h1 class="card-title rounded-4 text-center text-black fs-1 fw-3 bg-warning-light">Modification</h1>
-                                <div class="card-body">
-
-                                  <!-- General Form Elements -->
-                                  <form>
-                                    <div class="row mb-4 mt-4">
-                                      <label class="col-sm-3  text-center fs-5">Tontine</label>
-                                      <div class="col-sm-7">
-                                        <select class="form-select border-secondary" aria-label="Default select example">
-                                          <option selected>Selectionner la tontine</option>
-                                          <option value="1">Tontine 1</option>
-                                          <option value="2">Tontine 2</option>
-                                          <option value="3">Tontine 3</option>
-                                        </select>
-                                      </div>
-                                      <div class="col-sm-2"></div>
-                                    </div>
-                                      <div class="row mb-4">
-                                          <label class="col-sm-3  text-center fs-5">Membre</label>
-                                          <div class="col-sm-7">
-                                            <select class="form-select border-secondary" aria-label="Default select example">
-                                              <option selected>Selectionnez le membre</option>
-                                              <option value="1">Membre 1</option>
-                                              <option value="2">Membre 2</option>
-                                              <option value="3">Membre 3</option>
-                                            </select>
-                                          </div>
-                                          <div class="col-sm-2"></div>
-                                      </div>
-
-                                      <div class="form-group">
-                                        <div class="row mb-4">
-                                          <label class="col-sm-3  text-center fs-5">Montant</label>
-                                          <div class="col-sm-7">
-                                            <input type="text" class="form-control border-secondary">
-                                          </div>
-                                        </div>
-                                        <div class="col-sm-2"></div>
-                                      </div>
-
-                                      <div class="row">
-                                        <label for="inputDate" class="col-sm-3  text-center fs-5">Date</label>
-                                        <div class="col-sm-7">
-                                          <input type="date" class="form-control border-secondary">
-                                        </div>
-                                        <div class="col-sm-2"></div>
-                                      </div>
-
-
-                                  </form><!-- End General Form Elements -->
-
-                        </div>
-                      </div>
-
-                  </form><!-- End General Form Elements -->
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-success boutton">Valider</button>
-                  <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Fin modal pour modification -->
-
-  </div>
-  </div>
+        </div>
+     </div>
 
 </main>
 <!-- Fin du main -->
 @endsection
+<script src="{{asset('assets/js/jquery.min.js')}}"></script>
+<script>
+
+    $(document).ready(function () {
+
+
+        //Fuction pour la recherche du tontine
+        function updateSelectOptions(searchInput, selectElement) {
+            var searchTerm = searchInput.val().toLowerCase();
+            selectElement.find('option').each(function () {
+                var optionText = $(this).text().toLowerCase();
+                if (optionText.includes(searchTerm)) {
+                    $(this).show();
+
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+
+        //Utlisation de la function de trie dans le champ de recherche
+        $('#searchTontine').on('input', function () {
+            updateSelectOptions($(this), $('select[name="tontine"]'));
+        });
+
+        $('#searchTontineA').on('input', function () {
+            updateSelectOptions($(this), $('select[name="tontine"]'));
+        });
+
+        $('#searchMembre').on('input', function () {
+            updateSelectOptions($(this), $('select[name="membre"]'));
+        });
+
+        // Fonction pour afficher les cotisations a travers une fonction ajax
+        function afficheCotisation(){
+            // Action pour afficher les cotisations en fonction de la tontine choisi
+            $tontineId = $('#tontine').val();
+                $.ajax({
+                    type: "Post",
+                    url: "{{ route('cotisationByTontine') }}",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        tontine: $tontineId
+                    },
+                    success: function (response) {
+                         // Effacer le contenu actuel du tableau
+                        $('#tableAffichageCoti tbody').empty();
+
+                        // Parcourir les données JSON et ajouter des lignes au tableau
+                        $.each(response.cotisations, function (index, cotisation) {
+                            var cotisationHtml = '<tr>';
+                            cotisationHtml += '<td>' + (index + 1) + '</td>';
+                            cotisationHtml += '<td>' + cotisation.codeCotisation + '</td>';
+                            cotisationHtml += '<td>' + cotisation.tontines.nomTontineI + '</td>';
+                            cotisationHtml += '<td>' + cotisation.membres.nomMembre + ' ' + cotisation.membres.prenomMembre + ' (' + cotisation.membres.codeMembre + ') ' +'</td>';
+                            cotisationHtml += '<td>' + cotisation.montantCotisation + '</td>';
+                            cotisationHtml += '<td>' + cotisation.dateCotisation + '</td>';
+                            cotisationHtml += '</tr>';
+
+                            // Ajouter la ligne au tableau
+                            $('#tableAffichageCoti tbody').append(cotisationHtml);
+                        });
+                    }
+                });
+                // Fin de la fonction Ajax
+        }
+
+        // Aficher le tableau au click du bouton afficher
+        $('#btnAfficheCoti').click(function (e) {
+            e.preventDefault();
+            afficheCotisation();
+        });
+
+        // Actualiser le tableau au click du bouton actualiser
+        $('#btnActualiseCoti').click(function (e) {
+            e.preventDefault();
+            afficheCotisation();
+        });
+
+
+        // Action sur le bouton filtrer pour rechercher en fonction du date
+        $('#btnSearchCoti').click(function (e) {
+            e.preventDefault();
+            var $date = $('#dateRecherche').val();
+            $.ajax({
+                    type: "Post",
+                    url: "{{ route('searchDate') }}",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        dateRecherche: $date
+                    },
+                    success: function (response) {
+                        alert('succes')
+                        if (response.cotisations && response.cotisations.length > 0) {
+                            // Effacer le contenu actuel du tableau
+                            $('#tableAffichageCoti tbody').empty();
+
+                            // Parcourir les données JSON et ajouter des lignes au tableau
+                            $.each(response.cotisations, function (index, cotisation) {
+                                var cotisationHtml = '<tr>';
+                                cotisationHtml += '<td>' + (index + 1) + '</td>';
+                                cotisationHtml += '<td>' + cotisation.codeCotisation + '</td>';
+                                cotisationHtml += '<td>' + cotisation.tontines.nomTontineI + '</td>';
+                                cotisationHtml += '<td>' + cotisation.membres.nomMembre + ' ' + cotisation.membres.prenomMembre + ' (' + cotisation.membres.codeMembre + ') ' +'</td>';
+                                cotisationHtml += '<td>' + cotisation.montantCotisation + '</td>';
+                                cotisationHtml += '<td>' + cotisation.dateCotisation + '</td>';
+                                cotisationHtml += '</tr>';
+
+                                // Ajouter la ligne au tableau
+                                $('#tableAffichageCoti tbody').append(cotisationHtml);
+                            });
+                        }
+                        else {
+                            $('#tableAffichageCoti tbody').empty();
+                        }
+                    },
+
+                });
+
+        });
+
+        // La fonction pour afficher les tontines au changement du membre
+        $('#membre').on('change', function() {
+            var selectedMembreId = $(this).val();
+
+        // Effectuez une requête AJAX pour obtenir les données de la tontine individuelle
+            $.ajax({
+                url: "{{ route('getTontineIndividuelle') }}", // Remplacez 'getTontineIndividuelle' par le nom de votre route Laravel
+                method: 'POST',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    membre: selectedMembreId
+                },
+                success: function(response) {
+                    $('select[name="tontine"]').empty();
+
+                    // Ajoutez une option par défaut
+                    $('select[name="tontine"]').append($('<option>', {
+                        value: '',
+                        text: 'Cliquez pour choisir'
+                    }));
+
+                    // Ajoutez les options pour chaque tontine individuelle
+                    response.tontineData.forEach(function(tontine) {
+                        $('select[name="tontine"]').append($('<option>', {
+                            value: tontine.id,
+                            text: tontine.nomTontineI + ' (' + tontine.codeTontineI + ')'
+                        }));
+                    });
+                },
+                error: function() {
+                    alert('Une erreur s\'est produite lors de la récupération des données de la tontine individuelle.');
+                }
+            });
+        });
+
+    });
+</script>
 
 
 

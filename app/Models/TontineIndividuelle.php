@@ -16,4 +16,8 @@ class TontineIndividuelle extends Model
     public function agents(){
         return $this->belongsTo(Agent::class,"agent");
     }
+
+    public function cotisations(){
+        return $this->hasMany(Cotisation::class);
+    }
 }

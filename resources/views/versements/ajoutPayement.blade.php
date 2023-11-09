@@ -52,11 +52,12 @@
                             @foreach ($tontinesC as $tontines )
                                 <option value="{{ $tontines->id }}">{{ $tontines->nomTontineC.' ('.$tontines->codeTontineC.')' }}</option>
                             @endforeach
-                            @error('tontine')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+
                         </select>
                     </div>
+                    @error('tontine')
+                        <span class="text-danger ms-3">{{ $message }}</span>
+                    @enderror
                   </div>
 
                 </div>
@@ -70,11 +71,12 @@
                                     @foreach ($membres as  $membre)
                                         <option value="{{ $membre->id }}">{{ $membre->nomMembre.' '.$membre->prenomMembre.' ('.$membre->codeMembre.')' }}</option>
                                     @endforeach
-                                    @error('membre')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+
                                 </select>
                             </div>
+                            @error('membre')
+                                <span class="text-danger ms-3">{{ $message }}</span>
+                            @enderror
                       </div>
                   </div>
 
@@ -130,7 +132,7 @@
 
     });
 
-    function updateSelectOptions(searchInput, selectElement) {
+        function updateSelectOptions(searchInput, selectElement) {
             var searchTerm = searchInput.val().toLowerCase();
             selectElement.find('option').each(function () {
                 var optionText = $(this).text().toLowerCase();

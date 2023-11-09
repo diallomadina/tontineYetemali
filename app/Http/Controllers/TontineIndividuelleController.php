@@ -30,7 +30,10 @@ class TontineIndividuelleController extends Controller
 
     public function createHistoriqueTontine()
     {
-        return view('tontineIndividuelles.historiqueTontineInd');
+        $agents = Agent::all();
+        $membres = Membre::all();
+        $tontines = TontineIndividuelle::with('agents', 'membres')->get();
+        return view('tontineIndividuelles.historiqueTontineInd', compact('tontines','agents', 'membres'));
     }
 
     public function createListeTontine()
@@ -78,6 +81,102 @@ class TontineIndividuelleController extends Controller
 
     public function search(Request $request){
         $choix = $request->input('choix');
-        $recherche = $request->input('txtRecherhce');
+        $recherche = $request->input('txtRecherche');
+
+        $tontinesI = TontineIndividuelle::query();
+        $tontinesI->with('agents', 'membres');
+
+        if($choix == 'identifiant'){
+            $tontinesI = TontineIndividuelle::where('codeTontineI', 'like', '%' .$recherche . '%');
+        }elseif($choix==='nom'){
+            $tontinesI = TontineIndividuelle::where('nomTontineI', 'like', '%' . $recherche . '%');
+        }elseif($choix === 'montant'){
+            $tontinesI = TontineIndividuelle::where('montantTontineI', 'like', '%' . $recherche . '%');
+        }elseif($choix === 'membre'){
+            $tontinesI = TontineIndividuelle::whereHas('membres', function ($query) use ($recherche){
+                $query->where('nomMembre', 'like', '%' . $recherche . '%')
+                ->orWhere('prenomMembre', 'like', '%' . $recherche . '%');
+            });
+        } elseif($choix === 'agent'){
+            $tontinesI = TontineIndividuelle::whereHas('agents', function ($query) use ($recherche){
+                $query->where('nomAgent', 'like', '%' . $recherche . '%')
+                ->orWhere('prenomAgent', 'like', '%' . $recherche . '%');
+            });
+        }else {
+            $tontinesI = TontineIndividuelle::with('agents', 'membres');
+        }
+
+        $tontinesI = $tontinesI->get();
+        $agents = Agent::all();
+        $membres = Membre::all();
+        return view('tontineIndividuelles.listeTontineInd', compact('tontinesI', 'agents', 'membres'));
     }
+
+    public function searchHistorique(Request $request) {
+        $choix = $request->input('choix');
+        $recherche = $request->input('txtRecherche');
+
+        $periode = $request->input('periode');
+        $date1 = $request->input('date1');
+        $date2 = $request->input('date2');
+        $annee = $request->input('annee');
+        $mois = $request->input('mois');
+
+        $tontines = TontineIndividuelle::with('agents', 'membres');
+
+        if (!empty($choix) && $choix !== 'null' && !empty($recherche)) {
+            // Si le choix est sélectionné et une recherche est effectuée
+            if ($choix === 'identifiant') {
+                $tontines->where('codeTontineI', 'like', '%' . $recherche . '%');
+            } elseif ($choix === 'nom') {
+                $tontines->where('nomTontineI', 'like', '%' . $recherche . '%');
+            } elseif ($choix === 'montant') {
+                $tontines->where('montantTontineI', 'like', '%' . $recherche . '%');
+            } elseif ($choix === 'membre') {
+                $tontines->whereHas('membres', function ($query) use ($recherche) {
+                    $query->where('nomMembre', 'like', '%' . $recherche . '%')
+                        ->orWhere('prenomMembre', 'like', '%' . $recherche . '%');
+                });
+            }elseif($choix === 'agent'){
+                $tontines->WhereHas('agents', function ($query) use ($recherche) {
+                    $query->where('nomAgent', 'like', '%' . $recherche . '%')
+                        ->orWhere('prenomAgent', 'like', '%' . $recherche . '%');
+                });
+            }
+        }
+
+        if (!empty($periode) && $periode !== 'null') {
+            // Si la période est sélectionnée
+            if ($periode === 'date_unique') {
+                $tontines->whereDate('debutTontineI', '=', $date1);
+            } elseif ($periode === 'plage_dates') {
+                $tontines->whereBetween('debutTontineI', [$date1, $date2]);
+            } elseif ($periode === 'annee') {
+                $tontines->whereYear('debutTontineI', $annee);
+            } elseif ($periode === 'mois') {
+                if (!empty($annee) && $annee !== 'null') {
+                    $tontines->whereYear('debutTontineI', $annee)
+                         ->whereMonth('debutTontineI', $mois);
+                }
+                $tontines->whereMonth('debutTontineI', $mois);
+
+            }
+        }
+
+        // Exécutez la requête et récupérez les résultats
+        $tontines = $tontines->get();
+
+        $agents = Agent::all();
+        $membres = Membre::all();
+
+        return view('tontineIndividuelles.historiqueTontineInd', compact('tontines', 'agents', 'membres'));
+    }
+
+
+
+
+
+
+
+
 }

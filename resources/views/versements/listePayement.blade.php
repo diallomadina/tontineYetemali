@@ -237,13 +237,35 @@
 </main>
 <!-- <! Fin du main -- -->
 @endsection
-
+<script src="{{asset('assets/js/jquery.min.js')}}"></script>
 <script>
     $(document).ready(function () {
       $('#btnPrintCoti').click(function (e) {
         e.preventDefault();
-        Alert("dakj")
+
       });
+
+      function updateSelectOptions(searchInput, selectElement) {
+            var searchTerm = searchInput.val().toLowerCase();
+            selectElement.find('option').each(function () {
+                var optionText = $(this).text().toLowerCase();
+                if (optionText.includes(searchTerm)) {
+                    $(this).show();
+
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+
+        // Écouteurs d'événements pour les champs de recherche
+        $('#searchTontine').on('input', function () {
+            updateSelectOptions($(this), $('select[name="tontine"]'));
+        });
+
+        $('#searchMembre').on('input', function () {
+            updateSelectOptions($(this), $('select[name="membre"]'));
+        });
  });
 
 </script>

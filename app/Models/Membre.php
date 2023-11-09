@@ -15,4 +15,8 @@ class Membre extends Model
     public function tontinesI(){
         return $this->hasMany(TontineIndividuelle::class);
     }
+
+    public function cotisations(){
+        return $this->hasMany(Cotisation::class);
+    }
 }

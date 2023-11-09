@@ -87,9 +87,20 @@ Route::get('/cotisations/affichCotisation',[CotisationController::class, 'create
 
 Route::get('/cotisations/cotisation',[CotisationController::class, 'createAjout'])->name('cotisation');
 
-Route::post('/cotisations/cotisation',[CotisationController::class, 'store'])->name('cotisation');
+Route::post('/cotisations/cotisation/store',[CotisationController::class, 'store'])->name('StoreCotisation');
+
+Route::post('/cotisations/cotisation',[CotisationController::class, 'getTontineIndividuelle'])->name('getTontineIndividuelle');
+
+Route::post('/cotisations/affichCotisation/tontine',[CotisationController::class, 'CotisationByTontine'])->name('cotisationByTontine');
+
+Route::post('/cotisations/affichCotisation/search',[CotisationController::class, 'searchDate'])->name('searchDate');
 
 Route::get('/cotisations/historiqueCotisation',[CotisationController::class, 'createHistorique'])->name('historiqueCotisation');
+
+Route::post('/cotisations/historiqueCotisation',[CotisationController::class, 'searchHistorique'])->name('searchHistorique');
+
+// Route pour retourner les tontines dans membres
+
 
 // Les routes pour les membres
 Route::get('/membres/membres',[MembreController::class, 'create'])->name('membre');
@@ -102,7 +113,13 @@ Route::get('/tontineIndividuelles/ajoutTontineInd',[TontineIndividuelleControlle
 
 Route::post('/tontineIndividuelles/ajoutTontineInd',[TontineIndividuelleController::class, 'store'])->name('ajoutTontineInd');
 
+Route::post('/tontineIndividuelles/listeTontineInd',[TontineIndividuelleController::class, 'search'])->name('searchTontine');
+
 Route::get('/tontineIndividuelles/historiqueTontineInd',[TontineIndividuelleController::class, 'createHistoriqueTontine'])->name('historiqueTontineInd');
 
+Route::post('/tontineIndividuelles/historiqueTontineInd',[TontineIndividuelleController::class, 'searchHistorique'])->name('searchHistoriqueTontineInd');
+
 Route::get('/tontineIndividuelles/listeTontineInd',[TontineIndividuelleController::class, 'createListeTontine'])->name('listeTontineInd');
+
+
 

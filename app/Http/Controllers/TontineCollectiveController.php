@@ -42,9 +42,7 @@ class TontineCollectiveController extends Controller
         return view('tontineCollectifs.gestionTontine');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(),[

@@ -3,13 +3,13 @@
 <!-- Debut du main -->
 <main id="main" class="main">
     <div class="pagetitle">
-      <h1>Tontine Individuelle En cours</h1>
+      <h1>Historique des tontines individuelles</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
             <a href="../../index.php">Acceuil</a>
           </li>
-          <li class="breadcrumb-item active">Tontines individuelle en cours</li>
+          <li class="breadcrumb-item active">Historique</li>
         </ol>
       </nav>
     </div>
@@ -17,70 +17,134 @@
 
     <!-- Contenue de la page -->
     <div class="container">
-        <div class="row">
-          <div class="col">
-            <input type="date" name="" id="" class="form-control">
-          </div>
-          <div class="col">
-            <input type="date" name="" id="" class="form-control">
-          </div>
-          <div class="col">
-            <select name="" id="sldTontineCours" class="form-select border-secondary">
-                <option value="" selected>Choisissez l'option</option>
-                <option value="id">Identifiant</option>
-                <option value="nom">nom</option>
-                <option value="montant">Montant</option>
-                <option value="membre">Membre</option>
-            </select>
-          </div>
-          <div class="col">
-            <input type="text" class="form-control border-secondary" placeholder="Saisissez votre text de recherche">
-          </div>
-          <div class="col">
-            <button type="button" class="form-control border-secondary bg-warning-light">
-              <i class="bi bi-filter"></i>Filtrer
-            </button>
-          </div>
-          <div class="col">
-            <button type="button" class="form-control border-secondary bg-warning-light">
-              <i class="bi bi-arrow-repeat"></i>Actualiser
-            </button>
-          </div>
+        <form action="{{ route('searchHistoriqueTontineInd') }}" method="post">
+            @csrf
+            <div class="row mb-2">
+                <div class="col">
+                    <select name="periode" id="" class="form-select border-secondary">
+                        <option value="">Choisir une periode</option>
+                        <option value="date_unique">Une date</option>
+                        <option value="plage_dates">Plages de date</option>
+                        <option value="annee">Annee</option>
+                        <option value="mois">Mois</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <input type="date" name="date1" id="" class="form-control border-secondary">
+                </div>
+                <div class="col">
+                    <input type="date" name="date2" id="" class="form-control border-secondary">
+                </div>
+                <div class="col">
+                    <select name="mois" id="mois" class="form-select border-secondary">
+                        <option value="">Choisissez le mois</option>
+                        <option value="01">Janvier</option>
+                        <option value="02">Fevrier</option>
+                        <option value="03">Mars</option>
+                        <option value="04">Avril</option>
+                        <option value="05">Mai</option>
+                        <option value="06">Juin</option>
+                        <option value="07">Juillet</option>
+                        <option value="08">Aout</option>
+                        <option value="09">Septembre</option>
+                        <option value="10">Octobre</option>
+                        <option value="11">Novembre</option>
+                        <option value="12">Decembre</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <input type="text" name="annee" class="form-control border-secondary" placeholder="Saisissez l'annee">
+                </div>
 
-          <div class="col">
-            <button type="button" class="form-control border-secondary bg-warning-light">
-              <i class="bi bi-printer"></i>Imprimer
-            </button>
-          </div>
-        </div>
+            </div>
+            <div class="row">
 
-        <!-- Partie du tableau -->
-        <div class="row mt-5">
-          <table id="tableAffichageCoti" class="table table-bordered table-responsive table-compressed table-hover table-striped">
-            <thead class="bg-success">
-               <tr class="bg-success">
-                     <th class="text-center bg-success text-white">N°</th>
-                     <th class="text-center bg-success text-white">Identifiant</th>
-                     <th class="text-center bg-success text-white">Nom</th>
-                     <th class="text-center bg-success text-white">Date de debut</th>
-                     <th class="text-center bg-success text-white">Montant</th>
-                     <th class="text-center bg-success text-white">Membre</th>
-                     <th class="text-center bg-success text-white">Statut</th>
-                     <th class="text-center bg-success text-white">Action</th>
-               </tr>
-            </thead>
-            <tbody>
+                <div class="col">
+                  <select name="choix" id="sldTontineCours" class="form-select border-secondary">
+                      <option value="" selected>Choisir une option</option>
+                      <option value="identifiant">Identifiant</option>
+                      <option value="nom">nom</option>
+                      <option value="montant">Montant</option>
+                      <option value="membre">Membre</option>
+                      <option value="agent">Agent</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <input type="text" name="txtRecherche" class="form-control border-secondary" placeholder="Saisissez votre text de recherche">
+                </div>
+                <div class="col">
+                  <button type="submit" class="form-control border-secondary bg-warning-light">
+                    <i class="bi bi-filter"></i>Filtrer
+                  </button>
+                </div>
+                <div class="col">
+                  <button type="submit" class="form-control border-secondary bg-warning-light">
+                    <i class="bi bi-arrow-repeat"></i>Actualiser
+                  </button>
+                </div>
 
+                <div class="col">
+                  <button type="button" class="form-control border-secondary bg-warning-light">
+                    <i class="bi bi-printer"></i>Imprimer
+                  </button>
+                </div>
+              </div>
 
-            </tbody>
-        </table>
-        </div>
+              <!-- Partie du tableau -->
+              <div class="row mt-3">
+                <table id="tableAffichageCoti" class="text-center table table-bordered table-responsive table-compressed table-hover table-striped">
+                  <thead class="bg-success">
+                     <tr class="bg-success">
+                           <th class="text-center bg-success text-white">N°</th>
+                           <th class="text-center bg-success text-white">Identifiant</th>
+                           <th class="text-center bg-success text-white">Nom</th>
+                           <th class="text-center bg-success text-white">Date de debut</th>
+                           <th class="text-center bg-success text-white">Montant</th>
+                           <th class="text-center bg-success text-white">Membre</th>
+                           <th class="text-center bg-success text-white">Agent</th>
+                           <th class="text-center bg-success text-white">Cotisations</th>
+                           <th class="text-center bg-success text-white">Total</th>
+                           <th class="text-center bg-success text-white">Statut</th>
+                           <th class="text-center bg-success text-white">Voir</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($tontines as $tontine)
+                        <tr>
+                            <td>{{ $loop->iteration  }}</td>
+                            <td>{{ $tontine->codeTontineI }}</td>
+                            <td>{{ $tontine->nomTontineI }}</td>
+                            <td>{{ $tontine->debutTontineI }}</td>
+                            <td>{{ $tontine->montantTontineI }}</td>
+                            <td>{{ $tontine->membres->nomMembre.' '.$tontine->membres->prenomMembre }}</td>
+                            <td>{{ $tontine->agents->nomAgent.' '.$tontine->agents->prenomAgent }}</td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                @if ($tontine->statutTontineI == null)
+                                    Non debuté
+                                    @elseif ($tontine->statutTontineI == 1)
+                                    En cours
+                                    @else
+                                    Terminé
+                                @endif
+                            </td>
+                            <td class="btnCoti">
+                                <a href='#'  class='btn btn-transparent voirTontineI'  data-bs-toggle='modal' data-bs-target='#modalvoirTontineI' data-bs-placement='bottom' title='Voir'><i class='bi bi-eye'></i></a>
+                            </td>
+                        </tr>
+                    @endforeach
+
+                  </tbody>
+              </table>
+              </div>
+        </form>
     </div>
 
 
 
   <!-- Debut Modal pour Voir le suivi -->
-  <div class="modal fade" id="modalSuiviTontine" tabindex="-1">
+  <div class="modal fade" id="modalvoirTontineI" tabindex="-1">
                   <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

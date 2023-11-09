@@ -43,29 +43,33 @@
               </div>
             </div>
           </div>
-        <form action="" method="post">
+        <form action="{{ route('searchTontine') }}" method="post">
+            @csrf
         <div class="row">
           <div class="col">
             <select name="choix" id="sldTontineCours" class="form-select border-secondary">
                 <option value="" selected>Choisissez l'option</option>
-                <option value="id">Identifiant</option>
+                <option value="identifiant">Identifiant</option>
                 <option value="nom">nom</option>
                 <option value="montant">Montant</option>
                 <option value="membre">Membre</option>
+                <option value="agent">Agent</option>
             </select>
           </div>
           <div class="col">
             <input type="text" name="txtRecherhce" class="form-control border-secondary">
           </div>
           <div class="col">
-            <button type="button" class="form-control border-secondary bg-warning-light">
+            <button type="submit" class="form-control border-secondary bg-warning-light">
               <i class="bi bi-filter"></i>Filtrer
             </button>
           </div>
           <div class="col">
-            <button type="button" class="form-control border-secondary bg-warning-light">
-              <i class="bi bi-arrow-repeat"></i>Actualiser
-            </button>
+            <a href="{{ route('listeTontineInd') }}">
+                <button type="submit" class="form-control border-secondary bg-warning-light">
+                    <i class="bi bi-arrow-repeat"></i>Actualiser
+                  </button>
+            </a>
           </div>
           <div class="col">
             <button type="button" class="form-control border-secondary bg-warning-light"data-bs-toggle="modal" data-bs-target="#modalAjoutTontine">
