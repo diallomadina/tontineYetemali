@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Membre;
+use App\Models\Participation;
 use App\Models\TontineCollective;
 use App\Models\Versement;
 use Illuminate\Http\Request;
@@ -34,15 +35,18 @@ class VersementController extends Controller
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(),[
-            'tontine'=>'numeric',
-            'membre'=>'numeric',
+            'tontine'=>'required|numeric',
+            'membre'=>'required|numeric',
             'date'=>'required|date',
-            'montant'=>'required|numeric',
 
         ]);
 
         if($validation->fails()){
-            return redirect()->back()->withErrors($validation)->withInput();
+            if ($request->ajax()) {
+                return response()->json(['errors' => $validation->errors()], 422);
+            } else {
+                return redirect()->back()->withErrors($validation)->withInput();
+            }
         }else{
             $nomMembre = Membre::all()->where('id', $request->membre)->first();
             $code = Versement::OrderBy('id', 'desc')->first();
@@ -51,15 +55,31 @@ class VersementController extends Controller
             }else {
                 $codeVersement = 'YMVTC'.($code->id+1);
             }
+            $idTonitne = $request->tontine;
+            $tontine = TontineCollective::find($idTonitne);
+            $montant = $tontine->montant;
             $versements = new Versement;
             $versements->codeVersement = $codeVersement;
-            $versements->montantVersement = $request->montant;
+            $versements->montantVersement = $montant;
             $versements->dateVersement = $request->date;
-            $versements->tontine = $request->tontine;
+            $versements->tontine = $idTonitne;
             $versements->membre = $request->membre;
             $versements->save();
-            return redirect()->back()->with('success', 'Enregistrement effectuer avec success');
+            if ($request->ajax()) {
+                return response()->json(['success' => 'Enregistrement effectué avec succès']);
+            } else {
+                return redirect()->back()->with('success', 'Enregistrement effectué avec succès');
+            }
         }
+    }
+
+    public function getMembreTontine(Request $request){
+        $tontineId = $request->input('tontine');
+        $participations = Participation::where('tontine', $tontineId)->with('membres')->get();
+
+        $membres = $participations->toArray();
+
+        return response()->json(['participations' => $membres]);
     }
 
     public function search(Request $request){
@@ -89,4 +109,6 @@ class VersementController extends Controller
         $membres = Membre::all();
         return view('versements.listePayement', compact('versements','tontinesC','membres'));
     }
+
+
 }

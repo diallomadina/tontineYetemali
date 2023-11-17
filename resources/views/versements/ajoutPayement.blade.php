@@ -47,7 +47,7 @@
                   <div class="row">
                     <div class="input-group ms-3">
                         <input type="text" id="searchTontine" class="form-control border-secondary " placeholder="Rechercher une tontine">
-                        <select name="tontine" class="form-select border-secondary" aria-label="Default select example">
+                        <select name="tontine" id="tontine" class="form-select border-secondary" aria-label="Default select example">
                             <option value="">Cliquez pour choisir</option>
                             @foreach ($tontinesC as $tontines )
                                 <option value="{{ $tontines->id }}">{{ $tontines->nomTontineC.' ('.$tontines->codeTontineC.')' }}</option>
@@ -64,13 +64,11 @@
                   <div class="row mb-4">
                       <label class="col fs-5 ms-3">Membre</label>
                       <div class="row">
-                            <div class="ms-3 input-group">
+                            <div class="ms-3 input-group" id="inputMembre">
                                 <input type="text" id="searchMembre" class="form-control border-secondary" placeholder="Rechercher un menbre" >
-                                <select name="membre" class="form-select border-secondary" aria-label="Default select example">
-                                    <option value="" selected>Cliquez pour choisir</option>
-                                    @foreach ($membres as  $membre)
-                                        <option value="{{ $membre->id }}">{{ $membre->nomMembre.' '.$membre->prenomMembre.' ('.$membre->codeMembre.')' }}</option>
-                                    @endforeach
+                                <select name="membre" id="membre" class="form-select border-secondary" aria-label="Default select example">
+                                    <option value="" selected>Choisissez la tontine ci-haut</option>
+
 
                                 </select>
                             </div>
@@ -81,14 +79,8 @@
                   </div>
 
                     <div class="row mb-4">
-                      <div class="col">
-                        <label class="text-center fs-5">Montant</label>
-                          <input  name="montant" id="montant" class="form-control border-secondary">
-                          @error('montant')
-                            <span class="text-danger">{{ $message }}</span>
-                          @enderror
-                      </div>
-                      <div class="col">
+
+                      <div class="col ms-3" style="margin-right: 10px">
                         <label for="inputDate" class="  text-center fs-5">Date</label>
                         <input name="date" id="date"  type="date" class="form-control border-secondary">
                         @error('date')
@@ -102,6 +94,7 @@
                   <div class="row mb-4">
                       <div class="col"></div>
                       <div class="col">
+                        
                         <button name="btnValider" type="submit" class="btn btn-success form-control">Valider</button>
                       </div>
                       <div class="col">
@@ -126,11 +119,10 @@
 <script src="{{asset('assets/js/jquery.min.js')}}"></script>
 <script>
   $(document).ready(function () {
-    $('#annullee').click(function (e) {
-      $('#debut').val("");
-      $('#montant').val("");
+        $('#annullee').click(function (e) {
+        $('#debut').val("");
 
-    });
+        });
 
         function updateSelectOptions(searchInput, selectElement) {
             var searchTerm = searchInput.val().toLowerCase();
@@ -152,6 +144,44 @@
 
         $('#searchMembre').on('input', function () {
             updateSelectOptions($(this), $('select[name="membre"]'));
+        });
+
+        // Desactiver le champ pour la selection de membre
+        $('#membre').prop('disabled', true);
+        $('#searchMembre').prop('disabled', true);
+
+        // Action pour recuperer les membres associes a la tontine selectionner
+        $('#tontine').change(function (e) {
+            e.preventDefault();
+            var tontineId = $(this).val();
+
+            $.ajax({
+                type: "POST",
+                url: "{{ route('membreTontine') }}",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    tontine: tontineId
+                },
+
+                success: function (response) {
+                    $('#membre').prop('disabled', false);
+                     $('#searchMembre').prop('disabled', false);
+                    $('#membre').empty();
+
+                    $('#membre').append($('<option>', {
+                        value: '',
+                        text: 'Cliquez pour choisir'
+                    }));
+
+                    response.participations.forEach(function(participation) {
+                        var membre = participation.membres;
+                        $('#membre').append($('<option>', {
+                            value: membre.id,
+                            text: membre.nomMembre + ' ' + membre.prenomMembre + ' (' + membre.codeMembre + ')'
+                        }));
+                    });
+                }
+            });
         });
   });
 

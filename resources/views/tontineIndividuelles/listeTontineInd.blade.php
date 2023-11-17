@@ -8,7 +8,7 @@
           <li class="breadcrumb-item">
             <a href="../../index.php">Acceuil</a>
           </li>
-          <li class="breadcrumb-item active"> Liste des tontines individuelle</li>
+          <li class="breadcrumb-item active"> Liste des tontines individuelle en cours</li>
         </ol>
       </nav>
     </div>
@@ -26,13 +26,13 @@
                   @endif
 
                   @if(Session::has('error'))
-                      <div class="alert alert-danger">
+                      <div class="alert alert-danger text-center">
                           {{ Session::get('error') }}
                       </div>
                   @endif
 
                   @if($errors->any())
-                      <div class="alert alert-danger">
+                      <div class="alert alert-danger text-center">
                           <ul>
                               @foreach ($errors->all() as $error)
                                   <li>{{ $error }}</li>
@@ -42,84 +42,84 @@
                   @endif
               </div>
             </div>
-          </div>
+        </div>
         <form action="{{ route('searchTontine') }}" method="post">
             @csrf
-        <div class="row">
-          <div class="col">
-            <select name="choix" id="sldTontineCours" class="form-select border-secondary">
-                <option value="" selected>Choisissez l'option</option>
-                <option value="identifiant">Identifiant</option>
-                <option value="nom">nom</option>
-                <option value="montant">Montant</option>
-                <option value="membre">Membre</option>
-                <option value="agent">Agent</option>
-            </select>
-          </div>
-          <div class="col">
-            <input type="text" name="txtRecherhce" class="form-control border-secondary">
-          </div>
-          <div class="col">
-            <button type="submit" class="form-control border-secondary bg-warning-light">
-              <i class="bi bi-filter"></i>Filtrer
-            </button>
-          </div>
-          <div class="col">
-            <a href="{{ route('listeTontineInd') }}">
-                <button type="submit" class="form-control border-secondary bg-warning-light">
-                    <i class="bi bi-arrow-repeat"></i>Actualiser
-                  </button>
-            </a>
-          </div>
-          <div class="col">
-            <button type="button" class="form-control border-secondary bg-warning-light"data-bs-toggle="modal" data-bs-target="#modalAjoutTontine">
-              <i class="bi bi-plus"></i>Nouveau
-            </button>
-          </div>
-          <div class="col">
-            <button type="button" class="form-control border-secondary bg-warning-light">
-              <i class="bi bi-printer"></i>Imprimer
-            </button>
-          </div>
-        </div>
+            <div class="row">
+                <div class="col">
+                    <select name="choix" id="sldTontineCours" class="form-select border-secondary">
+                        <option value="" selected>Choisissez l'option</option>
+                        <option value="identifiant">Identifiant</option>
+                        <option value="nom">nom</option>
+                        <option value="montant">Montant</option>
+                        <option value="membre">Membre</option>
+                        <option value="agent">Agent</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <input type="text" name="txtRecherche" class="form-control border-secondary">
+                </div>
+                <div class="col">
+                    <button type="submit" class="form-control border-secondary bg-warning-light">
+                    <i class="bi bi-filter"></i>Filtrer
+                    </button>
+                </div>
+                <div class="col">
+                    <a href="{{ route('listeTontineInd') }}">
+                        <button type="submit" class="form-control border-secondary bg-warning-light">
+                            <i class="bi bi-arrow-repeat"></i>Actualiser
+                        </button>
+                    </a>
+                </div>
+                <div class="col">
+                    <button type="button" class="form-control border-secondary bg-warning-light"data-bs-toggle="modal" data-bs-target="#modalAjoutTontine">
+                    <i class="bi bi-plus"></i>Nouveau
+                    </button>
+                </div>
+                <div class="col">
+                    <button type="button" class="form-control border-secondary bg-warning-light">
+                    <i class="bi bi-printer"></i>Imprimer
+                    </button>
+                </div>
+            </div>
 
-        <!-- Partie du tableau -->
-        <div class="row mt-5">
-          <table id="tableTontineInd" class="table table-bordered table-responsive table-compressed table-hover table-striped">
-            <thead class="bg-success">
-               <tr class="bg-success">
-                     <th class="text-center bg-success text-white">N°</th>
-                     <th class="text-center bg-success text-white">Identifiant</th>
-                     <th class="text-center bg-success text-white">Nom</th>
-                     <th class="text-center bg-success text-white">Date de debut</th>
-                     <th class="text-center bg-success text-white">Montant</th>
-                     <th class="text-center bg-success text-white">Membre</th>
-                     <th class="text-center bg-success text-white">Agent</th>
-                     <th class="text-center bg-success text-white">Voir</th>
-                     <th class="text-center bg-success text-white">Payer</th>
-               </tr>
-            </thead>
-            <tbody>
-                @foreach ($tontinesI as $tontine)
-                    <tr>
-                        <td>{{ $loop->iteration  }}</td>
-                        <td>{{ $tontine->codeTontineI }}</td>
-                        <td>{{ $tontine->nomTontineI }}</td>
-                        <td>{{ $tontine->debutTontineI }}</td>
-                        <td>{{ $tontine->montantTontineI }}</td>
-                        <td>{{ $tontine->membres->nomMembre.' '.$tontine->membres->prenomMembre }}</td>
-                        <td>{{ $tontine->agents->nomAgent.' '.$tontine->agents->prenomAgent }}</td>
-                        <td class="btnCoti">
-                            <a href='#'  class='btn btn-transparent voirTontineI'  data-bs-toggle='modal' data-bs-target='#modalvoirTontineI' data-bs-placement='bottom' title='Voir'><i class='bi bi-eye'></i></a>
-                        </td>
-                        <td style="width: 50px">
-                            <a href="" class="btn btn-success">Payer</a>
-                        </td>
+            <!-- Partie du tableau -->
+            <div class="row mt-5">
+                <table id="tableTontineInd" class="table text-center table-bordered table-responsive table-compressed table-hover table-striped">
+                    <thead class="bg-success">
+                    <tr class="bg-success">
+                            <th class="text-center bg-success text-white">N°</th>
+                            <th class="text-center bg-success text-white">Identifiant</th>
+                            <th class="text-center bg-success text-white">Nom</th>
+                            <th class="text-center bg-success text-white">Date de debut</th>
+                            <th class="text-center bg-success text-white">Montant</th>
+                            <th class="text-center bg-success text-white">Membre</th>
+                            <th class="text-center bg-success text-white">Agent</th>
+                            <th class="text-center bg-success text-white">Voir</th>
+                            <th class="text-center bg-success text-white">Payer</th>
                     </tr>
-                @endforeach
-            </tbody>
-          </table>
-        </div>
+                    </thead>
+                    <tbody>
+                        @foreach ($tontinesI as $tontine)
+                            <tr>
+                                <td>{{ $loop->iteration  }}</td>
+                                <td>{{ $tontine->codeTontineI }}</td>
+                                <td>{{ $tontine->nomTontineI }}</td>
+                                <td>{{ $tontine->debutTontineI }}</td>
+                                <td>{{ $tontine->montantTontineI }}</td>
+                                <td>{{ $tontine->membres->nomMembre.' '.$tontine->membres->prenomMembre }}</td>
+                                <td>{{ $tontine->agents->nomAgent.' '.$tontine->agents->prenomAgent }}</td>
+                                <td class="btnCoti">
+                                    <a href='#'  class='btn btn-transparent voirTontineI' data-id= {{ $tontine->id }} data-bs-toggle='modal' data-bs-target='#modalvoirTontineI' data-bs-placement='bottom' title='Voir'><i class='bi bi-eye'></i></a>
+                                </td>
+                                <td style="width: 50px">
+                                    <a href="#" class="btn btn-success payerTontineI" data-id={{ $tontine->id }}  data-bs-toggle='modal' data-bs-target='#modalPayementTontine' data-bs-placement='bottom' title='Payer'>Payer</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </form>
     </div>
 
@@ -134,7 +134,7 @@
 
             <div class="d-flex justify-content-center py-4">
               <a href="#" class="logo d-flex align-items-center w-auto">
-                <img src="assets/img/yetemali.jpg" alt="">
+                <img src="{{ asset('assets/img/yetemali.jpg') }}" alt="">
                 <span class="d-none d-lg-block text-success">Yete</span>
                 <span class="d-none d-lg-block text-warning">mali</span>
               </a>
@@ -237,136 +237,156 @@
 
 
   <!-- Debut Modal pour Voir le suivi -->
-                <div class="modal fade" id="modalvoirTontineI" tabindex="-1">
-                  <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      <h3 class="text-center">Suivie de cette tontine</h3>
-                      <p><span class="fw-bold ms-3">Nom et Prenom: </span> <span id="afficheNomPrenomSuiviCoti">Diallo Ibrahima</span></p>
-                      <p><span class="fw-bold ms-3">Telephone: </span> <span id="afficheTelSuiviCoti">61378198371/641176176</span></p>
-                      <p><span class="fw-bold ms-3">Adresse: </span> <span id="afficheAdresseSuiviCoti">Bambeto</span></p>
+    <div class="modal fade" id="modalvoirTontineI" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <h3 class="text-center">Suivie de cette tontine</h3>
 
-                      <section id="cld">
-                        <p><span class="fw-bold ms-3 ">Mois: </span> <span id="cldt">Janvier</span></p>
-                        <section id="cldBoite" class="container text-center">
-                          <div class="row bg-success text-white fw-blod m-1" id="jours">
-                            <div class="col jour">lun</div>
-                            <div class="col jour">mar</div>
-                            <div class="col jour">mer</div>
-                            <div class="col jour">jeu</div>
-                            <div class="col jour">ven</div>
-                            <div class="col jour">sam</div>
-                            <div class="col jour">dim</div>
-                          </div>
+            <div class="row ms-2">
+                <div class="col-4 fw-bold ">Numero: <span id="numeroTontine" class="resultText"> </span></div>
+                <div class="col-8 fw-bold ">Nom Tontine: <span id="nomTontine" class="resultText"> </span></div>
+            </div>
 
-                          <div id="semaine1" class="row bg-light m-1 border-secondary semaine">
-                            <div class="col case">1</div>
-                            <div class="col case">1</div>
-                            <div class="col case">1</div>
-                            <div class="col case">1</div>
-                            <div class="col case">1</div>
-                            <div class="col case">1</div>
-                            <div class="col case">1</div>
-                          </div>
-                          <div id="semaine2" class="row bg-light m-1 border-secondary semaine">
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                          </div>
-                          <div id="semaine3" class="row bg-light m-1 border-secondary semaine">
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                          </div>
-                          <div id="semaine4" class="row bg-light m-1 border-secondary semaine">
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                          </div>
-                          <div id="semaine5" class="row bg-light m-1 border-secondary semaine">
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                          </div>
-                          <div id="semaine6" class="row bg-light m-1 border-secondary semaine">
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                          </div>
-                          <div id="semaine7" class="row bg-light m-1 border-secondary semaine">
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                          </div>
-                        </section>
-                      </section>
+            <div class="row ms-2">
+                <div class="col-4 fw-bold  ">Nom: <span id="nomMembre" class="resultText"> </span></div>
+                <div class="col-8 fw-bold">Prenom: <span id="prenomMembre" class="resultText"> </span></div>
+            </div>
 
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-success boutton">Valider</button>
-                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
-                      </div>
+            <div class="row ms-2">
+                <div class="col-4 fw-bold ">Adresse: <span id="adresseTontine" class="resultText"> </span></div>
+                <div class="col-8 fw-bold">Telephone: <span id="telTontine" class="resultText"> </span></div>
+            </div>
+
+            <div class="row ms-2">
+                <div class="col-4 fw-bold ">Montant: <span id="montantTontine" class="resultText"> </span> FG</div>
+                <div class="col-8 fw-bold">Montant deposé: <span id="montantDepose" class="resultText"> </span> FG</div>
+            </div>
+
+            <div class="row ms-2">
+                <div class="col-4 fw-bold ">Effectuées: <span id="cotisationEffectuee" class="resultText"> </span></div>
+                <div class="col-8 fw-bold">Restants: <span id="resteAEffectuee" class="resultText"> </span></div>
+            </div>
+
+            <section id="case" class="blocCase">
+                @for ($i = 0; $i < 30; $i++)
+                    <div class="case"></div>
+                @endfor
+            </section>
+
+            <div class="modal-footer">
+            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- Fin modal pour voir suivi -->
+
+    <!-- Debut Modal pour Voir le suivi -->
+    <div class="modal fade" id="modalPayementTontine" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <h3 class="text-center">Payer et cloturer la tontine</h3>
+            <form action="{{ route('TontineIndividuelle.payement') }}" method="post">
+                @csrf
+                <input type="hidden" name="code" id="code" value="">
+                <div class="row mb-3">
+                    <div class="col-3"></div>
+                    <div class="col-6">
+                        <input type="date" name="datePayement" id="" class="form-control border-secondary">
                     </div>
-                  </div>
+                    <div class="col-3"></div>
                 </div>
-                <!-- Fin modal pour voir suivi -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Valider</button>
+                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
+                </div>
+            </form>
+
+
+        </div>
+        </div>
+    </div>
+    <!-- Fin modal pour voir suivi -->
 </main>
 @endsection
 
-
+<script src="{{asset('assets/js/jquery.min.js')}}"></script>
 <script>
   $(document).ready(function () {
     var tableTontineInd = document.getElementById('tableTontineInd');
 
-      function editerInfoTontineInd() {
-          for (var i = 0; i < tableTontineInd.rows.length; i++) {
-              tableTontineInd.rows[i].onclick = function () {
-                  document.getElementById("idTontineInd").value = this.cells[1].innerHTML;
-                  document.getElementById("mNom").value = this.cells[2].innerHTML;
-                  document.getElementById("mDebut").value = this.cells[3].innerHTML;
-                  document.getElementById("mMontant").value = this.cells[4].innerHTML;
-                  // Sélectionner la valeur dans le champ de sélection "mMembre"
-            var membreText = this.cells[5].innerHTML; // Contenu de la cellule "Membre"
-            var selectMembre = document.getElementById("mMembre");
+        function editerInfoTontineInd() {
+            for (var i = 0; i < tableTontineInd.rows.length; i++) {
+                tableTontineInd.rows[i].onclick = function () {
+                    document.getElementById("code").value = this.cells[1].innerHTML;
+                };
+            }
+        }
 
-            // Parcourir les options du champ de sélection et sélectionner la correspondante
-            for (var j = 0; j < selectMembre.options.length; j++) {
-                if (selectMembre.options[j].text === membreText) {
-                    selectMembre.selectedIndex = j;
-                    break; // Sortir de la boucle dès que la correspondance est trouvée
+        $('.payerTontineI').click(function (e) {
+            e.preventDefault();
+            editerInfoTontineInd();
+        });
+
+        // Ajoutez cela à l'intérieur de votre fonction ready du document
+        $('.voirTontineI').click(function (e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+
+            // Faire une requête Ajax pour obtenir les informations de cotisations
+            $.ajax({
+                type: 'GET',
+                url: '{{  route('TontineIndividuelle.info', ['id' => ':id']) }}'.replace(':id', id),
+                data: {
+                    _token: '{{ csrf_token() }}',
+                },
+                success: function (data) {
+                    // Assurez-vous que les données sont correctement formatées
+                    var tontine = data.tontine;
+                    var cotisations = data.cotisations;
+                    var sommeMontantCotisations = data.sommeMontantCotisations;
+                    var nombreCotisationEffetues = data.nombreCotisationEffetues;
+                    // Traitez les données comme nécessaire et mettez à jour le modal
+                    if (tontine) {
+                        $('#numeroTontine').text(tontine.codeTontineI);
+                        $('#nomTontine').text(tontine.nomTontineI);
+                        $('#nomMembre').text(tontine.membres.nomMembre);
+                        $('#prenomMembre').text(tontine.membres.prenomMembre);
+                        $('#adresseTontine').text(tontine.membres.adresseMembre);
+                        $('#telTontine').text(tontine.membres.telMembre);
+
+                        // Accédez aux informations de la tontine
+                        $('#montantTontine').text(tontine.montantTontineI);
+                        $('#montantDepose').text(sommeMontantCotisations);
+                        $('#cotisationEffectuee').text(nombreCotisationEffetues);
+                        $('#resteAEffectuee').text(30-nombreCotisationEffetues);
+
+                        for (var i = 0; i < 30; i++) {
+                            var caseElement = $('#case .case').eq(i);
+                            if (i < nombreCotisationEffetues) {
+                                caseElement.addClass('case-effectuee');
+                            } else {
+                                caseElement.removeClass('case-effectuee');
+                            }
+                        }
+                        // Afficher le modal
+                        $('#modalvoirTontineI').modal('show');
+                    } else {
+                        // Aucune tontine trouvée, gérer cela en conséquence
+                        console.log('Aucune Tontine trouvée');
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                    // Gérer les erreurs
                 }
-               }
-            };
-          }
-      }
+            });
+        });
 
-      $('.editTontineInd').click(function (e) {
-          e.preventDefault();
-         editerInfoTontineInd();
-      });
+
+
   });
 </script>
 

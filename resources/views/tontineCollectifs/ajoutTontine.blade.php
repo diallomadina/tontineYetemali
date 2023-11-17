@@ -13,9 +13,9 @@
     </nav>
   </div>
 
-      <div class="row mt-4">
-        <div class="col-sm-1"></div>
-        <div class="col-sm-10 mt-5">
+      <div class="row mt-1">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
             <div class="row mb-3">
                 <div class="col"></div>
                 <div class="col"></div>
@@ -26,7 +26,7 @@
                         <button name="afficher" type="submit" class="form-control bg-success text-white">Afficher</button>
                     </a>
                 </div>
-              </div>
+            </div>
           <!-- Partie de l'ajout -->
           <div class="card rounded-4 mb-5">
             <h1 class="card-title rounded-4 text-center text-black fs-1 fw-3 bg-warning-light">Nouvelle Tontine Collective</h1>
@@ -51,67 +51,53 @@
                     </div>
                     <div class="row mb-4">
 
-                      <div class="col">
-                        <label class="fs-5">Agent</label>
-                        <select name="agent" id="agent" class="form-select border-secondary">
-                            @foreach ($agents as $agent )
-                                <option value="{{ $agent->id }}">{{ $agent->nomAgent.' '. $agent->prenomAgent.'    ('.$agent->codeAgent.') ' }}</option>
-                            @endforeach
-                        </select>
+                     <div class="row mb-3">
+                        <div class="col">
+                            <label class="fs-5">Nom</label>
+                            <input name="nom" id="nom" type="text" class="form-control border-secondary" placeholder="Nom de la tontine">
+                            @error('nom')
+                                <span class="text-center text-danger">{{ $message }}</span>
+                            @enderror
+                          </div>
+                     </div>
+
+
+                      <div class="row mb-3">
+                        <div class="col">
+                            <label for="inputDate" class="fs-5">Debut</label>
+                            <input name="debut" id="debut"  type="date" class="form-control border-secondary">
+                            @error('debut')
+                                <span class="text-center text-danger">{{ $message }}</span>
+                            @enderror
+                          </div>
                       </div>
 
-                      <div class="col">
-                        <label class="fs-5">Nom</label>
-                        <input name="nom" id="nom" type="text" class="form-control border-secondary" placeholder="Nom de la tontine">
-                        @error('nom')
-                            <span class="text-center text-danger">{{ $message }}</span>
-                        @enderror
+                      <div class="row mb-3">
+                        <div class="col">
+                            <label class="fs-5">Montant</label>
+                            <input name="montant" id="montant" type="number" class="form-control border-secondary" placeholder="Montant de la tontine">
+                            @error('montant')
+                                <span class="text-center text-danger">{{ $message }}</span>
+                            @enderror
+                          </div>
                       </div>
 
-                    </div>
 
-                    <div class="row mb-4">
-
-                      <div class="col">
-                        <label for="inputDate" class="fs-5">Debut</label>
-                        <input name="debut" id="debut"  type="date" class="form-control border-secondary">
-                        @error('debut')
-                            <span class="text-center text-danger">{{ $message }}</span>
-                        @enderror
+                      <div class="row mb-3">
+                        <div class="col">
+                            <label for="" class="fs-5">Frequence</label>
+                            <select name="frequence" id="frequence" class="form-select border-secondary">
+                              <option value="1" selected>Jours</option>
+                              <option value="7">Semaines</option>
+                              <option value="30">Mois</option>
+                              <option value="12">Annee</option>
+                            </select>
+                            @error('frequence')
+                                <span class="text-center text-danger">{{ $message }}</span>
+                            @enderror
+                          </div>
                       </div>
 
-                      <div class="col">
-                        <label class="fs-5">Montant</label>
-                        <input name="montant" id="montant" type="number" class="form-control border-secondary" placeholder="Montant de la tontine">
-                        @error('montant')
-                            <span class="text-center text-danger">{{ $message }}</span>
-                        @enderror
-                      </div>
-                    </div>
-
-                  <div class="row mb-4">
-
-                      <div class="col">
-                        <label for="" class="fs-5">Frequence</label>
-                        <select name="frequence" id="frequence" class="form-select border-secondary">
-                          <option value="1" selected>Jours</option>
-                          <option value="7">Semaines</option>
-                          <option value="30">Mois</option>
-                          <option value="12">Annee</option>
-                        </select>
-                        @error('frequence')
-                            <span class="text-center text-danger">{{ $message }}</span>
-                        @enderror
-                      </div>
-
-                      <div class="col">
-                        <label for="inputDate" class="fs-5">Participant</label>
-                        <input name="participant"  type="number" class="form-control border-secondary" placeholder="Nombre de participants">
-                        @error('participant')
-                            <span class="text-center text-danger">{{ $message }}</span>
-                        @enderror
-                      </div>
-                  </div>
                   <div class="row">
                     <div class="col"></div>
                     <div class="col">
@@ -132,7 +118,7 @@
 
         </div>
 
-        <div class="col-sm-1">
+        <div class="col-sm-3">
         </div>
       </div>
 </main>

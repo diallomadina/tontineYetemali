@@ -1307,6 +1307,29 @@ input {
     margin-bottom: -40px;
 }
 
+.resultText{
+    font-size: 13px;
+    font-weight: normal;
+
+}
+
+.case {
+    width: 25px;
+    height: 25px;
+    margin: 4px;
+    border: 1px solid #000;
+    display: inline-block;
+}
+
+.case-effectuee {
+    background-color: green;
+}
+
+.blocCase{
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
 
 
 

@@ -154,7 +154,7 @@
                     </a>
                     <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                         <li>
-                        <a href="{{route('ajoutPayement')}}">
+                        <a href="{{route('ajoutPayement.create')}}">
                             <i class="bi bi-circle"></i><span>Effectuer</span>
                         </a>
                         </li>
@@ -165,7 +165,7 @@
                         </li>
                     </ul>
                 </li><!-- End Forms Nav -->
-                
+
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-target="#tontineIndividuelle-nav" data-bs-toggle="collapse" href="#">
                         <i class="bi bi-journal-text"></i><span>Tontine Individuelle</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -178,7 +178,7 @@
                         </li>
                         <li>
                         <a href="{{route('listeTontineInd')}}">
-                            <i class="bi bi-circle"></i><span>Liste</span>
+                            <i class="bi bi-circle"></i><span>En cours</span>
                         </a>
                         </li>
                         <li>
@@ -246,10 +246,7 @@
     </div>
              <!-- Vendor JS Files -->
 
-        <script src="{{asset('assets/js/EditMem.js')}}"></script>
-        <script src="{{asset('assets/js/membres.js')}}"></script>
-        <script src="{{asset('assets/js/editAgent.js')}}"></script>
-        <script src="{{asset('assets/js/scriptIb.js')}}"></script>
+
         <script src="{{asset('assets/vendor/apexcharts/apexcharts.min.js')}}"></script>
         <script src="{{asset('assets/vendor/apexcharts/apexcharts.min.js')}}"></script>
         <script src="{{asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>

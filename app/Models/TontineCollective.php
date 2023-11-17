@@ -13,6 +13,10 @@ class TontineCollective extends Model
     }
 
     public function membres(){
-        return $this->belongsToMany(Membre::class);
+        return $this->belongsToMany(Membre::class)->withPivot('montantPayementC', 'datePayementC', 'codePayementC', 'membre', 'tontine');
+    }
+
+    public function participations(){
+        return $this->hasMany(Participation::class);
     }
 }

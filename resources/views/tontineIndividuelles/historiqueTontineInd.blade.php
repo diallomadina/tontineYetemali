@@ -118,14 +118,14 @@
                             <td>{{ $tontine->montantTontineI }}</td>
                             <td>{{ $tontine->membres->nomMembre.' '.$tontine->membres->prenomMembre }}</td>
                             <td>{{ $tontine->agents->nomAgent.' '.$tontine->agents->prenomAgent }}</td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ count($tontine->cotisations) }}</td>
+                            <td>{{ $tontine->cotisations->sum('montantCotisation') }}</td>
                             <td>
-                                @if ($tontine->statutTontineI == null)
+                                @if ($tontine->statutTontinteI === null)
                                     Non debuté
-                                    @elseif ($tontine->statutTontineI == 1)
+                                    @elseif ($tontine->statutTontinteI === 1)
                                     En cours
-                                    @else
+                                    @elseif ($tontine->statutTontinteI === 0)
                                     Terminé
                                 @endif
                             </td>

@@ -147,78 +147,93 @@
                         </a>
                     </div>
                     <!-- General Form Elements -->
-                    <div class="card rounded-4">
-                        <h1 class="card-title rounded-4 text-center text-black fs-1 fw-3 bg-warning-light-light">Nouvelle Tontine</h1>
+                    <div class="card rounded-4 mb-5">
+                        <h1 class="card-title rounded-4 text-center text-black fs-1 fw-3 bg-warning-light">Nouvelle Tontine Collective</h1>
                         <div class="card-body">
-
-                            <!-- General Form Elements -->
-                            <form method="post" action="{{ route('ajoutTontine') }}">
-                                @csrf
-                                <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                      @if (Session::has('success'))
+                                           <div class="alert alert-success text-center fw-bold">{{Session::get("success")}}</div>
+                                      @endif
+                                </div>
+                            </div>
+                          <!-- General Form Elements -->
+                          <form method="post" action="{{ route('ajoutTontine') }}">
+                            @csrf
+                              <div class="form-group">
                                 <div class="row">
-                                    <div class="col"></div>
-                                    <div class="col">
+                                  <div class="col"></div>
+                                  <div class="col">
 
-                                    </div>
-                                    <div class="col"></div>
+                                  </div>
+                                  <div class="col"></div>
                                 </div>
                                 <div class="row mb-4">
 
+                                 <div class="row mb-3">
                                     <div class="col">
-                                    <label class="fs-5">Agent</label>
-                                    <select name="agent" id="" class="form-select border-secondary">
-                                        @foreach ($agents as $agent )
-                                            <option value="{{ $agent->id }}">{{ $agent->nomAgent.' '. $agent->prenomAgent.'    ('.$agent->codeAgent.') ' }}</option>
-                                        @endforeach
-                                    </select>
-                                    </div>
+                                        <label class="fs-5">Nom</label>
+                                        <input name="nom" id="nom" type="text" class="form-control border-secondary" placeholder="Nom de la tontine">
+                                        @error('nom')
+                                            <span class="text-center text-danger">{{ $message }}</span>
+                                        @enderror
+                                      </div>
+                                 </div>
 
+
+                                  <div class="row mb-3">
                                     <div class="col">
-                                    <label class="fs-5">Nom</label>
-                                    <input name="nom" type="text" class="form-control border-secondary" placeholder="Nom de la tontine">
-                                    </div>
+                                        <label for="inputDate" class="fs-5">Debut</label>
+                                        <input name="debut" id="debut"  type="date" class="form-control border-secondary">
+                                        @error('debut')
+                                            <span class="text-center text-danger">{{ $message }}</span>
+                                        @enderror
+                                      </div>
+                                  </div>
 
+                                  <div class="row mb-3">
+                                    <div class="col">
+                                        <label class="fs-5">Montant</label>
+                                        <input name="montant" id="montant" type="number" class="form-control border-secondary" placeholder="Montant de la tontine">
+                                        @error('montant')
+                                            <span class="text-center text-danger">{{ $message }}</span>
+                                        @enderror
+                                      </div>
+                                  </div>
+
+
+                                  <div class="row mb-3">
+                                    <div class="col">
+                                        <label for="" class="fs-5">Frequence</label>
+                                        <select name="frequence" id="frequence" class="form-select border-secondary">
+                                          <option value="1" selected>Jours</option>
+                                          <option value="7">Semaines</option>
+                                          <option value="30">Mois</option>
+                                          <option value="12">Annee</option>
+                                        </select>
+                                        @error('frequence')
+                                            <span class="text-center text-danger">{{ $message }}</span>
+                                        @enderror
+                                      </div>
+                                  </div>
+
+                              <div class="row">
+                                <div class="col"></div>
+                                <div class="col">
+                                <button name="ajouter" type="submit" class="btn btn-success form-control">Ajouter</button>
                                 </div>
-
-                                <div class="row mb-4">
-
-                                    <div class="col">
-                                    <label for="inputDate" class="fs-5">Debut</label>
-                                    <input name="debut"  type="date" class="form-control border-secondary">
-                                    </div>
-
-                                    <div class="col">
-                                    <label class="fs-5">Montant</label>
-                                    <input name="montant" type="number" class="form-control border-secondary" placeholder="Montant de la tontine">
-                                    </div>
+                                <div class="col">
+                                <button name="annuler" id="annuller" type="button" class="btn btn-secondary form-control">Annuler</button>
                                 </div>
+                                <div class="col"></div>
+                              </div>
 
-                                <div class="row mb-4">
 
-                                    <div class="col">
-                                    <label for="" class="fs-5">Frequence</label>
-                                    <select name="frequence" id="freqTontine" class="form-select border-secondary">
-                                        <option value="1" selected>Jours</option>
-                                        <option value="7">Semaines</option>
-                                        <option value="30">Mois</option>
-                                        <option value="12">Annee</option>
-                                    </select>
-                                    </div>
 
-                                    <div class="col">
-                                    <label for="inputDate" class="fs-5">Participant</label>
-                                    <input name="participant"  type="number" class="form-control border-secondary" placeholder="Nombre de participants">
-                                    </div>
-                                </div>
-
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-warning boutton">Valider</button>
-                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
-                                </div>
-                            </form><!-- End General Form Elements -->
+                          </form><!-- End General Form Elements -->
 
                         </div>
-                    </div>
+                      </div>
 
                 </div>
 
@@ -227,104 +242,7 @@
      </div>
     </div>
     <!-- Fin Modal pour ajouter -->
-  <!-- Debut modal pour Modification -->
-  <div class="modal fade" id="modalModifTontine" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header text-center">
-          <h1 class="text-center text-black fs-1 fw-3 bg-warning-light-light">Modification</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
 
-          <div class="d-flex justify-content-center py-4">
-            <a href="#" class="logo d-flex align-items-center w-auto">
-              <img src="assets/img/yetemali.jpg" alt="">
-              <span class="d-none d-lg-block text-success">Yete</span>
-              <span class="d-none d-lg-block text-warning">mali</span>
-            </a>
-          </div>
-          <!-- General Form Elements -->
-                <!-- Partie de l'ajout -->
-                <div class="card rounded-4">
-
-                  <div class="card-body">
-
-                    <!-- General Form Elements -->
-                    <form method="post" action="{{ route('updateTontineC') }}">
-                        @csrf
-                        <div class="form-group">
-                        <div class="row">
-                            <div class="col"></div>
-                            <div class="col">
-
-                            </div>
-                            <div class="col"></div>
-                        </div>
-                        <div class="row mb-4">
-                            <input type="hidden" name="code" id="code">
-                            <div class="col">
-                            <label class="fs-5">Agent</label>
-                            <select name="agent" id="mAgent" class="form-select border-secondary">
-                                @foreach ($agents as $agent )
-                                    <option value="{{ $agent->id }}">{{ $agent->nomAgent.' '. $agent->prenomAgent.'    ('.$agent->codeAgent.') ' }}</option>
-                                @endforeach
-                            </select>
-                            </div>
-
-                            <div class="col">
-                            <label class="fs-5">Nom</label>
-                            <input name="nom" id="mNom" type="text" class="form-control border-secondary" placeholder="Nom de la tontine">
-                            </div>
-
-                        </div>
-
-                        <div class="row mb-4">
-
-                            <div class="col">
-                            <label for="inputDate" class="fs-5">Debut</label>
-                            <input name="debut" id="mDebut"  type="date" class="form-control border-secondary">
-                            </div>
-
-                            <div class="col">
-                            <label class="fs-5">Montant</label>
-                            <input name="montant" id="mMontant" type="number" class="form-control border-secondary" placeholder="Montant de la tontine">
-                            </div>
-                        </div>
-
-                        <div class="row mb-4">
-
-                            <div class="col">
-                            <label for="" class="fs-5">Frequence</label>
-                            <select name="frequence" id="mfrequence" class="form-select border-secondary">
-                                <option value="1" selected>Jours</option>
-                                <option value="7">Semaines</option>
-                                <option value="30">Mois</option>
-                                <option value="12">Annee</option>
-                            </select>
-                            </div>
-
-                            <div class="col">
-                            <label for="inputDate" class="fs-5">Participant</label>
-                            <input name="participant" id="mparticipant"  type="number" class="form-control border-secondary" placeholder="Nombre de participants">
-                            </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-warning boutton">Valider</button>
-                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
-                        </div>
-                    </form><!-- End General Form Elements -->
-
-                  </div>
-                </div>
-
-        </div>
-
-      </div>
-    </div>
-  </div>
-  <!-- Fin modal pour modification -->
 
   <!-- Debut Modal pour Voir le suivi -->
   <div class="modal fade" id="modalSuiviTontine" tabindex="-1">
@@ -387,6 +305,87 @@
   <!-- Fin modal pour voir suivi -->
 </main>
 <!-- Fin du main -->
+
+  <!-- Debut modal pour Modification -->
+  <div class="modal fade" id="modalModifTontine" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+                <div class="modal-header text-center">
+                <h1 class="text-center text-black fs-1 fw-3 bg-warning-light-light">Modification</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="d-flex justify-content-center py-4">
+                        <a href="#" class="logo d-flex align-items-center w-auto">
+                        <img src="{{ asset('assets/img/yetemali.jpg') }}" alt="">
+                        <span class="d-none d-lg-block text-success">Yete</span>
+                        <span class="d-none d-lg-block text-warning">mali</span>
+                        </a>
+                    </div>
+                    <!-- General Form Elements -->
+                    <!-- Partie de l'ajout -->
+                    <div class="card rounded-4">
+
+                    <div class="card-body">
+
+                        <!-- General Form Elements -->
+                        <form method="post" action="{{ route('updateTontineC') }}">
+                            @csrf
+                            <div class="form-group">
+
+                                <div class="row mb-4">
+                                    <input type="hidden" name="code" id="code">
+
+                                    <div class="col">
+                                    <label class="fs-5">Nom</label>
+                                    <input name="nom" id="mNom" type="text" class="form-control border-secondary" placeholder="Nom de la tontine">
+                                    </div>
+
+                                </div>
+
+                                <div class="row mb-4">
+                                    <div class="col">
+                                        <label for="inputDate" class="fs-5">Debut</label>
+                                        <input name="debut" id="mDebut"  type="date" class="form-control border-secondary">
+                                    </div>
+                                </div>
+
+                                <div class="row mb-4">
+                                    <div class="col">
+                                    <label class="fs-5">Montant</label>
+                                    <input name="montant" id="mMontant" type="number" class="form-control border-secondary" placeholder="Montant de la tontine">
+                                    </div>
+                                </div>
+
+                                <div class="row mb-4">
+                                    <div class="col">
+                                        <label for="" class="fs-5">Frequence</label>
+                                        <select name="frequence" id="mfrequence" class="form-select border-secondary">
+                                            <option value="1" selected>Jours</option>
+                                            <option value="7">Semaines</option>
+                                            <option value="30">Mois</option>
+                                            <option value="12">Annee</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-warning boutton">Valider</button>
+                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
+                                </div>
+                            </div>
+                        </form><!-- End General Form Elements -->
+
+                    </div>
+                    </div>
+
+                </div>
+
+        </div>
+    </div>
+  </div>
+  <!-- Fin modal pour modification -->
 @endsection
 <script src="{{asset('assets/js/jquery.min.js')}}"></script>
 <script>
@@ -401,21 +400,21 @@
                     document.getElementById("mDebut").value = this.cells[3].innerHTML;
                     document.getElementById("mMontant").value = this.cells[4].innerHTML;
                     document.getElementById("mfrequence").value = this.cells[5].innerHTML;
-                    document.getElementById("mparticipant").value = this.cells[6].innerHTML;
 
 
-                      // Sélectionnez la valeur de la cellule "Agent"
-                    var agentText = this.cells[7].innerHTML;
 
-                    // Sélectionnez le champ de sélection "mAgent"
-                    var selectAgent = document.getElementById("mAgent");
+                    // Sélectionnez la valeur de la cellule "Frequence"
+                    var frequenceText = this.cells[5].innerHTML.trim();
+
+                    // Sélectionnez le champ de sélection "mfrequence"
+                    var selectFrequence = document.getElementById("mfrequence");
 
                     // Parcourez les options du champ de sélection
-                    for (var j = 0; j < selectAgent.options.length; j++) {
-                        var optionText = selectAgent.options[j].text;
-                        if (agentText.includes(optionText)) {
-                            // Si le texte de l'option est inclus dans la cellule "Agent", définissez cette option comme sélectionnée
-                            selectAgent.selectedIndex = j;
+                    for (var j = 0; j < selectFrequence.options.length; j++) {
+                        var optionValue = selectFrequence.options[j].value;
+                        if (optionValue.toLowerCase() === frequenceText.toLowerCase()) {
+                            // Si la valeur de l'option correspond à la cellule "Frequence", définissez cette option comme sélectionnée
+                            selectFrequence.value = optionValue;
                             break; // Sortez de la boucle dès que la correspondance est trouvée
                         }
                     }

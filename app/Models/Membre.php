@@ -9,7 +9,7 @@ class Membre extends Model
 {
     use HasFactory;
     public function totinesC(){
-        return $this->belongsToMany(TontineCollective::class);
+        return $this->belongsToMany(TontineCollective::class)->withPivot('montantPayementC', 'datePayementC', 'codePayementC', 'membre', 'tontine');
     }
 
     public function tontinesI(){
@@ -18,5 +18,13 @@ class Membre extends Model
 
     public function cotisations(){
         return $this->hasMany(Cotisation::class);
+    }
+
+    public function payementIndividuelle(){
+        return $this->hasMany(PayementIndividuelle::class);
+    }
+
+    public function participations(){
+        return $this->hasMany(Participation::class);
     }
 }

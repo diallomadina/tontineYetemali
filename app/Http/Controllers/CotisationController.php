@@ -62,6 +62,7 @@ class CotisationController extends Controller
             }else {
                 $codeCotisation = 'YMCI'.$firstNomMembre.$firstPrenomMembre.($code->id+1);
             }
+
             $Cotisations = new Cotisation();
             $Cotisations->codeCotisation = $codeCotisation;
             $Cotisations->tontine = $request->tontine;
@@ -69,6 +70,13 @@ class CotisationController extends Controller
             $Cotisations->montantCotisation = $tontineIndividuelle->montantTontineI;
             $Cotisations->dateCotisation = $request->debut;
             $Cotisations->save();
+
+             // Mettre à jour la colonne statutTontineI si c'est la première cotisation
+            $firstCotisation = Cotisation::where('tontine', $request->tontine)->first();
+            if ($firstCotisation) {
+                TontineIndividuelle::where('id', $request->tontine)->update(['statutTontinteI' => true]);
+            }
+
             return redirect()->back()->with('success', 'Enregistrement effectuer avec success');
         }
     }
@@ -139,5 +147,18 @@ class CotisationController extends Controller
 
         return view('cotisations.historiqueCotisation', compact('cotisations'));
 
+    }
+
+    public function getCotisationsInfo($id)
+    {
+
+
+        // Maintenant, utilisez $tontineIndId pour récupérer les informations nécessaires de votre modèle
+        $cotisations = Cotisation::with(['tontines', 'membres'])->where('tontine', $id)
+            ->first();
+
+
+        // Retourner les informations de cotisations sous forme de réponse JSON
+        return response()->json(['cotisations'=> $cotisations]);
     }
 }

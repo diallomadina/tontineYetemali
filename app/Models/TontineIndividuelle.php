@@ -9,6 +9,7 @@ class TontineIndividuelle extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['codeTontineI', 'nomTontineI', 'debuTontineI', 'montantTontineI', 'statutTontineI', 'membre', 'agent'];
     public function membres(){
         return $this->belongsTo(Membre::class,"membre");
     }
@@ -18,6 +19,13 @@ class TontineIndividuelle extends Model
     }
 
     public function cotisations(){
-        return $this->hasMany(Cotisation::class);
+        return $this->hasMany(Cotisation::class, 'tontine');
     }
+
+    public function payementIndividuelles(){
+        return $this->hasMany(PayementIndividuelle::class, 'tontine', 'id');
+
+    }
+
+   
 }

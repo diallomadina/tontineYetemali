@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agent;
+use App\Models\Membre;
+use App\Models\Participation;
+use App\Models\PayementCollective;
 use App\Models\TontineCollective;
+use App\Models\Versement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,15 +21,15 @@ class TontineCollectiveController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
+    // La fonction pour afficher la page d'ajout
     public function createTontine()
     {
         $agents = Agent::all();
         return view('tontineCollectifs.ajoutTontine', compact('agents'));
     }
 
+    // La fonction pour afficher la liste des tontines
     public function createListeTontine()
     {
         $agents = Agent::all();
@@ -33,16 +37,24 @@ class TontineCollectiveController extends Controller
         return view('tontineCollectifs.listeTontine', compact('tontines', 'agents'));
     }
 
+    // La fonction pour afficher la page d'historique de la tontine
     public function createHistoriqueTontine()
     {
+
         return view('tontineCollectifs.historiqueTontine');
     }
+
+    // La fonction pour afficher la page de gestion de la tontine
     public function createGestionTontine()
     {
-        return view('tontineCollectifs.gestionTontine');
+        $agents = Agent::all();
+        $membres = Membre::all();
+        $tontines = TontineCollective::with('agents')->get();
+        return view('tontineCollectifs.gestionTontine', compact('tontines', 'agents', 'membres'));
     }
 
-    
+
+    // La fonction pour enregistrer les tontines
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(),[
@@ -50,13 +62,14 @@ class TontineCollectiveController extends Controller
             'debut'=>'required|date',
             'montant'=>'required',
             'frequence'=>'required',
-            'participant'=>'required',
+
         ]);
 
         if($validation->fails()){
             return redirect()->back()->withErrors($validation)->withInput();
         }else{
-            $agent = new Agent();
+
+
             $tontines = new TontineCollective();
             $code = TontineCollective::OrderBy('id', 'desc')->first();
             if($code == null){
@@ -69,14 +82,14 @@ class TontineCollectiveController extends Controller
             $tontines->debutTontineC = $request->debut;
             $tontines->montant = $request->montant;
             $tontines->frequence = $request->frequence;
-            $tontines->nombreParticipant = $request->participant;
-            $tontines->agent = $request->agent;
+            $tontines->agent = 1;
             $tontines->save();
             return redirect()->back()->with('success','Enregistrement effectuer avec succes');
         }
     }
 
 
+    // La fonction pour modifier les tontines
     public function update(Request $request)
     {
         $validation = Validator::make($request->all(),[
@@ -84,7 +97,6 @@ class TontineCollectiveController extends Controller
             'debut'=>'required|date',
             'montant'=>'required',
             'frequence'=>'required',
-            'participant'=>'required',
         ]);
 
         if($validation->fails()){
@@ -100,12 +112,12 @@ class TontineCollectiveController extends Controller
             $tontines->debutTontineC = $request->debut;
             $tontines->montant = $request->montant;
             $tontines->frequence = $request->frequence;
-            $tontines->nombreParticipant = $request->participant;
             $tontines->agent = $request->agent;
             $tontines->save();
             return redirect()->back()->with('success','Modification effectuer avec succes');
         }
     }
+
 
     // La fonction pour recherher les tontines
     public function search(Request $request){
@@ -128,4 +140,55 @@ class TontineCollectiveController extends Controller
         $agents = Agent::all();
         return view('tontineCollectifs.listeTontine', compact('tontines', 'agents'));
     }
+
+
+    // La fonction pour associer les membres a la tontine
+    public function associate(Request $request){
+
+        $validation = Validator::make($request->all(),[
+            'membre'=>'required',
+
+        ]);
+
+        if($validation->fails()){
+            return response()->json([ 'error' => 'Veuillez choisir le membre concernee']);
+        } else {
+            $tontineId = $request->tontine;
+            $tontine = TontineCollective::find($tontineId);
+
+            $membreId = $request->membre;
+            $membre = Membre::find($membreId);
+
+            // Créez une nouvelle participation
+            $participation = new Participation();
+
+            // Associez la tontine au membre dans la participation
+            $participation->tontinesC()->associate($tontine);
+            $participation->membres()->associate($membre);
+
+            // Enregistrez la participation
+            $participation->save();
+
+            // Assurez-vous que vous attribuez les dates aux objets Membre correctement si nécessaire
+            $membre->created_at = now();
+            $membre->updated_at = now();
+            $membre->save();
+
+
+
+            // Retournez la vue avec les données mises à jour
+            return response()->json([
+                'participation' => $participation,
+            ]);
+        }
+
+    }
+
+    public function displayMembre(Request $request){
+        $tontine = $request->input('tontine');
+        $versements = Versement::with('tontinesC', 'membres')->where('tontine', $tontine);
+        $payements = PayementCollective::with('tontines', 'membres')->where('tontine', $tontine);
+        $participations = Participation::with('tontinesC','membres')->where('tontine', $tontine);
+    }
+
 }

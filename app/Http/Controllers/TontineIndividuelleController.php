@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agent;
+use App\Models\Cotisation;
 use App\Models\Membre;
 use App\Models\TontineIndividuelle;
 use Illuminate\Http\Request;
@@ -32,15 +33,20 @@ class TontineIndividuelleController extends Controller
     {
         $agents = Agent::all();
         $membres = Membre::all();
+       $cotisations = Cotisation::all();
         $tontines = TontineIndividuelle::with('agents', 'membres')->get();
-        return view('tontineIndividuelles.historiqueTontineInd', compact('tontines','agents', 'membres'));
+        return view('tontineIndividuelles.historiqueTontineInd', compact('tontines','agents', 'membres', 'cotisations'));
     }
 
     public function createListeTontine()
     {
         $agents = Agent::all();
         $membres = Membre::all();
-        $tontinesI = TontineIndividuelle::with('agents', 'membres')->get();
+         // Récupérer les tontines qui ont au moins une cotisation et aucun paiement
+        $tontinesI = TontineIndividuelle::with('agents', 'membres')
+        ->whereHas('cotisations') // Vérifier s'il y a au moins une cotisation
+        ->whereDoesntHave('payementIndividuelles') // Vérifier s'il n'y a pas de paiement
+        ->get();
         return view('tontineIndividuelles.listeTontineInd', compact('tontinesI', 'agents', 'membres'));
     }
 
@@ -86,27 +92,26 @@ class TontineIndividuelleController extends Controller
         $tontinesI = TontineIndividuelle::query();
         $tontinesI->with('agents', 'membres');
 
-        if($choix == 'identifiant'){
-            $tontinesI = TontineIndividuelle::where('codeTontineI', 'like', '%' .$recherche . '%');
-        }elseif($choix==='nom'){
-            $tontinesI = TontineIndividuelle::where('nomTontineI', 'like', '%' . $recherche . '%');
-        }elseif($choix === 'montant'){
-            $tontinesI = TontineIndividuelle::where('montantTontineI', 'like', '%' . $recherche . '%');
-        }elseif($choix === 'membre'){
-            $tontinesI = TontineIndividuelle::whereHas('membres', function ($query) use ($recherche){
+        if ($choix == 'identifiant') {
+            $tontinesI->where('codeTontineI', 'like', '%' . $recherche . '%');
+        } elseif ($choix === 'nom') {
+            $tontinesI->where('nomTontineI', 'like', '%' . $recherche . '%');
+        } elseif ($choix === 'montant') {
+            $tontinesI->where('montantTontineI', 'like', '%' . $recherche . '%');
+        } elseif ($choix === 'membre') {
+            $tontinesI->whereHas('membres', function ($query) use ($recherche) {
                 $query->where('nomMembre', 'like', '%' . $recherche . '%')
-                ->orWhere('prenomMembre', 'like', '%' . $recherche . '%');
+                    ->orWhere('prenomMembre', 'like', '%' . $recherche . '%');
             });
-        } elseif($choix === 'agent'){
-            $tontinesI = TontineIndividuelle::whereHas('agents', function ($query) use ($recherche){
+        } elseif ($choix === 'agent') {
+            $tontinesI->whereHas('agents', function ($query) use ($recherche) {
                 $query->where('nomAgent', 'like', '%' . $recherche . '%')
-                ->orWhere('prenomAgent', 'like', '%' . $recherche . '%');
+                    ->orWhere('prenomAgent', 'like', '%' . $recherche . '%');
             });
-        }else {
-            $tontinesI = TontineIndividuelle::with('agents', 'membres');
         }
 
         $tontinesI = $tontinesI->get();
+
         $agents = Agent::all();
         $membres = Membre::all();
         return view('tontineIndividuelles.listeTontineInd', compact('tontinesI', 'agents', 'membres'));
@@ -174,6 +179,23 @@ class TontineIndividuelleController extends Controller
 
 
 
+    public function getInfoTontineIndividuelle($id)
+    {
+
+        // Maintenant, utilisez $tontineIndId pour récupérer les informations nécessaires de votre modèle
+        $tontine = TontineIndividuelle::with('membres', 'agents')->where('id', $id)->first();
+        $cotisations = Cotisation::where('tontine', $id)->get();
+        $sommeMontantsCotisations = $cotisations->sum('montantCotisation');
+        $nombreCotisationEffectues = count($cotisations);
+
+        // Retourner les informations de cotisations sous forme de réponse JSON
+        return response()->json([
+            'tontine' => $tontine,
+            'cotisations' => $cotisations,
+            'sommeMontantCotisations' => $sommeMontantsCotisations,
+            'nombreCotisationEffetues' => $nombreCotisationEffectues
+        ]);
+    }
 
 
 

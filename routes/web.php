@@ -6,6 +6,8 @@ use App\Http\Controllers\AgentController;
 use App\Http\Controllers\CotisationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MembreController;
+use App\Http\Controllers\PayementCollectiveController;
+use App\Http\Controllers\PayementIndividuelleController;
 use App\Http\Controllers\TontineCollectiveController;
 use App\Http\Controllers\TontineIndividuelleController;
 use App\Http\Controllers\VersementController;
@@ -72,10 +74,17 @@ Route::get('/tontineCollectifs/listeTontine',[TontineCollectiveController::class
 
 Route::get('/tontineCollectifs/gestionTontine',[TontineCollectiveController::class, 'createGestionTontine'])->name('gestionTontine');
 
-// Les routes pour le versement
-Route::get('/payements/ajoutPayement',[VersementController::class, 'createVersement'])->name('ajoutPayement');
+Route::post('/tontineCollectifs/gestionTontine/association',[TontineCollectiveController::class, 'associate'])->name('associationTontine');
 
-Route::post('/payements/ajoutPayement',[VersementController::class, 'store'])->name('ajoutPayement');
+Route::post('/tontineCollectifs/gestionTontine/payement',[PayementCollectiveController::class, 'store'])->name('payementCollectif');
+
+
+// Les routes pour le versement
+Route::get('/payements/ajoutPayement',[VersementController::class, 'createVersement'])->name('ajoutPayement.create');
+
+Route::post('/payements/ajoutPayement/store',[VersementController::class, 'store'])->name('ajoutPayement');
+
+Route::post('/payements/ajoutPayement',[VersementController::class, 'getMembreTontine'])->name('membreTontine');
 
 Route::get('/payements/listePayement',[VersementController::class, 'createListeVersement'])->name('listePayement');
 
@@ -99,6 +108,11 @@ Route::get('/cotisations/historiqueCotisation',[CotisationController::class, 'cr
 
 Route::post('/cotisations/historiqueCotisation',[CotisationController::class, 'searchHistorique'])->name('searchHistorique');
 
+Route::post('/cotisations/info/{id}',[CotisationController::class, 'getCotisationsInfo'])->name('cotisation.info');
+
+
+
+
 // Route pour retourner les tontines dans membres
 
 
@@ -120,6 +134,17 @@ Route::get('/tontineIndividuelles/historiqueTontineInd',[TontineIndividuelleCont
 Route::post('/tontineIndividuelles/historiqueTontineInd',[TontineIndividuelleController::class, 'searchHistorique'])->name('searchHistoriqueTontineInd');
 
 Route::get('/tontineIndividuelles/listeTontineInd',[TontineIndividuelleController::class, 'createListeTontine'])->name('listeTontineInd');
+
+Route::get('/TontineIndividuelles/info/{id}',[TontineIndividuelleController::class, 'getInfoTontineIndividuelle'])->name('TontineIndividuelle.info');
+
+
+Route::post('/TontineIndividuelles/Payement',[PayementIndividuelleController::class, 'payementTontineIndividuelle'])->name('TontineIndividuelle.payement');
+
+
+
+
+
+
 
 
 

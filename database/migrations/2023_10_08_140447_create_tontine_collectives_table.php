@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('debutTontineC');
             $table->integer('montant');
             $table->string('frequence');
-            $table->integer('nombreParticipant');
+            $table->integer('nombreParticipant')->nullable();
             $table->integer('statutTontineC')->nullable();
             $table->foreignId('agent')->references('id')->on('agents')->onDelete('cascade');
             $table->timestamps();
