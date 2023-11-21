@@ -67,6 +67,7 @@
                       <option value="montant">Montant</option>
                       <option value="membre">Membre</option>
                       <option value="agent">Agent</option>
+                      <option value="statut">Statut</option>
                   </select>
                 </div>
                 <div class="col">

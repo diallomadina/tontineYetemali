@@ -51,8 +51,9 @@
             <select name="choix" id="sldTontineCours" class="form-select border-secondary">
                 <option value="" selected>Choisissez l'option</option>
                 <option value="identifiant">Identifiant</option>
-                <option value="nom">nom</option>
+                <option value="nom">Nom</option>
                 <option value="montant">Montant</option>
+                <option value="agent">Agent</option>
             </select>
           </div>
           <div class="col">

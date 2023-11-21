@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Membre;
+use App\Models\Participation;
 use App\Models\PayementCollective;
 use App\Models\TontineCollective;
 use Illuminate\Http\Request;
@@ -40,6 +41,15 @@ class PayementCollectiveController extends Controller
             $payements->montantPayementC = $montant;
             $payements->datePayementC = $request->date;
             $payements->save();
+
+            $nombre = PayementCollective::where('tontine', $tontineId);
+            $nombrePayement = $nombre->count();
+
+           $nombreParticipant = $tontine->nombreParticipant;
+           if($nombreParticipant == $nombrePayement){
+                $tontine->statutTontineC = false;
+                $tontine->save();
+           }
 
             return redirect()->back()->with('success','Enregistrement effectuer avec succes');
 

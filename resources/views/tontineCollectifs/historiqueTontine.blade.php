@@ -15,32 +15,68 @@
       <div class="container mt-5">
       <div class="row">
 
-        <form action="" class="form-inline bg-light">
+        <form action="{{ route('searchHistoriqueTontineC') }}" method="POST" class="form-inline bg-light">
+            @csrf
+            <div class="row mb-2">
+                <div class="col">
+                    <select name="periode" id="" class="form-select border-secondary">
+                        <option value="">Choisir une periode</option>
+                        <option value="date_unique">Une date</option>
+                        <option value="plage_dates">Plages de date</option>
+                        <option value="annee">Annee</option>
+                        <option value="mois">Mois</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <input type="date" name="date1" id="" class="form-control border-secondary">
+                </div>
+                <div class="col">
+                    <input type="date" name="date2" id="" class="form-control border-secondary">
+                </div>
+                <div class="col">
+                    <select name="mois" id="mois" class="form-select border-secondary">
+                        <option value="">Choisissez le mois</option>
+                        <option value="01">Janvier</option>
+                        <option value="02">Fevrier</option>
+                        <option value="03">Mars</option>
+                        <option value="04">Avril</option>
+                        <option value="05">Mai</option>
+                        <option value="06">Juin</option>
+                        <option value="07">Juillet</option>
+                        <option value="08">Aout</option>
+                        <option value="09">Septembre</option>
+                        <option value="10">Octobre</option>
+                        <option value="11">Novembre</option>
+                        <option value="12">Decembre</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <input type="text" name="annee" class="form-control border-secondary" placeholder="Saisissez l'annee">
+                </div>
+
+            </div>
             <div class="row mt-3">
+
                   <div class="col">
-                    <input type="date" name="" id="dtHistoriqueUn" class="form-control">
-                  </div>
-                  <div class="col">
-                    <input type="date" name="" id="dtHistoriqueDeux" class="form-control">
-                  </div>
-                  <div class="col">
-                    <select name="" id="" class="form-select">
+                    <select name="choix" id="" class="form-select border-secondary">
                       <option value="" selected>Choisissez</option>
                       <option value="identifiant">Identifiant</option>
                       <option value="nom">Nom</option>
+                      <option value="agent">Agent</option>
                       <option value="statut">Statut</option>
+
                     </select>
                   </div>
                   <div class="col">
-                    <input type="text" class="form-control border-secondary" placeholder="Saisissez">
+                    <input type="text" name="txtRecherche" class="form-control border-secondary" placeholder="Saisissez">
                   </div>
                   <div class="col">
-                      <button id="btnSearchCoti" type="button" class=" bg-warning-light form-control">
+                      <button id="btnSearchCoti" type="submit" class=" bg-warning-light form-control">
                           <i class="bi bi-filter"></i> Filtrer
                       </button>
                   </div>
                   <div class="col">
-                    <button id="btnSearchCoti" type="button" class=" bg-warning-light form-control">
+                    <button id="btnSearchCoti" type="submit" class=" bg-warning-light form-control">
                         <i class="bi bi-repeat"></i> Acutaliser
                     </button>
                   </div>
@@ -50,116 +86,64 @@
                     </button>
                   </div>
             </div>
+            <div class="row mt-3">
+                <table id="tableHisotoriqueTontine" class="table text-center table-bordered table-responsive table-compressed table-hover table-striped">
+                    <thead class="bg-success">
+                       <tr class="bg-success">
+                             <th class="text-center bg-success text-white">N°</th>
+                             <th class="text-center bg-success text-white">Identifiant</th>
+                             <th class="text-center bg-success text-white">Nom</th>
+                             <th class="text-center bg-success text-white">Date de debut</th>
+                             <th class="text-center bg-success text-white">Montant</th>
+                             <th class="text-center bg-success text-white">Frequence</th>
+                             <th class="text-center bg-success text-white">Participants</th>
+                             <th class="text-center bg-success text-white">Agent</th>
+                             <th class="text-center bg-success text-white">Statut</th>
+                             <th class="text-center bg-success text-white">Voir</th>
+                       </tr>
+                    </thead>
+                    <tbody id="tbodyAfficheTontine">
 
+                        @foreach ($tontines as $tontineC)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $tontineC->codeTontineC }}</td>
+                                <td>{{ $tontineC->nomTontineC }}</td>
+                                <td>{{ $tontineC->debutTontineC }}</td>
+                                <td>{{ $tontineC->montant }}</td>
+                                <td>
+                                    @if ($tontineC->frequence == 1)
+                                        Jours
+                                        @elseif ($tontineC->frequence == 7)
+                                        Semaine
+                                        @elseif ($tontineC->frequence == 30)
+                                        Mois
+                                        @else
+                                        Annee
+                                    @endif
+                                </td>
+                                <td>{{ $tontineC->nombreParticipant }}</td>
+                                <td>{{ $tontineC->agents->nomAgent.' '.$tontineC->agents->prenomAgent }}</td>
+                                <td>
+                                    @if ($tontineC->statutTontineC === null)
+                                            Non debuté
+                                            @elseif ($tontineC->statutTontineC === 1)
+                                            En cours
+                                            @elseif ($tontineC->statutTontineC === 0)
+                                            Terminé
+                                     @endif
+                                </td>
+                                <td class='btnCoti'><button type='button' class='btn btn-transparent' data-bs-toggle='modal' data-bs-target='#modalSuiviTontine' data-bs-placement='bottom' title='Voir'><i class='bi bi-eye'></i></button></td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </form>
 
 
     </div>
-    <div class="row mt-3">
-          <!-- Table -->
-          <table id="tableHistoriqueCoti" class="table table-bordered table-responsive table-compressed table-hover table-striped">
-            <thead class="bg-success">
-                <tr class="bg-success">
-                    <th class="text-center bg-success text-white">N°</th>
-                    <th class="text-center bg-success text-white">Identifiant</th>
-                    <th class="text-center bg-success text-white">Nom</th>
-                    <th class="text-center bg-success text-white">Date de debut</th>
-                    <th class="text-center bg-success text-white">Montant</th>
-                    <th class="text-center bg-success text-white">Frequence</th>
-                    <th class="text-center bg-success text-white">Participants</th>
-                      <th class="text-center bg-success text-white">Statut</th>
-                      <th class="text-center bg-success text-white">Voir</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>En Cours</td>
-                    <td class="btnCoti"><button type="button" class="btn btn-transparent"  data-bs-toggle="modal" data-bs-target="#modalVoirTontine" data-bs-placement="bottom" title="Modifier"><i class="bi bi-eye"></i></button></td>
-                </tr>
-            </tbody>
-        </table>
-              <!-- End Table  -->
 
-
-
-            <!-- Debut modal pour Modification -->
-            <div class="modal fade" id="modalModifCotisation" tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h3 class="title">Modification d'une cotisation</h3>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <div class="d-flex justify-content-center py-4">
-                        <a href="#" class="logo d-flex align-items-center w-auto">
-                          <img src="assets/img/yetemali.jpg" alt="">
-                          <span class="d-none d-lg-block text-success">Yete</span>
-                          <span class="d-none d-lg-block text-warning">mali</span>
-                        </a>
-                      </div>
-                      <!-- General Form Elements -->
-                      <form>
-                          <div class="row mb-4">
-                              <label class="col-sm-2 col-form-label">Membre</label>
-                              <div class="col-sm-10">
-                                <select class="form-select" aria-label="Default select example">
-                                  <option selected>Selectionner le membre</option>
-                                  <option value="1">Membre 1</option>
-                                  <option value="2">Membre 2</option>
-                                  <option value="3">Membre 3</option>
-                                </select>
-                              </div>
-                            </div>
-                            <div class="row mb-4">
-                              <label class="col-sm-2 col-form-label">Tontine</label>
-                              <div class="col-sm-10">
-                                <select class="form-select" aria-label="Default select example">
-                                  <option selected>Selectionner la tontine</option>
-                                  <option value="1">Tontine 1</option>
-                                  <option value="2">Tontine 2</option>
-                                  <option value="3">Tontine 3</option>
-                                </select>
-                              </div>
-                          </div>
-                          <div class="row mb-4">
-                            <label for="inputDate" class="col-sm-2 col-form-label">Montant</label>
-                            <div class="col-sm-10">
-                              <input type="number" class="form-control">
-                            </div>
-                          </div>
-                          <div class="row mb-4">
-                            <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
-                            <div class="col-sm-10">
-                              <input type="date" class="form-control">
-                            </div>
-                          </div>
-
-                          <div class="row mb-4">
-                              <div class="col-sm-5"></div>
-                            <div class="col-sm-4">
-                              <button type="submit" class="btn btn-primary">Valider</button>
-                            </div>
-                            <div class="col-sm-3"></div>
-                          </div>
-
-                      </form><!-- End General Form Elements -->
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-success boutton">Save</button>
-                    </div>
-                  </div>
-                </div>
-            </div>
-    </div>
       </div>
 </main>
 <!-- Fin du main -->

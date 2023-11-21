@@ -43,19 +43,50 @@
                   </div>
                     <form action="{{ route('searchVersement') }}" method="post" class="form-inline bg-light">
                         @csrf
+                        <div class="row mt-2">
+                            <div class="col">
+                                <select name="periode" id="periode" class="form-select border-secondary">
+                                    <option value="">Choisir une periode</option>
+                                    <option value="date_unique">Une date</option>
+                                    <option value="plage_dates">Plages de date</option>
+                                    <option value="annee">Annee</option>
+                                    <option value="mois">Mois</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <input type="date" name="date1" id="date1" class="form-control border-secondary">
+                            </div>
+                            <div class="col">
+                                <input type="date" name="date2" id="date2" class="form-control border-secondary">
+                            </div>
+                            <div class="col">
+                                <select name="mois" id="mois" class="form-select border-secondary">
+                                    <option value="">Choisissez le mois</option>
+                                    <option value="01">Janvier</option>
+                                    <option value="02">Fevrier</option>
+                                    <option value="03">Mars</option>
+                                    <option value="04">Avril</option>
+                                    <option value="05">Mai</option>
+                                    <option value="06">Juin</option>
+                                    <option value="07">Juillet</option>
+                                    <option value="08">Aout</option>
+                                    <option value="09">Septembre</option>
+                                    <option value="10">Octobre</option>
+                                    <option value="11">Novembre</option>
+                                    <option value="12">Decembre</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <input type="text" name="annee" id="annee" class="form-control border-secondary" placeholder="Saisissez l'annee">
+                            </div>
+
+                        </div>
                         <div class="row mt-3">
-                          <div class="col-sm">
-                            <label for=""></label>
-                            <input type="date" name="date1" id="dtHistoriqueUn" class="form-control">
-                          </div>
-                          <div class="col-sm">
-                            <label for=""></label>
-                            <input type="date" name="date2" id="dtHistoriqueDeux" class="form-control">
-                          </div>
+
                           <div class="col-sm">
                             <div class="form-group">
                              <label for=""></label>
-                             <select name="choix" id="" class="form-select">
+                             <select name="choix" id="" class="form-select border-secondary">
                                 <option value="" selected>Choisissez l'option</option>
                                 <option value="identifiant">Identifiant</option>
                                 <option value="tontine">Tontine</option>
@@ -67,13 +98,13 @@
                            <div class="col-sm">
                                <div class="form-group">
                                 <label for=""></label>
-                                <input name="txtRecherche" type="text" class="form-control bi bi-search" id="txtRechercheCoti">
+                                <input name="txtRecherche" type="text" class="form-control bi bi-search border-secondary" id="txtRechercheCoti">
                                </div>
                             </div>
                            <div class="col-sm">
                               <div class="form-group">
                                   <label for="form-label"></label>
-                                  <button name="filtrer" type="submit" class="form-control bg-warning-light text-center">
+                                  <button name="filtrer" type="submit" class="form-control bg-warning-light text-center border-secondary">
                                      <i class="bi bi-filter"></i>Filtrer
                                   </button>
                               </div>
@@ -103,7 +134,7 @@
                            </div>
                         </div>
                    </div>
-        <div class="row mt-5">
+        <div class="row mt-2">
 
 
              <!-- Table -->
@@ -300,6 +331,40 @@
                 }
             });
         });
+
+        // Changement de la periode
+        $('#periode').change(function (e) {
+            e.preventDefault();
+            let valeur = $('#periode').val();
+
+            switch(valeur){
+                case "date_unique" :
+                    $('#date2').prop('disabled', true);
+                    break;
+                case "plage_dates" :
+                    $('#annee').prop('disabled', true);
+                    $('#mois').prop('disabled', true);
+                    $('#date2').prop('disabled', false);
+                    break;
+                case 'mois' :
+                     $('#date2').prop('disabled', true);
+                     $('#date1').prop('disabled', true);
+                     break;
+                case 'annee' :
+                    $('#date2').prop('disabled', true);
+                    $('#date1').prop('disabled', true);
+                    $('#mois').prop('disabled', true);
+                    break;
+                default:
+                    $('#date2').prop('disabled', false);
+                    $('#annee').prop('disabled', false);
+                    $('#mois').prop('disabled', false);
+                    $('#date1').prop('disabled', false);
+                    break;
+
+
+            }
+       });
  });
 
 </script>

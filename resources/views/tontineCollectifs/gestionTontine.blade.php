@@ -102,9 +102,7 @@
                             <input type="text" id="txtMembre" class="form-control border-secondary" placeholder="Saisissez le nom">
                             <select name="membre2" id="choixMembre2" class="form-select border-secondary">
                                 <option value="">Cliquer pour choisir</option>
-                                @foreach ($membres as $membre)
-                                    <option value="{{ $membre->id }}">{{ $membre->nomMembre.' '.$membre->prenomMembre. ' ('.$membre->codeMembre.')' }}</option>
-                                @endforeach
+
                             </select>
                         </div>
                         @error('membre2')
@@ -172,7 +170,7 @@
                     </div>
 
                     <div class="row mt-2">
-                        <table id="tableAgence" class="table table-bordered table-responsive table-compressed table-hover table-striped">
+                        <table id="tableInfoMembre" class="table table-bordered table-responsive table-compressed table-hover table-striped">
                             <thead class="bg-success">
                             <tr class="bg-success">
                                     <th class="text-center bg-success text-white">N°</th>
@@ -214,12 +212,30 @@
         //     $('#PayementMembre').hide();
         // });
 
-        // $('#btnListe').click(function (e) {
-        //     e.preventDefault();
-        //     $('#AjoutMembre').hide();
-        //     $('#listMembre').show();
-        //     $('#PayementMembre').hide();
-        // });
+        // Action sur le bouton liste
+        $('#btnListe').click(function (e) {
+            e.preventDefault();
+            $('#AjoutMembre').hide();
+            $('#listMembre').show();
+            $('#PayementMembre').hide();
+
+            // recuperer l'id de la tontine
+            var tontineId = $('#choixTontine').val();
+            alert(tontineId);
+            $.ajax({
+                type: "POST",
+                url: "{{ route('displayMembreTontineCollective') }}",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: tontineId
+                },
+                success: function (response) {
+                    console.log(response)
+                //    var participant = reponse.participant;
+                //   console.log(participant);
+                }
+            });
+        });
 
         $('#btnPayement').click(function (e) {
             e.preventDefault();
@@ -288,7 +304,13 @@
                     membre: membreId,
                 },
                 success: function (response) {
-                    alert('Membre associé avec succès');
+                    if(response.success){
+                        alert(response.success);
+                    }else if (response.error){
+                        alert(response.error);
+                    }else {
+                        alert("Une erreur s'est produite")
+                    }
                     // Si vous avez besoin de réaliser d'autres actions après avoir associé le membre, vous pouvez les placer ici.
                 },
                 error: function (xhr, status, error) {
@@ -307,6 +329,38 @@
         // });
 
 
+        // Pour le payement recuperer les membres en fonctions de la tontine choisi
+        $('#choixTontine').change(function (e) {
+            e.preventDefault();
+            var tontineId = $(this).val();
+
+            $.ajax({
+                type: "POST",
+                url: "{{ route('membreTontine') }}",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    tontine: tontineId
+                },
+
+                success: function (response) {
+
+                    $('#choixMembre2').empty();
+
+                    $('#choixMembre2').append($('<option>', {
+                        value: '',
+                        text: 'Cliquez pour choisir'
+                    }));
+
+                    response.participations.forEach(function(participation) {
+                        var membre = participation.membres;
+                        $('#choixMembre2').append($('<option>', {
+                            value: membre.id,
+                            text: membre.nomMembre + ' ' + membre.prenomMembre + ' (' + membre.codeMembre + ')'
+                        }));
+                    });
+                }
+            });
+        });
 
 
     });

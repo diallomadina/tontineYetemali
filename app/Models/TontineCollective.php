@@ -12,11 +12,21 @@ class TontineCollective extends Model
         return $this->belongsTo(Agent::class, 'agent');
     }
 
-    public function membres(){
-        return $this->belongsToMany(Membre::class)->withPivot('montantPayementC', 'datePayementC', 'codePayementC', 'membre', 'tontine');
+      // Relation avec la table pivot 'versements'
+      public function membresVersements(){
+        return $this->belongsToMany(Membre::class, 'versements', 'tontine', 'membre')
+            ->withPivot('codeVersement', 'montantVersement', 'dateVersement');
     }
 
-    public function participations(){
-        return $this->hasMany(Participation::class);
+    // Relation avec la table pivot 'payements'
+    public function membresPayements(){
+        return $this->belongsToMany(Membre::class, 'payement_collectives', 'tontine', 'membre')
+            ->withPivot('codePayementC', 'montantPayementC', 'datePayementC');
+    }
+
+    // Relation avec la table pivot 'participations'
+    public function membresParticipations(){
+        return $this->belongsToMany(Membre::class, 'participations', 'tontine', 'membre');
+
     }
 }

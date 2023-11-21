@@ -127,11 +127,11 @@ class CotisationController extends Controller
             }
         }
 
-        if(!empty($periode) && $periode !== 'null'){
+        if(!empty($periode) && $periode !== null){
             if($periode === 'date_unique'){
                 $cotisations->whereDate('dateCotisation', '=', $date1);
             }elseif($periode === 'plage_dates'){
-                $cotisations->whereBetwenn('dateCotisation', [$date1, $date2]);
+                $cotisations->whereBetween('dateCotisation', [$date1, $date2]);
             }elseif($periode === 'annee'){
                 $cotisations->whereYear('dateCotisation', $annee);
             }elseif($periode === 'mois') {

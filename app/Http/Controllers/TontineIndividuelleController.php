@@ -147,6 +147,14 @@ class TontineIndividuelleController extends Controller
                     $query->where('nomAgent', 'like', '%' . $recherche . '%')
                         ->orWhere('prenomAgent', 'like', '%' . $recherche . '%');
                 });
+            }else if($choix == 'statut'){
+                if($recherche == 'Non debuté'){
+                    $tontines->where('statutTontineI', null);
+                }else if($recherche == 'En cours'){
+                    $tontines->where('statutTontineI', true);
+                }elseif($recherche == 'Terminé'){
+                    $tontines->where('statutTontineI', false);
+                }
             }
         }
 

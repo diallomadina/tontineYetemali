@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Membre extends Model
 {
     use HasFactory;
-    public function totinesC(){
-        return $this->belongsToMany(TontineCollective::class)->withPivot('montantPayementC', 'datePayementC', 'codePayementC', 'membre', 'tontine');
-    }
+
 
     public function tontinesI(){
         return $this->hasMany(TontineIndividuelle::class);
@@ -23,8 +21,24 @@ class Membre extends Model
     public function payementIndividuelle(){
         return $this->hasMany(PayementIndividuelle::class);
     }
+    // Relation avec la table pivot 'versements' via TontineCollective
+    public function tontinesVersements()
+    {
+        return $this->belongsToMany(TontineCollective::class, 'versements', 'membre', 'tontine')
+            ->withPivot('codeVersement', 'montantVersement', 'dateVersement');
+    }
 
-    public function participations(){
-        return $this->hasMany(Participation::class);
+    // Relation avec la table pivot 'payements' via TontineCollective
+    public function tontinesPayements()
+    {
+        return $this->belongsToMany(TontineCollective::class, 'payement_collectives', 'membre', 'tontine')
+            ->withPivot('codePayementC', 'montantPayementC', 'datePayementC');
+    }
+
+    // Relation avec la table pivot 'participations' via TontineCollective
+    public function tontinesParticipations()
+    {
+        return $this->belongsToMany(TontineCollective::class, 'participations', 'membre', 'tontine');
+
     }
 }

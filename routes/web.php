@@ -70,6 +70,8 @@ Route::post('/tontineCollectifs/listeTontine',[TontineCollectiveController::clas
 
 Route::get('/tontineCollectifs/historiqueTontine',[TontineCollectiveController::class, 'createHistoriqueTontine'])->name('historiqueTontine');
 
+Route::post('/tontineCollectifs/historiqueTontine',[TontineCollectiveController::class, 'searchHistoriqueTontineC'])->name('searchHistoriqueTontineC');
+
 Route::get('/tontineCollectifs/listeTontine',[TontineCollectiveController::class, 'createListeTontine'])->name('listeTontine');
 
 Route::get('/tontineCollectifs/gestionTontine',[TontineCollectiveController::class, 'createGestionTontine'])->name('gestionTontine');
@@ -77,6 +79,8 @@ Route::get('/tontineCollectifs/gestionTontine',[TontineCollectiveController::cla
 Route::post('/tontineCollectifs/gestionTontine/association',[TontineCollectiveController::class, 'associate'])->name('associationTontine');
 
 Route::post('/tontineCollectifs/gestionTontine/payement',[PayementCollectiveController::class, 'store'])->name('payementCollectif');
+
+Route::post('/tontineCollectifs/gestionTontine/list',[TontineCollectiveController::class, 'displayMembre'])->name('displayMembreTontineCollective');
 
 
 // Les routes pour le versement

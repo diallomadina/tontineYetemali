@@ -94,7 +94,7 @@
                   <div class="row mb-4">
                       <div class="col"></div>
                       <div class="col">
-                        
+
                         <button name="btnValider" type="submit" class="btn btn-success form-control">Valider</button>
                       </div>
                       <div class="col">
