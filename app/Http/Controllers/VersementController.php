@@ -57,7 +57,7 @@ class VersementController extends Controller
             }
             $idTonitne = $request->tontine;
             $tontine = TontineCollective::find($idTonitne);
-
+            
             $montant = $tontine->montant;
             $versements = new Versement;
             $versements->codeVersement = $codeVersement;
