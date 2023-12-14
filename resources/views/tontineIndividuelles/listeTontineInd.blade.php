@@ -77,7 +77,7 @@
                     </button>
                 </div>
                 <div class="col">
-                    <button type="button" class="form-control border-secondary bg-warning-light">
+                    <button type="button" id="btnPrint" class="form-control border-secondary bg-warning-light">
                     <i class="bi bi-printer"></i>Imprimer
                     </button>
                 </div>
@@ -95,8 +95,8 @@
                             <th class="text-center bg-success text-white">Montant</th>
                             <th class="text-center bg-success text-white">Membre</th>
                             <th class="text-center bg-success text-white">Agent</th>
-                            <th class="text-center bg-success text-white">Voir</th>
-                            <th class="text-center bg-success text-white">Payer</th>
+                            <th class="text-center bg-success text-white noPrint">Voir</th>
+                            <th class="text-center bg-success text-white noPrint">Payer</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -109,10 +109,10 @@
                                 <td>{{ $tontine->montantTontineI }}</td>
                                 <td>{{ $tontine->membres->nomMembre.' '.$tontine->membres->prenomMembre }}</td>
                                 <td>{{ $tontine->agents->nomAgent.' '.$tontine->agents->prenomAgent }}</td>
-                                <td class="btnCoti">
+                                <td class="btnCoti noPrint">
                                     <a href='#'  class='btn btn-transparent voirTontineI' data-id= {{ $tontine->id }} data-bs-toggle='modal' data-bs-target='#modalvoirTontineI' data-bs-placement='bottom' title='Voir'><i class='bi bi-eye'></i></a>
                                 </td>
-                                <td style="width: 50px">
+                                <td style="width: 50px" class="noPrint">
                                     <a href="#" class="btn btn-success payerTontineI" data-id={{ $tontine->id }}  data-bs-toggle='modal' data-bs-target='#modalPayementTontine' data-bs-placement='bottom' title='Payer'>Payer</a>
                                 </td>
                             </tr>
@@ -385,7 +385,73 @@
             });
         });
 
+        // La fonction pour imprimer le tableau
+        $('#btnPrint').click(function (e) {
+            e.preventDefault();
+            // Récupérer le titre saisi par l'utilisateur
+            var titre = prompt('Entrer le titre de la page! ');
+            var date = new Date().toLocaleDateString();
+            // Créer une nouvelle fenêtre pour l'impression
+            var printWindow = window.open('', '', 'width=600,height=600');
 
+            // Contenu à imprimer
+            var content = `
+                <html>
+                    <head>
+                        <title>Impression</title>
+                        <link
+                            href="{{asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}"
+                            rel="stylesheet" />
+
+                        <style>
+                            body{
+                                margin-left: 30px;
+                                margin-right: 30px;
+                              }
+                            /* ... autres styles ... */
+
+                            .noPrint{
+                                display: none;
+                            }
+                        </style>
+                    </head>
+                    <body onload="window.print()">
+                        <div class="row mt-4">
+                            <div class="col text-center align-center">
+                                <img src="{{ asset('assets/img/yetemali.jpg') }}" alt="" height="150" width="150">
+                            </div>
+                            <div class="col"></div>
+                            <div class="col fw-bold fs-3 text-center">
+                               Le ${date}
+                            </div>
+                        </div>
+
+                        <div style="text-align: center;">
+                            <h2>${titre}</h2>
+                            <!-- Ajoutez ici le logo de l'entreprise -->
+                            <!-- Ajoutez ici la date -->
+                        </div>
+                        <table>
+                            ${document.getElementById('tableTontineInd').outerHTML}
+                        </table>
+
+                        <div class="row mt-3">
+                            <div class="col">
+                            </div>
+                            <div class="col"></div>
+                            <div class="col fw-bold fs-3 text-center">
+                                Le Directeur
+                            </div>
+                        </div>
+                    </body>
+                </html>
+            `;
+
+            // Injecter le contenu dans la fenêtre d'impression
+            printWindow.document.open();
+            printWindow.document.write(content);
+            printWindow.document.close();
+        });
 
   });
 </script>

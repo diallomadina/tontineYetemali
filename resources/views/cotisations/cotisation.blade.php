@@ -19,10 +19,15 @@
           <div class="row mb-4">
             <div class="col"></div>
             <div class="col"></div>
-            <div class="col"></div>
+
             <div class="col">
                 <a href="{{ route('afficheCotisation') }}">
                     <button name="afficher" type="submit" class="form-control bg-success text-white">Afficher</button>
+                </a>
+            </div>
+            <div class="col">
+                <a href="{{ route('historiqueTontineInd') }}">
+                    <button name="afficher" type="submit" class="form-control bg-success text-white">Voir les tontines</button>
                 </a>
             </div>
 
@@ -37,6 +42,9 @@
                     <div class="col">
                         @if (Session::has('success'))
                              <div class="alert alert-success text-center fw-bold">{{Session::get("success")}}</div>
+                        @endif
+                        @if (Session::has('erreur'))
+                             <div class="alert alert-danger text-center fw-bold">{{Session::get("erreur")}}</div>
                         @endif
                   </div>
                 </div>

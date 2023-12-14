@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Membre;
 use App\Models\Participation;
+use App\Models\PayementCollective;
 use App\Models\TontineCollective;
 use App\Models\Versement;
 use Illuminate\Http\Request;
@@ -57,21 +58,59 @@ class VersementController extends Controller
             }
             $idTonitne = $request->tontine;
             $tontine = TontineCollective::find($idTonitne);
-            
             $montant = $tontine->montant;
-            $versements = new Versement;
-            $versements->codeVersement = $codeVersement;
-            $versements->montantVersement = $montant;
-            $versements->dateVersement = $request->date;
-            $versements->tontine = $idTonitne;
-            $versements->membre = $request->membre;
-            $versements->save();
-            $firstVersement = Versement::where('tontine', $idTonitne);
-            if($firstVersement){
-                $tontine->statutTontineC = true;
-                $tontine->save();
-            }
-            return redirect()->back()->with('success','Versement effectuer avec succes');
+            // Recupere le membre associe aux versement
+            $membre = $request->membre;
+
+            //Procedure pour verifier que le participant n'effectue pas plus de versement qu'il doit le faire
+            // Recuperer les participation de ce membre
+            $participation = Participation::where('tontine', $idTonitne)->where('membre', $membre)->get();
+            // Recuperer le nombre de participatiion du membre dans la tontine
+            $nombreParticipationMembre = $participation->count();
+            // Recuperer le nombre de versement du membre dans la tontine
+            $nombreVersementMembre = Versement::where('tontine', $idTonitne)->where('membre', $membre)->count();
+            // Recuperer le nombre de membre dans la tontine
+            $nombreParticipant = Participation::where('tontine', $idTonitne)->count();
+            // Le nombre total de versement dans la tontine
+            $nombreTotalVersementMembre = $nombreParticipationMembre * $nombreParticipant;
+
+            // Procedure pour verifier que la somme est atteint pour le tour et qu'il faut effectuer un payement
+            $totalVersementsAttendus =$nombreParticipant * $tontine->montant;
+            // Calcul du total des versements actuels dans la tontine
+            $totalVersementsActuels = $tontine->totalVersement;
+
+            // Procedure pour que chaque membre effectue un versement pour chaque tour
+            // Recuperer le nombre de payement effectuer dans la tontine
+            $nombrePayementActuelle = PayementCollective::where('tontine', $idTonitne)->count();
+
+            // Condition pour effectuer le payement
+            if($nombreVersementMembre > $nombreTotalVersementMembre){
+                return redirect()->back()->with('error','Ce membre a atteint le nombre de versement dans la tontine');
+             }else if(($totalVersementsActuels + $montant) > $totalVersementsAttendus){
+                return redirect()->back()->with('error', 'Le montant total des versements a déjà été atteint pour ce tour. Veuillez effectuer un payement');
+             }else if($nombreVersementMembre < (($nombrePayementActuelle*$nombreParticipationMembre)+$nombreParticipationMembre)){  // Condition qui verifie si le nombre de versement du membre est inferieur au nombre
+                //de payement actuelle fois le nombre de participation du membre plus le nombre de participation pour s'assurer qu'il ne verse plus avant la fin du tour
+                $versements = new Versement;
+                $versements->codeVersement = $codeVersement;
+                $versements->montantVersement = $montant;
+                $versements->dateVersement = $request->date;
+                $versements->tontine = $idTonitne;
+                $versements->membre = $request->membre;
+                $versements->save();
+                $ifVersement = Versement::where('tontine', $idTonitne);
+                if($ifVersement){
+                    $montantVerser = $tontine->montant;
+                    $montantDejaVerse = $tontine->totalVersement;
+                    $tontine->statutTontineC = true;
+                    $tontine->totalVersement = $montantDejaVerse + $montantVerser;
+                    $tontine->save();
+                }
+                return redirect()->back()->with('success','Versement effectuer avec succes');
+             }
+             else {
+                return redirect()->back()->with('error','Ce membre a atteint le nombre de versement pour ce tour');
+             }
+
 
 
         }
@@ -79,6 +118,7 @@ class VersementController extends Controller
 
     public function getMembreTontine(Request $request){
         $tontineId = $request->input('tontine');
+
         $participations = Participation::where('tontine', $tontineId)->with('membres')->get();
 
         $membres = $participations->toArray();

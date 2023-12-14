@@ -37,6 +37,7 @@
 
         <!-- Template Main CSS File -->
         <link href="{{asset('assets/css/style.css')}}" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
     <body>  <!-- ======= Header ======= -->
         <header id="header" class="header fixed-top d-flex align-items-center">
@@ -47,8 +48,77 @@
                     <span class="d-none d-lg-block textAccueil" style="color: white;
                     font-weight: bold;">Yete Mali</span>
                 </a>
-                <i class="bi bi-list toggle-sidebar-"></i>
+                <i class="bi bi-list toggle-sidebar-btn"></i>
             </div><!-- End Logo -->
+
+            <nav class="header-nav ms-auto">
+                <ul class="d-flex align-items-center">
+
+                  <li class="nav-item d-block d-lg-none">
+                    <a class="nav-link nav-icon search-bar-toggle " href="#">
+                      <i class="bi bi-search"></i>
+                    </a>
+                  </li><!-- End Search Icon-->
+
+                  <li class="nav-item dropdown">
+
+                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                        <i class="bi bi-bell"></i>
+                        <span class="badge bg-primary badge-number">4</span>
+                        </a><!-- End Notification Icon -->
+
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+                        <li class="dropdown-header">
+                            You have 4 new notifications
+
+
+
+
+                        </ul><!-- End Notification Dropdown Items -->
+
+                  </li><!-- End Notification Nav -->
+
+
+
+                  <li class="nav-item dropdown pe-3">
+
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                      <img src="{{ asset('agence.png') }}" alt="Profile" class="rounded-circle">
+                      <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+                    </a><!-- End Profile Iamge Icon -->
+
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                      <li class="dropdown-header">
+                        <h6>Kevin Anderson</h6>
+                        <span>Web Designer</span>
+                      </li>
+                      <li>
+                        <hr class="dropdown-divider">
+                      </li>
+
+                      <li>
+                        <a class="dropdown-item d-flex align-items-center" href="{{ route('profil.index') }}">
+                          <i class="bi bi-person"></i>
+                          <span>Mon Profile</span>
+                        </a>
+                      </li>
+                      <li>
+                        <hr class="dropdown-divider">
+                      </li>
+
+
+                      <li>
+                        <a class="dropdown-item d-flex align-items-center" href="#">
+                          <i class="bi bi-box-arrow-right"></i>
+                          <span>Se déconnecter</span>
+                        </a>
+                      </li>
+
+                    </ul><!-- End Profile Dropdown Items -->
+                  </li><!-- End Profile Nav -->
+
+                </ul>
+              </nav><!-- End Icons Navigation -->
 
         </header><!-- End Header -->
         <!-- ======= Sidebar ======= -->
@@ -221,7 +291,7 @@
                 </li><!-- End Profile Page Nav -->
 
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="users-profile.php">
+                    <a class="nav-link collapsed" href="{{ route('profil.index') }}">
                         <i class="bi bi-person"></i>
                         <span>Profile</span>
                     </a>
@@ -237,13 +307,21 @@
             </ul>
 
         </aside><!-- End Sidebar-->
-
+        <div>
             @yield('content')
-        <div
-            href="#"
-            class="back-to-top d-flex align-items-center justify-content-center"
-            ><i class="bi bi-arrow-up-short text-center">CopyRigt 2023 Conçu par Digital Learning Center</i>
-    </div>
+        </div>
+
+        <footer id="footer" class="footer">
+            <div class="copyright">
+              &copy; Copyright <strong><span>Tontine YeteMali</span></strong>. Tout droit reservé
+            </div>
+            <div class="credits">
+
+              Developper par Digital learning center
+            </div>
+          </footer><!-- End Footer -->
+
+          <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
              <!-- Vendor JS Files -->
 
 
@@ -257,6 +335,8 @@
         <script src="{{asset('assets/vendor/tinymce/tinymce.min.js')}}"></script>
         <script src="{{asset('assets/vendor/php-email-form/validate.js')}}"></script>
 
+
         <!-- Template Main JS File -->
+         <script src="{{ asset('assets/js/main.js') }}"></script>
     </body>
 </html>

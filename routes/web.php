@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MembreController;
 use App\Http\Controllers\PayementCollectiveController;
 use App\Http\Controllers\PayementIndividuelleController;
+use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\TontineCollectiveController;
 use App\Http\Controllers\TontineIndividuelleController;
 use App\Http\Controllers\VersementController;
@@ -62,7 +63,7 @@ Route::post('/agents/listeAgent',[AgentController::class, 'search'])->name('sear
 // Pour Tontine Collectifs
 Route::get('/tontineCollectifs/ajoutTontine',[TontineCollectiveController::class, 'createTontine'])->name('ajoutTontine');
 
-Route::post('/tontineCollectifs/ajoutTontine',[TontineCollectiveController::class, 'store'])->name('ajoutTontine');
+Route::post('/tontineCollectifs/ajoutTontine',[TontineCollectiveController::class, 'store'])->name('ajoutTontine.store');
 
 Route::post('/tontineCollectifs/modification',[TontineCollectiveController::class, 'update'])->name('updateTontineC');
 
@@ -80,7 +81,11 @@ Route::post('/tontineCollectifs/gestionTontine/association',[TontineCollectiveCo
 
 Route::post('/tontineCollectifs/gestionTontine/payement',[PayementCollectiveController::class, 'store'])->name('payementCollectif');
 
-Route::post('/tontineCollectifs/gestionTontine/list',[TontineCollectiveController::class, 'displayMembre'])->name('displayMembreTontineCollective');
+Route::get('/tontineCollectifs/gestionTontine/list',[TontineCollectiveController::class, 'displayMembre'])->name('displayMembreTontineCollective');
+
+// Route Ajax pour la suivi de la tontine
+Route::get('/tontineCollectifs/info/{id}',[TontineCollectiveController::class, 'getInfoTontineCollective'])->name('TontineCollective.info');
+
 
 
 // Les routes pour le versement
@@ -141,10 +146,11 @@ Route::get('/tontineIndividuelles/listeTontineInd',[TontineIndividuelleControlle
 
 Route::get('/TontineIndividuelles/info/{id}',[TontineIndividuelleController::class, 'getInfoTontineIndividuelle'])->name('TontineIndividuelle.info');
 
-
 Route::post('/TontineIndividuelles/Payement',[PayementIndividuelleController::class, 'payementTontineIndividuelle'])->name('TontineIndividuelle.payement');
 
 
+// Route pour le profil
+Route::get('/profil', [ProfilController::class, 'index'])->name('profil.index');
 
 
 

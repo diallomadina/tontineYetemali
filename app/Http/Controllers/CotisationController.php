@@ -52,7 +52,8 @@ class CotisationController extends Controller
         if($validation->fails()){
             return redirect()->back()->withErrors($validation)->withInput();
         }else {
-            $tontineIndividuelle = TontineIndividuelle::find($request->tontine);
+            $tontineId = $request->tontine;
+            $tontineIndividuelle = TontineIndividuelle::find($tontineId);
             $membre = Membre::find($request->membre);
             $firstNomMembre = substr($membre->nomMembre,0,2);
             $firstPrenomMembre = substr($membre->prenomMembre,0,2);
@@ -62,22 +63,28 @@ class CotisationController extends Controller
             }else {
                 $codeCotisation = 'YMCI'.$firstNomMembre.$firstPrenomMembre.($code->id+1);
             }
+            // Compter le nombre de cotisation deja effectuer dans la tontine
+            $nombreCotisation = Cotisation::where('tontine', $tontineId)->count();
+            if($nombreCotisation <= 30){
+                $Cotisations = new Cotisation();
+                $Cotisations->codeCotisation = $codeCotisation;
+                $Cotisations->tontine = $request->tontine;
+                $Cotisations->membre = $request->membre;
+                $Cotisations->montantCotisation = $tontineIndividuelle->montantTontineI;
+                $Cotisations->dateCotisation = $request->debut;
+                $Cotisations->save();
 
-            $Cotisations = new Cotisation();
-            $Cotisations->codeCotisation = $codeCotisation;
-            $Cotisations->tontine = $request->tontine;
-            $Cotisations->membre = $request->membre;
-            $Cotisations->montantCotisation = $tontineIndividuelle->montantTontineI;
-            $Cotisations->dateCotisation = $request->debut;
-            $Cotisations->save();
+                 // Mettre à jour la colonne statutTontineI si c'est la première cotisation
+                $firstCotisation = Cotisation::where('tontine', $request->tontine)->first();
+                if ($firstCotisation) {
+                    TontineIndividuelle::where('id', $request->tontine)->update(['statutTontinteI' => true]);
+                }
 
-             // Mettre à jour la colonne statutTontineI si c'est la première cotisation
-            $firstCotisation = Cotisation::where('tontine', $request->tontine)->first();
-            if ($firstCotisation) {
-                TontineIndividuelle::where('id', $request->tontine)->update(['statutTontinteI' => true]);
+                return redirect()->back()->with('success', 'Enregistrement effectuer avec success');
+            }else {
+                return redirect()->back()->with('erreur', 'Enregistrement effectuer avec success');
             }
 
-            return redirect()->back()->with('success', 'Enregistrement effectuer avec success');
         }
     }
 

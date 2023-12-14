@@ -13,8 +13,6 @@
     </nav>
   </div>
       <div class="row">
-        <div class=""></div>
-
 
             <div class="row">
 
@@ -83,7 +81,7 @@
                               <div class="col mt-4">
                                   <div class="form-group">
                                       <button type="button" class="btn btn-warning text-center form-control">
-                                        <i class="bi bi-printer inprimer"></i> <span class="inprimer" id="btn-inprimer-agence">Imprimer</span>
+                                        <i class="bi bi-printer inprimer"></i> <span class="inprimer" id="btnImprimerAgence">Imprimer</span>
                                       </button>
                                   </div>
                               </div>
@@ -107,7 +105,7 @@
                                     <th class="text-center bg-success text-white">Adresse</th>
                                     <th class="text-center bg-success text-white">Email</th>
                                     <th class="text-center bg-success text-white">Statut</th>
-                                    <th class="text-center bg-success text-white" colspan="2">Action</th>
+                                    <th class="text-center bg-success text-white noPrint" colspan="2">Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -128,8 +126,8 @@
                                                 Arrêté
                                             @endif
                                         </td>
-                                        <td class='btnCoti'><a href='$id' data-id='1' class='btn btn-transparent editAgence'  data-bs-toggle='modal' data-bs-target='#modalModifAgence' data-bs-placement='bottom' title='Modifier'><i class='bi bi-pen'></i></a></td>
-                                        <td class='btnCoti'>
+                                        <td class='btnCoti noPrint'><a href='$id' data-id='1' class='btn btn-transparent editAgence'  data-bs-toggle='modal' data-bs-target='#modalModifAgence' data-bs-placement='bottom' title='Modifier'><i class='bi bi-pen'></i></a></td>
+                                        <td class='btnCoti noPrint'>
                                             @if ($agence->statut == 1)
                                                 <a href='$id' data-id='2' class='btn btn-transparent arretAgence'  data-bs-toggle='modal' data-bs-target='#modalSuspendAgence' data-bs-placement='bottom' title='Arreter'><i class='bi bi-exclamation-triangle'></i></a>
                                             @else
@@ -364,61 +362,127 @@
 <script>
     $(document).ready(function () {
 
-// Pour récupérer les données de l'agence
-var tableAgence = document.getElementById('tableAgence');
+         // Pour récupérer les données de l'agence
+        var tableAgence = document.getElementById('tableAgence');
 
-function editerInfoAgence() {
-    for (var i = 1; i < tableAgence.rows.length; i++) {
-        tableAgence.rows[i].onclick = function () {
-            document.getElementById("idAgence").value = this.cells[1].innerHTML;
-            document.getElementById("nomAgence").value = this.cells[2].innerHTML;
-            document.getElementById("telAgence").value = this.cells[3].innerHTML;
-            document.getElementById("adresseAgence").value = this.cells[4].innerHTML;
-            document.getElementById("mailAgence").value = this.cells[5].innerHTML;
-        };
-    }
-}
+        function editerInfoAgence() {
+            for (var i = 1; i < tableAgence.rows.length; i++) {
+                tableAgence.rows[i].onclick = function () {
+                    document.getElementById("idAgence").value = this.cells[1].innerHTML;
+                    document.getElementById("nomAgence").value = this.cells[2].innerHTML;
+                    document.getElementById("telAgence").value = this.cells[3].innerHTML;
+                    document.getElementById("adresseAgence").value = this.cells[4].innerHTML;
+                    document.getElementById("mailAgence").value = this.cells[5].innerHTML;
+                };
+            }
+        }
 
-function activerAgence() {
-    for (var i = 1; i < tableAgence.rows.length; i++) {
-        tableAgence.rows[i].onclick = function () {
-            document.getElementById("codeAgenceActivation").value = this.cells[1].innerHTML;
+        function activerAgence() {
+            for (var i = 1; i < tableAgence.rows.length; i++) {
+                tableAgence.rows[i].onclick = function () {
+                    document.getElementById("codeAgenceActivation").value = this.cells[1].innerHTML;
 
-        };
-    }
-}
+                };
+            }
+        }
 
-function arreterAgence() {
-    for (var i = 1; i < tableAgence.rows.length; i++) {
-        tableAgence.rows[i].onclick = function () {
-            document.getElementById("codeAgenceArret").value = this.cells[1].innerHTML;
+        function arreterAgence() {
+            for (var i = 1; i < tableAgence.rows.length; i++) {
+                tableAgence.rows[i].onclick = function () {
+                    document.getElementById("codeAgenceArret").value = this.cells[1].innerHTML;
 
-        };
-    }
-}
+                };
+            }
+        }
 
-$('.editAgence').click(function (e) {
-    e.preventDefault();
-    editerInfoAgence();
-});
+        $('.editAgence').click(function (e) {
+            e.preventDefault();
+            editerInfoAgence();
+        });
 
-$('.arretAgence').click(function (e) {
-    e.preventDefault();
-    arreterAgence();
-});
+        $('.arretAgence').click(function (e) {
+            e.preventDefault();
+            arreterAgence();
+        });
 
-$('.actifAgence').click(function (e) {
-    e.preventDefault();
-    activerAgence();
-});
-
-
+        $('.actifAgence').click(function (e) {
+            e.preventDefault();
+            activerAgence();
+        });
 
 
-// Pour récupérer les données de la tontine individuelle
+        // La fonction pour imprimer le tableau
+        $('#btnImprimerAgence').click(function (e) {
+            e.preventDefault();
+            // Récupérer le titre saisi par l'utilisateur
+            var titre = prompt('Entrer le titre de la page! ');
+            var date = new Date().toLocaleDateString();
+            // Créer une nouvelle fenêtre pour l'impression
+            var printWindow = window.open('', '', 'width=600,height=600');
+
+            // Contenu à imprimer
+            var content = `
+                <html>
+                    <head>
+                        <title>Impression</title>
+                        <link
+                            href="{{asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}"
+                            rel="stylesheet" />
+
+                        <style>
+                            body{
+                                margin-left: 30px;
+                                margin-right: 30px;
+                              }
+                            /* ... autres styles ... */
+
+                            .noPrint{
+                                display: none;
+                            }
+                        </style>
+                    </head>
+                    <body onload="window.print()">
+                        <div class="row mt-4">
+                            <div class="col text-center align-center">
+                                <img src="{{ asset('assets/img/yetemali.jpg') }}" alt="" height="150" width="150">
+                            </div>
+                            <div class="col"></div>
+                            <div class="col fw-bold fs-3 text-center">
+                               Le ${date}
+                            </div>
+                        </div>
+
+                        <div style="text-align: center;">
+                            <h2>${titre}</h2>
+                            <!-- Ajoutez ici le logo de l'entreprise -->
+                            <!-- Ajoutez ici la date -->
+                        </div>
+                        <table>
+                            ${document.getElementById('tableAgence').outerHTML}
+                        </table>
+
+                        <div class="row mt-3">
+                            <div class="col">
+                            </div>
+                            <div class="col"></div>
+                            <div class="col fw-bold fs-3 text-center">
+                                Le Directeur
+                            </div>
+                        </div>
+                    </body>
+                </html>
+            `;
+
+            // Injecter le contenu dans la fenêtre d'impression
+            printWindow.document.open();
+            printWindow.document.write(content);
+            printWindow.document.close();
+        });
 
 
-});
+
+
+    });
 
 </script>
 

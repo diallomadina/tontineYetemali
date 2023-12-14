@@ -268,10 +268,7 @@
 <script src="{{asset('assets/js/jquery.min.js')}}"></script>
 <script>
     $(document).ready(function () {
-      $('#btnPrintCoti').click(function (e) {
-        e.preventDefault();
 
-      });
 
       function updateSelectOptions(searchInput, selectElement) {
             var searchTerm = searchInput.val().toLowerCase();
@@ -365,6 +362,74 @@
 
             }
        });
+
+        // La fonction pour imprimer le tableau
+        $('#btnPrintCoti').click(function (e) {
+            e.preventDefault();
+            // Récupérer le titre saisi par l'utilisateur
+            var titre = prompt('Entrer le titre de la page! ');
+            var date = new Date().toLocaleDateString();
+            // Créer une nouvelle fenêtre pour l'impression
+            var printWindow = window.open('', '', 'width=600,height=600');
+
+            // Contenu à imprimer
+            var content = `
+                <html>
+                    <head>
+                        <title>Impression</title>
+                        <link
+                            href="{{asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}"
+                            rel="stylesheet" />
+
+                        <style>
+                            body{
+                                margin-left: 30px;
+                                margin-right: 30px;
+                              }
+                            /* ... autres styles ... */
+
+                            .noPrint{
+                                display: none;
+                            }
+                        </style>
+                    </head>
+                    <body onload="window.print()">
+                        <div class="row mt-4">
+                            <div class="col text-center">
+                                <img src="{{ asset('assets/img/yetemali.jpg') }}" alt="" height="150" width="150">
+                            </div>
+                            <div class="col"></div>
+                            <div class="col fw-bold fs-3 text-center">
+                               Le ${date}
+                            </div>
+                        </div>
+
+                        <div style="text-align: center;">
+                            <h2>${titre}</h2>
+                            <!-- Ajoutez ici le logo de l'entreprise -->
+                            <!-- Ajoutez ici la date -->
+                        </div>
+                        <table>
+                            ${document.getElementById('tableAffichageCoti').outerHTML}
+                        </table>
+
+                        <div class="row mt-3">
+                            <div class="col">
+                            </div>
+                            <div class="col"></div>
+                            <div class="col fw-bold fs-3 text-center">
+                                Le Directeur
+                            </div>
+                        </div>
+                    </body>
+                </html>
+            `;
+
+            // Injecter le contenu dans la fenêtre d'impression
+            printWindow.document.open();
+            printWindow.document.write(content);
+            printWindow.document.close();
+        });
  });
 
 </script>

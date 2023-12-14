@@ -9,6 +9,7 @@ use App\Models\PayementCollective;
 use App\Models\TontineCollective;
 use App\Models\Versement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class TontineCollectiveController extends Controller
@@ -33,7 +34,10 @@ class TontineCollectiveController extends Controller
     public function createListeTontine()
     {
         $agents = Agent::all();
-        $tontines = TontineCollective::with('agents')->get();
+        $tontines = TontineCollective::with('agents')
+                    ->where('statutTontineC', null)
+                    ->orWhere('statutTontineC', true)
+                    ->get();
         return view('tontineCollectifs.listeTontine', compact('tontines', 'agents'));
     }
 
@@ -50,10 +54,7 @@ class TontineCollectiveController extends Controller
     {
         $agents = Agent::all();
         $membres = Membre::all();
-        $tontines = TontineCollective::with('agents')
-                ->where('statutTontineC', null)
-                ->orWhere('statutTontineC', true)
-                ->get();
+        $tontines = TontineCollective::with('agents')->get();
         return view('tontineCollectifs.gestionTontine', compact('tontines', 'agents', 'membres'));
     }
 
@@ -64,7 +65,7 @@ class TontineCollectiveController extends Controller
         $validation = Validator::make($request->all(),[
             'nom'=>'required',
             'debut'=>'required|date',
-            'montant'=>'required',
+            'montant'=>'required|numeric',
             'frequence'=>'required',
 
         ]);
@@ -109,16 +110,22 @@ class TontineCollectiveController extends Controller
 
             $code = $request->input('code');
             $tontines = TontineCollective::where('codeTontineC',$code)->first();
+            $statutTontine = $tontines->statutTontineC;
             if(!$tontines){
                 return redirect()->back()->with('error', "La tontine avec le code donné n'existe pas.");
             }
-            $tontines->nomTontineC = $request->nom;
-            $tontines->debutTontineC = $request->debut;
-            $tontines->montant = $request->montant;
-            $tontines->frequence = $request->frequence;
-            $tontines->agent = $request->agent;
-            $tontines->save();
-            return redirect()->back()->with('success','Modification effectuer avec succes');
+
+            if($statutTontine !== null){
+                return redirect()->back()->with('error','Modification impossible car la tontine a deja commencer');
+            } else {
+                $tontines->nomTontineC = $request->nom;
+                $tontines->debutTontineC = $request->debut;
+                $tontines->montant = $request->montant;
+                $tontines->frequence = $request->frequence;
+                $tontines->save();
+                return redirect()->back()->with('success','Modification effectuer avec succes');
+            }
+
         }
     }
 
@@ -265,34 +272,72 @@ class TontineCollectiveController extends Controller
     }
 
     public function displayMembre(Request $request){
-        $tontineId = $request->input('tontine');
+        $tontineId = $request->tontineId;
 
         // Récupérer la tontine avec les membres et leurs versements et participations
         $tontine = TontineCollective::with('membresVersements', 'membresParticipations')->find($tontineId);
-        $participant = Participation::with('tontinesC', 'membres')->where('tontine', $tontineId)->get();
+        $participant = Participation::with('tontinesC', 'membres')
+                ->select('membre')
+                ->where('tontine', $tontineId)
+                ->groupBy('membre') // Regrouper par membre
+                ->get();
         $participantArray = $participant->toArray();
 
         // Récupérer tous les versements pour la tontine donnée
-        $versements = Versement::whereIn('tontine', [$tontineId])->get();
-        $nombreVersements = $versements->count();
-        $montantVerser = $versements->sum('montantVersement');
+    $versements = Versement::where('tontine', $tontineId)
+            ->select('membre', DB::raw('count(*) as nombreVersements'), DB::raw('sum(montantVersement) as montantTotalVersement'))
+            ->groupBy('membre')
+            ->get();
+        $versementsParMembre = $versements->toArray();
+        // Recuperer le nombre de participation de chaque membre
+        $nombreParticipationMembre = Participation::where('tontine', $tontineId)
+                                    ->select('membre', DB::raw('count(*) as nombreParticipations'))
+                                    ->groupBy('membre')->get();
 
-        // Calculer le reste à verser du membre
-        $resteAverser = $montantVerser;
+        $nombreParticipatonArray = $nombreParticipationMembre->toArray();
+        // Recuperer le nombre total de participant
+        $nombreParticipant = $tontine->nombreParticipant;
+
+        $montantTontine = $tontine->montant;
+        // Recuperer le montant total a verser
+            // Initialiser le montant total à verser par membre
+        $montantTotalAverser = $montantTontine * $nombreParticipant;
 
         // Récupérer tous les paiements pour la tontine donnée (s'il s'agit de la table payements)
-        $payements = PayementCollective::whereIn('tontine', [$tontineId])->get();
-        $payer = $payements->count(); // S'assurer que c'est la bonne logique pour déterminer si le membre a payé
+        $payements = PayementCollective::whereIn('tontine', [$tontineId])
+                    ->select('membre', DB::raw('count(*) as nombrePayementMembre'))
+                    ->groupBy('membre')
+                    ->get();
+        $payer = $payements->toArray(); // S'assurer que c'est la bonne logique pour déterminer si le membre a payé
 
         return response()->json([
             'participant' => $participantArray,
-            'nombreVersements' => $nombreVersements,
-            'montantVerser' => $montantVerser,
-            'resteAverser' => $resteAverser,
-            'payer'=> $payer,
+            'versementsParMembre' => $versementsParMembre,
+            'payer' => $payer,
+            'montantTontine'=> $montantTontine,
+            'nombreParticipationMembre' => $nombreParticipatonArray,
+            'montantTotalAverser' =>$montantTotalAverser,
 
         ]);
     }
 
+    // Fonction pour recuperer les info de la tontine
+    public function getInfoTontineCollective($id){
+        $tontine = TontineCollective::with('membresVersements', 'membresParticipations')->where('id', $id)->first();
+        $payments = PayementCollective::where('tontine', $id)->get();
+        $numPayments = $payments->count(); // Obtient le nombre de paiements
+
+        $nombreParticipants = $tontine->nombreParticipant;
+        $montant = $tontine->montant;
+        $montantTotal = $montant * $nombreParticipants;
+        $resteAprendre = $nombreParticipants - $numPayments; // Calcul du reste à prendre
+
+        return response()->json([
+            'tontine' => $tontine,
+            'numPayments' => $numPayments,
+            'resteAprendre' => $resteAprendre,
+            'montantTotal' => $montantTotal,
+        ]);
+    }
 
 }

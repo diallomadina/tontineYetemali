@@ -19,34 +19,35 @@
             <div class="row">
                 <div class="col ms-2 contenuTb">
                     <div class="row">
-                        <div class="col mt-4 ms-2">
-                            <img src="{{ asset('agence.png') }}" height="150" width="150" alt="">
+                        <div class="col mt-1 ms-2">
+                            <img src="{{ asset('agence.png') }}" height="100%" width="100%" alt="">
                         </div>
                         <div class="col">
-                            <h2 class="fw-bold text-success text-end fw-bold mt-1"><a href="{{ route('afficherAgence') }}" class="fw-bold text-success">Agences</a></h2>
-                            <span class="nombre">{{ $nombreAgence }}</span>
+                            <h2 class=" mt-1"><a href="{{ route('afficherAgence') }}" class="fw-bold text-success text-center">Agences</a></h2>
+                            <p class="nombre">{{ $nombreAgence }}</p>
                         </div>
                     </div>
                 </div>
                 <div class="col ms-5 contenuTb">
                   <div class="row">
-                    <div class="col mt-4 ms-2">
-                        <img src="{{ asset('agent.png') }}" height="150" width="160" alt="">
+                    <div class="col mt-1 ms-2">
+                        <img src="{{ asset('agent.png') }}" height="100%" width="100%" alt="">
                     </div>
                     <div class="col">
-                            <h2 class=" text-end fw-bold mt-1"><a href="{{ route('listeAgent') }}" class="fw-bold text-success">Agents</a></h2>
-                            <span class="nombre">{{ $nombreAgent }}</span>
+                            <h2 class="fw-bold mt-1"><a href="{{ route('listeAgent') }}" class="fw-bold text-success text-center">Agents</a></h2>
+                            <p class="nombre">{{ $nombreAgent }}</p>
                     </div>
                 </div>
               </div>
 
                 <div class="col ms-5 contenuTb">
                    <div class="row">
-                        <div class="col mt-4 ms-2">
-                            <img src="{{ asset('membres.jpg') }}" height="150" width="160" alt="">
+                        <div class="col mt-1 ms-2">
+                            <img src="{{ asset('membres.jpg') }}" height="100%" width="100%" alt="">
                         </div>
                         <div class="col">
-                            <h3 class="text-end "><a href="{{ route('membre') }}" class="fw-bold text-success  mt-1">Membres</a></h3>
+                            <h3 class="text-center "><a href="{{ route('membre') }}" class="fw-bold text-success  mt-1">Membres</a></h3>
+                            <p class="nombre">{{ $nombreMembre }}</p>
                         </div>
                    </div>
                 </div>
@@ -54,40 +55,70 @@
           </div>
 
 
-          <div class="row mt-4">
-                <div class="col ms-3 contenuTb">
-                  <div class="row mt-2">
-                    <div class="col ms-2 mt-4">
-                        <img src="{{ asset('tontine2.jpg') }}" height="140" width="120" alt="">
-                     </div>
+            <div class="row mt-4">
+                    <div class="col ms-3 contenuTb">
+                    <div class="row mt-2">
+                        <div class="col ms-2 mt-1">
+                            <img src="{{ asset('tontine2.jpg') }}" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="col">
+                            <h3 class="fw-bold text-success mt-3"><a href="{{ route('listeTontine') }}" class="fw-bold text-success "></a>T Collectives</h3>
+                            <div class="row" >
+                                <div class="col">
+                                    <h5 class="text-success fw-bold " style="font-size: 100%">En Cours</h5>
+                                    <p class="text-center fw-bold " style="font-size: 250%">{{ $tontineCollectivesEncours }}</p>
+                                </div>
+                                <div class="col">
+                                    <h5 class="text-success fw-bold " style="font-size: 100%">Terminé</h5>
+                                    <p class="text-center fw-bold " style="font-size: 250%">{{ $tontineCollectivesTermine }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col ms-5 contenuTb">
+                    <div class="row mt-2">
+                    <div class="col mt-1 ms-2">
+                        <img src="{{ asset('tontine2.jpg') }}" height="100%" width="100%" alt="">
+                    </div>
                     <div class="col">
-                        <h3 class="fw-bold text-success text-end mt-3"><a href="{{ route('listeTontine') }}" class="fw-bold text-success "></a>T Collectives</h3>
+                            <h3 class="fw-bold text-success mt-3" style="font-size: 150%"><a href="{{ route('listeTontineInd') }}" ></a>T Individuelles</h3>
+                            <div class="row" >
+                                <div class="col">
+                                    <h5 class="text-success fw-bold " style="font-size: 100%">En Cours</h5>
+                                    <p class="text-center fw-bold " style="font-size: 250%">{{ $tontineIndividuelleEncours }}</p>
+                                </div>
+                                <div class="col">
+                                    <h5 class="text-success fw-bold " style="font-size: 100%">Terminé</h5>
+                                    <p class="text-center fw-bold " style="font-size: 250%">{{ $tontineIndividuelleTermine }}</p>
+                                </div>
+                            </div>
                     </div>
-                  </div>
-              </div>
-
-              <div class="col ms-5 contenuTb">
-                <div class="row mt-2">
-                  <div class="col-4 mt-4 ms-2">
-                    <img src="{{ asset('tontine2.jpg') }}" height="140" width="120" alt="">
-                </div>
-                  <div class="col">
-                        <h3 class="fw-bold text-success text-end mt-3"><a href="{{ route('listeTontineInd') }}" class="fw-bold text-success "></a>T Individuelles</h3>
-                  </div>
-                </div>
-            </div>
-
-            <div class="col ms-5 contenuTb">
-                <div class="row">
-                    <div class="col mt-4 ms-2">
-                    <img src="{{ asset('moneypng.png') }}" height="140" width="140" alt="">
-                    </div>
-                    <div class="col">
-                        <h3 class="fw-bold text-success text-end mt-3"><a href="{{ route('listeTontineInd') }}" class="fw-bold text-success "></a>Montant Collectés</h3>
                     </div>
                 </div>
 
-            </div>
+                <div class="col ms-5 contenuTb">
+                    <div class="row">
+                        <div class="col mt-1 ms-2">
+                        <img src="{{ asset('moneypng.png') }}" height="100%" width="100%" alt="">
+                        </div>
+                        <div class="col">
+                            <h3 class="fw-bold text-success mt-3" style="font-size: 120%"><a href="{{ route('listeTontineInd') }}" ></a>Montant Collectés</h3>
+                            <div class="row" >
+                                <div class="row">
+                                    <h5 class="text-success text-center fw-bold " style="font-size: 120%">Individuelle</h5>
+                                    <p class="text-center fw-bold " style="font-size: 120%">{{ $compteTindividuelle }}</p>
+                                </div>
+                                <div class="row">
+                                    <h5 class="text-success text-center fw-bold " style="font-size: 120%">Collectives</h5>
+                                    <p class="text-center fw-bold " style="font-size: 120%">{{ $compteCollectives }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
 
 
           </div>
@@ -112,7 +143,7 @@
                 </div>
 
                 <div class="card-body">
-                  <h5 class="card-title">Rapport <span>/Aujourd'hui</span></h5>
+                  <h5 class="card-title">Rapport <p>/Aujourd'hui</p></h5>
 
                   <!-- Line Chart -->
                   <div id="reportsChart"></div>
@@ -192,7 +223,7 @@
                 </div>
 
                 <div class="card-body pb-0 bg">
-                  <h5 class="card-title">Website Traffic <span>| Aujourd'hui</span></h5>
+                  <h5 class="card-title">Website Traffic <p>| Aujourd'hui</p></h5>
 
                   <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
 

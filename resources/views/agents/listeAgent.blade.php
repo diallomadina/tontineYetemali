@@ -123,7 +123,7 @@
                                     <th class="text-center bg-success text-white">Date</th>
                                     <th class="text-center bg-success text-white">Agence</th>
                                     <th class="text-center bg-success text-white">Statut</th>
-                                    <th class="text-center bg-success text-white" colspan="2">Action</th>
+                                    <th class="text-center bg-success text-white noPrint" colspan="2">Action</th>
                               </tr>
                             </thead>
                             <tbody id="tbodyAfficheIdentifiant">
@@ -132,7 +132,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $agent->codeAgent }}</td>
-                                        <td><img src="{{asset('app/public/'. $agent->photoAgent)}}" height="50" width="50" alt="" class="fa-photo"></td>
+                                        <td><img src="{{asset('app/public/'. $agent->photoAgent)}}" height="50" width="50" alt="" class="fa-photo rounded-circle"></td>
                                         <td>{{ $agent->nomAgent }}</td>
                                         <td>{{ $agent->prenomAgent }}</td>
                                         <td>{{ $agent->adresseAgent }}</td>
@@ -147,8 +147,8 @@
                                                 Suspendu
                                             @endif
                                         </td>
-                                        <td class='btnCoti'><a href="$id" class='btn btn-transparent editAgent' data-id='1'  data-bs-toggle='modal' data-bs-target='#modalModifAgent' data-bs-placement='bottom' title='Modifier'><i class='bi bi-pen'></i></a></td>
-                                        <td class='btnCoti'>
+                                        <td class='btnCoti noPrint'><a href="$id" class='btn btn-transparent editAgent' data-id='1'  data-bs-toggle='modal' data-bs-target='#modalModifAgent' data-bs-placement='bottom' title='Modifier'><i class='bi bi-pen'></i></a></td>
+                                        <td class='btnCoti noPrint'>
                                             @if ($agent->statutAgent == 1)
                                                 <a href='#'  class='btn btn-transparent suspendAgent'  data-bs-toggle='modal' data-bs-target='#modalSuspendAgent' data-bs-placement='bottom' title='Suspendre'><i class='bi bi-exclamation-triangle'></i></a>
                                             @else
@@ -490,52 +490,71 @@
 
 
 
-        $('#btnPrintAgent').click(function () {
-            // Créez un clone de la table pour l'impression
-            var printTable = document.getElementById('tableAffichageAgent').cloneNode(true);
-
-            // Créez un élément pour le titre
-            var tableTitle = document.createElement('caption');
-            tableTitle.innerHTML = 'Liste des Agents'; // Titre personnalisé
-
-            // Créez un élément pour le logo de l'entreprise
-            var companyLogo = document.createElement('img');
-            companyLogo.src = '{{ asset('assets/img/yetemali.jpg') }}'; // Remplacez par l'URL de votre logo
-            companyLogo.alt = 'Logo de l\'entreprise';
-
-            // Créez un élément pour la date
-            var currentDate = document.createElement('p');
-            currentDate.innerText = 'Date: ' + new Date().toLocaleDateString(); // Remplacez par la date souhaitée
-
-            // Créez un conteneur pour ces éléments
-            var header = document.createElement('div');
-            header.appendChild(companyLogo);
-            header.appendChild(tableTitle);
-            header.appendChild(currentDate);
-
-            // Ajoutez le conteneur au clone de la table
-            printTable.insertBefore(header, printTable.firstChild);
-
-            // Masquez les boutons d'action et d'autres éléments non pertinents pour l'impression
-            var elementsToHide = document.querySelectorAll('.btnCoti');
-            for (var i = 0; i < elementsToHide.length; i++) {
-                elementsToHide[i].style.display = 'none';
-            }
-
-            // Créez une nouvelle fenêtre d'impression et imprimez le tableau
+        $('#btnPrintAgent').click(function (e) {
+            e.preventDefault();
+            // Récupérer le titre saisi par l'utilisateur
+            var titre = prompt('Entrer le titre de la page! ');
+            var date = new Date().toLocaleDateString();
+            // Créer une nouvelle fenêtre pour l'impression
             var printWindow = window.open('', '', 'width=600,height=600');
-            printWindow.document.open();
-            printWindow.document.write('<html><head><title>Liste des Agents</title></head><body>');
-            printWindow.document.write(printTable.outerHTML);
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-            printWindow.print();
-            printWindow.close();
 
-            // Réaffichez les éléments masqués après l'impression
-            for (var i = 0; i < elementsToHide.length; i++) {
-                elementsToHide[i].style.display = 'table-cell';
-            }
+            // Contenu à imprimer
+            var content = `
+                <html>
+                    <head>
+                        <title>Impression</title>
+                        <link
+                            href="{{asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}"
+                            rel="stylesheet" />
+
+                        <style>
+                            body{
+                                margin-left: 30px;
+                                margin-right: 40px;
+                              }
+                            /* ... autres styles ... */
+
+                            .noPrint{
+                                display: none;
+                            }
+                        </style>
+                    </head>
+                    <body onload="window.print()">
+                        <div class="row mt-4">
+                            <div class="col text-center align-center">
+                                <img src="{{ asset('assets/img/yetemali.jpg') }}" alt="" height="150" width="150">
+                            </div>
+                            <div class="col"></div>
+                            <div class="col fw-bold fs-3 text-center">
+                               Le ${date}
+                            </div>
+                        </div>
+
+                        <div style="text-align: center;">
+                            <h2>${titre}</h2>
+                            <!-- Ajoutez ici le logo de l'entreprise -->
+                            <!-- Ajoutez ici la date -->
+                        </div>
+                        <table>
+                            ${document.getElementById('tableAffichageAgent').outerHTML}
+                        </table>
+
+                        <div class="row mt-3">
+                            <div class="col">
+                            </div>
+                            <div class="col"></div>
+                            <div class="col fw-bold fs-3 text-center">
+                                Le Directeur
+                            </div>
+                        </div>
+                    </body>
+                </html>
+            `;
+
+            // Injecter le contenu dans la fenêtre d'impression
+            printWindow.document.open();
+            printWindow.document.write(content);
+            printWindow.document.close();
         });
     });
 

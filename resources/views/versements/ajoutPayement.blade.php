@@ -20,7 +20,11 @@
             <div class="row mb-4">
                 <div class="col"></div>
                 <div class="col"></div>
-                <div class="col"></div>
+                <div class="col">
+                    <a href="{{ route('gestionTontine') }}">
+                        <button name="afficher" type="submit" class="form-control bg-success text-white">Gerer</button>
+                    </a>
+                </div>
                 <div class="col">
                     <a href="{{ route('listePayement') }}">
                         <button name="afficher" type="submit" class="form-control bg-success text-white">Afficher</button>
@@ -40,6 +44,12 @@
                         @if (Session::has('success'))
                              <div class="alert alert-success text-center fw-bold">{{Session::get("success")}}</div>
                         @endif
+
+                        @if(Session::has('error'))
+                              <div class="alert text-center alert-danger">
+                                  {{ Session::get('error') }}
+                              </div>
+                          @endif
                   </div>
                 </div>
                 <div class="row mb-4">

@@ -85,7 +85,7 @@
                 </div>
 
                 <div class="col">
-                  <button type="button" class="form-control border-secondary bg-warning-light">
+                  <button type="button" id="btnPrint" class="form-control border-secondary bg-warning-light">
                     <i class="bi bi-printer"></i>Imprimer
                   </button>
                 </div>
@@ -106,7 +106,7 @@
                            <th class="text-center bg-success text-white">Cotisations</th>
                            <th class="text-center bg-success text-white">Total</th>
                            <th class="text-center bg-success text-white">Statut</th>
-                           <th class="text-center bg-success text-white">Voir</th>
+                           <th class="text-center bg-success text-white noPrint">Voir</th>
                      </tr>
                   </thead>
                   <tbody>
@@ -130,8 +130,8 @@
                                     Terminé
                                 @endif
                             </td>
-                            <td class="btnCoti">
-                                <a href='#'  class='btn btn-transparent voirTontineI'  data-bs-toggle='modal' data-bs-target='#modalvoirTontineI' data-bs-placement='bottom' title='Voir'><i class='bi bi-eye'></i></a>
+                            <td class="btnCoti noPrint">
+                                <a href='#'  class='btn btn-transparent voirTontineI' data-id = {{ $tontine->id }}  data-bs-toggle='modal' data-bs-target='#modalvoirTontineI' data-bs-placement='bottom' title='Voir'><i class='bi bi-eye'></i></a>
                             </td>
                         </tr>
                     @endforeach
@@ -144,106 +144,181 @@
 
 
 
-  <!-- Debut Modal pour Voir le suivi -->
-  <div class="modal fade" id="modalvoirTontineI" tabindex="-1">
-                  <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      <h3 class="text-center">Suivie de cette tontine</h3>
-                      <p><span class="fw-bold ms-3">Nom et Prenom: </span> <span id="afficheNomPrenomSuiviCoti">Diallo Ibrahima</span></p>
-                      <p><span class="fw-bold ms-3">Telephone: </span> <span id="afficheTelSuiviCoti">61378198371/641176176</span></p>
-                      <p><span class="fw-bold ms-3">Adresse: </span> <span id="afficheAdresseSuiviCoti">Bambeto</span></p>
+   <!-- Debut Modal pour Voir le suivi -->
+   <div class="modal fade" id="modalvoirTontineI" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h3 class="text-center">Suivie de cette tontine</h3>
 
-                      <section id="cld">
-                        <p><span class="fw-bold ms-3 ">Mois: </span> <span id="cldt">Janvier</span></p>
-                        <section id="cldBoite" class="container text-center">
-                          <div class="row bg-success text-white fw-blod m-1" id="jours">
-                            <div class="col jour">lun</div>
-                            <div class="col jour">mar</div>
-                            <div class="col jour">mer</div>
-                            <div class="col jour">jeu</div>
-                            <div class="col jour">ven</div>
-                            <div class="col jour">sam</div>
-                            <div class="col jour">dim</div>
-                          </div>
+        <div class="row ms-2">
+            <div class="col-4 fw-bold ">Numero: <span id="numeroTontine" class="resultText"> </span></div>
+            <div class="col-8 fw-bold ">Nom Tontine: <span id="nomTontine" class="resultText"> </span></div>
+        </div>
 
-                          <div id="semaine1" class="row bg-light m-1 border-secondary semaine">
-                            <div class="col case">1</div>
-                            <div class="col case">1</div>
-                            <div class="col case">1</div>
-                            <div class="col case">1</div>
-                            <div class="col case">1</div>
-                            <div class="col case">1</div>
-                            <div class="col case">1</div>
-                          </div>
-                          <div id="semaine2" class="row bg-light m-1 border-secondary semaine">
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                          </div>
-                          <div id="semaine3" class="row bg-light m-1 border-secondary semaine">
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                          </div>
-                          <div id="semaine4" class="row bg-light m-1 border-secondary semaine">
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                          </div>
-                          <div id="semaine5" class="row bg-light m-1 border-secondary semaine">
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                          </div>
-                          <div id="semaine6" class="row bg-light m-1 border-secondary semaine">
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                          </div>
-                          <div id="semaine7" class="row bg-light m-1 border-secondary semaine">
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                            <div class="col case"></div>
-                          </div>
-                        </section>
-                      </section>
+        <div class="row ms-2">
+            <div class="col-4 fw-bold  ">Nom: <span id="nomMembre" class="resultText"> </span></div>
+            <div class="col-8 fw-bold">Prenom: <span id="prenomMembre" class="resultText"> </span></div>
+        </div>
 
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-success boutton">Valider</button>
-                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- Fin modal pour voir suivi -->
+        <div class="row ms-2">
+            <div class="col-4 fw-bold ">Adresse: <span id="adresseTontine" class="resultText"> </span></div>
+            <div class="col-8 fw-bold">Telephone: <span id="telTontine" class="resultText"> </span></div>
+        </div>
+
+        <div class="row ms-2">
+            <div class="col-4 fw-bold ">Montant: <span id="montantTontine" class="resultText"> </span> FG</div>
+            <div class="col-8 fw-bold">Montant deposé: <span id="montantDepose" class="resultText"> </span> FG</div>
+        </div>
+
+        <div class="row ms-2">
+            <div class="col-4 fw-bold ">Effectuées: <span id="cotisationEffectuee" class="resultText"> </span></div>
+            <div class="col-8 fw-bold">Restants: <span id="resteAEffectuee" class="resultText"> </span></div>
+        </div>
+
+        <section id="case" class="blocCase">
+            @for ($i = 0; $i < 30; $i++)
+                <div class="case"></div>
+            @endfor
+        </section>
+
+        <div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fermer</button>
+        </div>
+    </div>
+    </div>
+</div>
+<!-- Fin modal pour voir suivi -->
+
 </main>
 <!-- Fin du main -->
 @endsection
+<script src="{{asset('assets/js/jquery.min.js')}}"></script>
+<script>
+   $(document).ready(function () {
 
+        $('.voirTontineI').click(function (e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+
+            // Faire une requête Ajax pour obtenir les informations de cotisations
+            $.ajax({
+                type: 'GET',
+                url: '{{  route('TontineIndividuelle.info', ['id' => ':id']) }}'.replace(':id', id),
+                data: {
+                    _token: '{{ csrf_token() }}',
+                },
+                success: function (data) {
+                    // Assurez-vous que les données sont correctement formatées
+                    var tontine = data.tontine;
+                    var cotisations = data.cotisations;
+                    var sommeMontantCotisations = data.sommeMontantCotisations;
+                    var nombreCotisationEffetues = data.nombreCotisationEffetues;
+                    // Traitez les données comme nécessaire et mettez à jour le modal
+                    if (tontine) {
+                        $('#numeroTontine').text(tontine.codeTontineI);
+                        $('#nomTontine').text(tontine.nomTontineI);
+                        $('#nomMembre').text(tontine.membres.nomMembre);
+                        $('#prenomMembre').text(tontine.membres.prenomMembre);
+                        $('#adresseTontine').text(tontine.membres.adresseMembre);
+                        $('#telTontine').text(tontine.membres.telMembre);
+
+                        // Accédez aux informations de la tontine
+                        $('#montantTontine').text(tontine.montantTontineI);
+                        $('#montantDepose').text(sommeMontantCotisations);
+                        $('#cotisationEffectuee').text(nombreCotisationEffetues);
+                        $('#resteAEffectuee').text(30-nombreCotisationEffetues);
+
+                        for (var i = 0; i < 30; i++) {
+                            var caseElement = $('#case .case').eq(i);
+                            if (i < nombreCotisationEffetues) {
+                                caseElement.addClass('case-effectuee');
+                            } else {
+                                caseElement.removeClass('case-effectuee');
+                            }
+                        }
+                        // Afficher le modal
+                        $('#modalvoirTontineI').modal('show');
+                    } else {
+                        // Aucune tontine trouvée, gérer cela en conséquence
+                        console.log('Aucune Tontine trouvée');
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                    // Gérer les erreurs
+                }
+            });
+        });
+
+        // La fonction pour imprimer le tableau
+        $('#btnPrint').click(function (e) {
+            e.preventDefault();
+            // Récupérer le titre saisi par l'utilisateur
+            var titre = prompt('Entrer le titre de la page! ');
+            var date = new Date().toLocaleDateString();
+            // Créer une nouvelle fenêtre pour l'impression
+            var printWindow = window.open('', '', 'width=600,height=600');
+
+            // Contenu à imprimer
+            var content = `
+                <html>
+                    <head>
+                        <title>Impression</title>
+                        <link
+                            href="{{asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}"
+                            rel="stylesheet" />
+
+                        <style>
+                            body{
+                                margin-left: 30px;
+                                margin-right: 30px;
+                              }
+                            /* ... autres styles ... */
+
+                            .noPrint{
+                                display: none;
+                            }
+                        </style>
+                    </head>
+                    <body onload="window.print()">
+                        <div class="row mt-4">
+                            <div class="col text-center align-center">
+                                <img src="{{ asset('assets/img/yetemali.jpg') }}" alt="" height="150" width="150">
+                            </div>
+                            <div class="col"></div>
+                            <div class="col fw-bold fs-3 text-center">
+                               Le ${date}
+                            </div>
+                        </div>
+
+                        <div style="text-align: center;">
+                            <h2>${titre}</h2>
+                            <!-- Ajoutez ici le logo de l'entreprise -->
+                            <!-- Ajoutez ici la date -->
+                        </div>
+                        <table>
+                            ${document.getElementById('tableAffichageCoti').outerHTML}
+                        </table>
+
+                        <div class="row mt-3">
+                            <div class="col">
+                            </div>
+                            <div class="col"></div>
+                            <div class="col fw-bold fs-3 text-center">
+                                Le Directeur
+                            </div>
+                        </div>
+                    </body>
+                </html>
+            `;
+
+            // Injecter le contenu dans la fenêtre d'impression
+            printWindow.document.open();
+            printWindow.document.write(content);
+            printWindow.document.close();
+        });
+   });
+</script>
 
 

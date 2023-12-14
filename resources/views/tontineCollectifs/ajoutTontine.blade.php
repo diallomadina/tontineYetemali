@@ -20,7 +20,11 @@
                 <div class="col"></div>
                 <div class="col"></div>
                 <div class="col"></div>
-                <div class="col"></div>
+                <div class="col">
+                    <a href="{{ route('gestionTontine') }}">
+                        <button name="afficher" type="submit" class="form-control bg-success text-white">Gerer</button>
+                    </a>
+                </div>
                 <div class="col">
                     <a href="{{ route('listeTontine') }}">
                         <button name="afficher" type="submit" class="form-control bg-success text-white">Afficher</button>
@@ -39,7 +43,7 @@
                     </div>
                 </div>
               <!-- General Form Elements -->
-              <form method="post" action="{{ route('ajoutTontine') }}">
+              <form method="post" action="{{ route('ajoutTontine.store') }}">
                 @csrf
                   <div class="form-group">
                     <div class="row">
@@ -75,7 +79,7 @@
                       <div class="row mb-3">
                         <div class="col">
                             <label class="fs-5">Montant</label>
-                            <input name="montant" id="montant" type="number" class="form-control border-secondary" placeholder="Montant de la tontine">
+                            <input name="montant" id="montant" type="text" class="form-control border-secondary" placeholder="Montant de la tontine">
                             @error('montant')
                                 <span class="text-center text-danger">{{ $message }}</span>
                             @enderror

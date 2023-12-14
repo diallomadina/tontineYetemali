@@ -13,10 +13,35 @@
       </nav>
     </div>
     <div class="container mt-5">
+            <div class="row mb-4">
+
+                <div class="col">
+                    <a href="{{ route('ajoutTontine') }}">
+                        <button name="afficher" type="submit" class="form-control fs-6 bg-success text-white">Organiser</button>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="{{ route('listeTontine') }}">
+                        <button name="afficher" type="submit" class="form-control fs-6 bg-success text-white">Liste des tontines</button>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="{{ route('ajoutPayement.create') }}">
+                        <button name="afficher" type="submit" class="form-control fs-6 bg-success text-white">Faire un versement</button>
+                    </a>
+                </div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+
+            </div>
             <div class="row">
                 <div class="col">
                     @if (Session::has('success'))
                         <div class="alert alert-success text-center fw-bold">{{Session::get("success")}}</div>
+                    @endif
+                    @if(Session::has('error'))
+                        <div class="alert alert-danger text-center fw-bold">{{Session::get("error")}}</div>
                     @endif
                 </div>
             </div>
@@ -129,46 +154,16 @@
             <!-- Action sur l'affichage des membres -->
             <section id="listMembre">
                 <form action="" method="post">
-                    <div class="row mt-2">
-                        <div class="col mt-4">
-                          <select name="choix" id="" class="form-select">
-                            <option value="" selected>Option de Filtre</option>
-                            <option value="nom">Payé</option>
-                            <option value="code">Nom payé</option>
-
-                          </select>
-                        </div>
-                        <div class="col mt-4">
-                            <div class="form-group">
-                                <div class="col">
-                                    <input name="txtRecherche" type="text" class="form-control bi bi-chevron-compact-down"  id="champ_text_agence">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col mt-4">
-                            <div class="form-group">
-                                <button name="filtrer" type="button" class=" bg-warning-light text-center form-control" id="btn-filtrer-agence">
-                                  <i class="bi bi-search"></i> <span class="">Filtrer</span>
+                   <div class="row">
+                        <div class="col-10"></div>
+                        <div class="col-2">
+                            <div class="col">
+                                <button type="button" id="btnPrintMembres" class="form-control border-secondary bg-warning-light">
+                                    <i class="bi bi-printer"></i>Imprimer
                                 </button>
                             </div>
                         </div>
-                        <div class="col mt-4">
-                            <div class="form-group">
-                                <button name="actualiser" type="button" class=" bg-warning-light text-center form-control" id=" btn-actualiser-agence">
-                                <i class="bi bi-repeat"></i> <span class="">Actualiser</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="col mt-4">
-                            <div class="form-group">
-                                <button type="button" class=" bg-warning-light text-center form-control">
-                                  <i class="bi bi-printer inprimer"></i> <span class="inprimer" id="btn-inprimer-agence">Imprimer</span>
-                                </button>
-                            </div>
-                        </div>
-
-                    </div>
-
+                   </div>
                     <div class="row mt-2">
                         <table id="tableInfoMembre" class="table table-bordered table-responsive table-compressed table-hover table-striped">
                             <thead class="bg-success">
@@ -176,11 +171,14 @@
                                     <th class="text-center bg-success text-white">N°</th>
                                     <th class="text-center bg-success text-white">Code Membre</th>
                                     <th class="text-center bg-success text-white">Nom et Prenom</th>
+                                    <th class="text-center bg-success text-white">Montant</th>
+                                    <th class="text-center bg-success text-white">Participations</th>
+                                    <th class="text-center bg-success text-white">Total à Verser</th>
                                     <th class="text-center bg-success text-white">Versements</th>
                                     <th class="text-center bg-success text-white">Montant Verser</th>
-                                    <th class="text-center bg-success text-white">Reste a Verser</th>
-                                    <th class="text-center bg-success text-white">Tour de prise</th>
-                                    <th class="text-center bg-success text-white">Payer</th>
+
+                                    <th class="text-center bg-success text-white">Reste à Verser</th>
+                                    <th class="text-center bg-success text-white">Payement Reçu</th>
 
                             </tr>
                             </thead>
@@ -200,17 +198,22 @@
 
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script>
-    $(document).ready(function () {
-        // $('#AjoutMembre').hide();
-        // $('#listMembre').hide();
-        // $('#PayementMembre').hide();
 
-        // $('#btnAjouter').click(function (e) {
-        //     e.preventDefault();
-        //     $('#AjoutMembre').show();
-        //     $('#listMembre').hide();
-        //     $('#PayementMembre').hide();
-        // });
+
+    $(document).ready(function () {
+         $('#AjoutMembre').hide();
+         $('#listMembre').hide();
+         $('#PayementMembre').hide()
+         $('#btnAjouter').prop('disabled', true);
+        $('#btnListe').prop('disabled', true);
+        $('#btnPayement').prop('disabled', true);
+
+         $('#btnAjouter').click(function (e) {
+             e.preventDefault();
+             $('#AjoutMembre').show();
+             $('#listMembre').hide();
+             $('#PayementMembre').hide();
+        });
 
         // Action sur le bouton liste
         $('#btnListe').click(function (e) {
@@ -221,18 +224,91 @@
 
             // recuperer l'id de la tontine
             var tontineId = $('#choixTontine').val();
-            alert(tontineId);
             $.ajax({
-                type: "POST",
+                type: "GET",
                 url: "{{ route('displayMembreTontineCollective') }}",
                 data: {
                     _token: '{{ csrf_token() }}',
-                    id: tontineId
+                    tontineId: tontineId
                 },
                 success: function (response) {
-                    console.log(response)
-                //    var participant = reponse.participant;
-                //   console.log(participant);
+                    // Recuperer l'ensemble des donnees du controller
+                    var participants = response.participant;
+                    var versementsParMembre = response.versementsParMembre;
+                    var montantTotalAverser = response.montantTotalAverser;
+                    var nombreParticipationMembre = response.nombreParticipationMembre;
+                    var montantTontine = response.montantTontine;
+                    var payer = response.payer;
+
+
+
+
+                   // Sélectionner le tbody du tableau pour y ajouter les données des membres
+                    var tbody = $('#tableInfoMembre tbody');
+                    tbody.empty(); // Vider le contenu actuel du tableau
+
+                     // Boucler à travers les participants et ajouter chaque membre au tableau
+                    for (var i = 0; i < participants.length; i++) {
+                        // Afficher les informations du participants
+                        var participant = participants[i];
+                        var row = `<tr>
+                                        <td>${i + 1}</td>
+                                        <td>${participant.membres.codeMembre}</td>
+                                        <td>${participant.membres.nomMembre} ${participant.membres.prenomMembre}</td>
+                                        <td>${montantTontine}</td>`;
+
+                        // Afficher le nombre de participations du membre
+                        if (nombreParticipationMembre[i]) {
+                            var participation = nombreParticipationMembre[i].nombreParticipations;
+                            row += `<td>${participation}</td>
+                                    <td>${participation * montantTotalAverser}</td>`;
+                        } else {
+                            row += `<td>${0}</td>
+                                    <td>${0}</td>`; // Si aucun nombre de participations n'est disponible, afficher 0
+                        }
+
+                        // Afficher le infors consernant les versements
+                        // Vérifier si le participant a des versements
+                        if (versementsParMembre[i]) {
+                            var montantVerser = versementsParMembre[i].montantTotalVersement;
+                            var montantTotalAverserParMembre = (nombreParticipationMembre[i].nombreParticipations) * montantTotalAverser;
+                            row += `<td>${versementsParMembre[i].nombreVersements}</td>
+                                    <td>${montantVerser}</td>
+                                    <td>${montantTotalAverserParMembre - montantVerser}</td>`;
+                        } else {
+                            // Si aucun versement n'existe pour ce participant, afficher des cellules vides
+                            row += `<td>${0}</td>
+                                    <td>${0}</td>
+                                    <td>${0}</td>`;
+                        }
+
+                        // Pour afficher l'etat du payement du membre
+                        if(payer[i]){
+                            var payementEffectuer = payer[i].nombrePayementMembre;
+                            row += `<td>${payementEffectuer}</td>`;
+                        }else{
+                            row += `<td>${0}</td>`;
+                        }
+
+                        // if(payer[i] && nombreParticipationMembre[i]){
+                        //     if(payer[i].nombrePayementMembre < nombreParticipationMembre[i].nombreParticipations){
+                        //         row += `<td>${'Non terminé'}</td>`;
+                        //     } else {
+                        //         row += `<td>${'Terminé'}</td>`;
+                        //     }
+                        // }
+
+
+
+
+
+                        row += `</tr>`;
+                        tbody.append(row); // Ajouter la ligne au tableau
+                    }
+
+                },
+                error: function(error){
+                    consol.log(error);
                 }
             });
         });
@@ -244,7 +320,7 @@
             $('#PayementMembre').show();
             var tontineId = $('#choixTontine').val();
             $('#tontinePayer').val(tontineId);
-            alert(tontineId)
+
         });
 
         function updateSelectOptions(searchInput, selectElement) {
@@ -334,6 +410,19 @@
             e.preventDefault();
             var tontineId = $(this).val();
 
+            // Action pour activer les boutons
+            if (tontineId !== '') {
+                // Activer les boutons lorsque la tontine est sélectionnée
+                $('#btnAjouter').prop('disabled', false);
+                $('#btnListe').prop('disabled', false);
+                $('#btnPayement').prop('disabled', false);
+            } else {
+                // Désactiver les boutons si aucune tontine n'est sélectionnée
+                $('#btnAjouter').prop('disabled', true);
+                $('#btnListe').prop('disabled', true);
+                $('#btnPayement').prop('disabled', true);
+            }
+
             $.ajax({
                 type: "POST",
                 url: "{{ route('membreTontine') }}",
@@ -362,6 +451,75 @@
             });
         });
 
+
+        // La fonction pour imprimer les membres de la tontine
+        $('#btnPrintMembres').click(function (e) {
+            e.preventDefault();
+            // Récupérer le titre saisi par l'utilisateur
+            var titre = prompt('Entrer le titre de la page! ');
+            var date = new Date().toLocaleDateString();
+            // Créer une nouvelle fenêtre pour l'impression
+            var printWindow = window.open('', '', 'width=600,height=600');
+
+            // Contenu à imprimer
+            var content = `
+                <html>
+                    <head>
+                        <title>Impression</title>
+                        <link
+                            href="{{asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}"
+                            rel="stylesheet" />
+
+                        <style>
+                            body{
+                                margin-left: 30px;
+                                margin-right: 30px;
+                              }
+                            /* ... autres styles ... */
+
+                            .noPrint{
+                                display: none;
+                            }
+                        </style>
+                    </head>
+                    <body onload="window.print()">
+                        <div class="row mt-4">
+                            <div class="col">
+                                <img src="{{ asset('assets/img/yetemali.jpg') }}" alt="" height="150" width="150">
+                            </div>
+                            <div class="col"></div>
+                            <div class="col fw-bold fs-3 text-center">
+                                <p class="text-center"> Caisse Populaire d'Epargne et Crédit de Guinée (CPECG)</p>
+                               Le ${date}
+                            </div>
+                        </div>
+
+                        <div style="text-align: center;">
+                            <h2>${titre}</h2>
+                            <!-- Ajoutez ici le logo de l'entreprise -->
+                            <!-- Ajoutez ici la date -->
+                        </div>
+                        <table>
+                            ${document.getElementById('tableInfoMembre').outerHTML}
+                        </table>
+
+                        <div class="row mt-3">
+                            <div class="col">
+                            </div>
+                            <div class="col"></div>
+                            <div class="col fw-bold fs-3 text-center">
+                                Le Directeur
+                            </div>
+                        </div>
+                    </body>
+                </html>
+            `;
+
+            // Injecter le contenu dans la fenêtre d'impression
+            printWindow.document.open();
+            printWindow.document.write(content);
+            printWindow.document.close();
+        });
 
     });
 </script>
